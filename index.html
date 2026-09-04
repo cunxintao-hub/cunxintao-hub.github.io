@@ -84,6 +84,12 @@
     margin-top: 22px; padding: 16px 20px; border: 1px solid #21262d;
     border-radius: 6px; background: #0d1117; color: #c9d1d9; text-align: center;
   }
+  .readme a {
+    color: var(--link); text-decoration: none;
+    border-bottom: 1px solid rgba(88,166,255,.35);
+  }
+  .readme a:hover { border-bottom-color: var(--link); }
+  .readme ul li { line-height: 1.65; padding-bottom: 10px; }
 
   .pinned { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .repo {
@@ -177,9 +183,11 @@
             </ul>
 
             <h2>📝 RESEARCH</h2>
+            <p class="dim" style="margin-bottom:10px;">第一作者发表 3 篇论文，其中 1 篇 <strong>SCI Q1（IF=13.9）</strong></p>
             <ul>
-              <li>📄 第一作者发表 3 篇论文,其中 1 篇 <strong>SCI Q1（IF=13.9）</strong></li>
-              <li>📄 AHFE 2026 国际会议论文（SD · Lora 微调方向）</li>
+              <li>📄 <a href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank">Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design?</a><br><span class="dim">Journal of Retailing and Consumer Services, 94, 105018 (2027) · SCI Q1, IF 13.9</span></li>
+              <li>📄 <a href="https://doi.org/10.54941/ahfe1007635" target="_blank">The Inheritance and Innovation of Blue Calico Culture Driven by AIGC: Exploring the Generative AI Design Framework and Craft Visualization</a><br><span class="dim">AHFE 2026 International Conference · AHFE Open Access, vol 216</span></li>
+              <li>📄 <a href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank">Enhancing Comprehension of Smart Product: Benefits for Senior Users</a><br><span class="dim">IDIE 2026 · 文本抽象度与图像复杂度对老年用户产品理解的影响</span></li>
             </ul>
 
             <div class="quote">
