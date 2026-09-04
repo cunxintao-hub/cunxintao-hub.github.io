@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陶存心 · GitHub</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --link: #58a6ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  .nav {
+    background: #010409;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center;
+  }
+  .nav .logo { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 16px 60px; }
+  .profile {
+    display: grid;
+    grid-template-columns: 296px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .sidebar { position: sticky; top: 24px; }
+  .avatar {
+    width: 100%; aspect-ratio: 1; border-radius: 50%;
+    background: linear-gradient(135deg, #2f81f7, #a371f7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 96px; color: #fff; border: 1px solid var(--border);
+    margin-bottom: 16px; font-weight: 300;
+  }
+  .name { font-size: 24px; font-weight: 600; line-height: 1.25; }
+  .handle { color: var(--muted); font-size: 18px; font-weight: 300; margin-bottom: 12px; }
+  .bio { margin-bottom: 14px; color: var(--text); }
+  .btn-follow {
+    display: inline-block; background: #21262d; border: 1px solid var(--border);
+    color: var(--text); border-radius: 6px; padding: 5px 16px; font-size: 13px;
+    font-weight: 500; cursor: pointer; margin-bottom: 14px;
+  }
+  .btn-follow:hover { background: #30363d; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .meta div { padding: 2px 0; }
+
+  .main { display: flex; flex-direction: column; gap: 16px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .card-head {
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+  }
+  .card-head a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .card-body { padding: 20px 24px; }
+
+  .readme h2 {
+    font-size: 20px; font-weight: 600; margin: 22px 0 10px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border);
+  }
+  .readme h2:first-child { margin-top: 0; }
+  .readme p { margin: 8px 0; color: var(--text); }
+  .readme .focus { font-size: 18px; font-weight: 600; }
+  .readme .dim { color: var(--muted); }
+  .readme ul { list-style: none; margin: 8px 0; }
+  .readme ul li { padding: 5px 0; }
+  .readme .quote {
+    margin-top: 22px; padding: 16px 20px; border: 1px solid #21262d;
+    border-radius: 6px; background: #0d1117; color: #c9d1d9; text-align: center;
+  }
+
+  .pinned { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .repo {
+    border: 1px solid var(--border); border-radius: 6px; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .repo .rname { color: var(--link); font-weight: 600; font-size: 15px; }
+  .repo .rdesc { color: var(--muted); font-size: 13px; flex: 1; }
+  .repo .rmeta { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+  .repo .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: -1px; }
+
+  @media (max-width: 760px) {
+    .profile { grid-template-columns: 1fr; }
+    .sidebar { position: static; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .avatar { width: 140px; font-size: 56px; }
+    .pinned { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="logo">
+      <svg height="26" viewBox="0 0 16 16" width="26" fill="#e6edf3"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      cunxintao-hub
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="profile">
+
+      <!-- 左栏 -->
+      <aside class="sidebar">
+        <div class="avatar">陶</div>
+        <div class="name">陶存心</div>
+        <div class="handle">cunxintao-hub</div>
+        <div class="bio">🌐 AI 产品 · AIGC 创作 · 游戏活动业务</div>
+        <button class="btn-follow">Follow</button>
+        <div class="meta">
+          <div>🎓 哈尔滨工业大学（985）· 工业设计硕士在读</div>
+          <div>🏢 腾讯 · IEG 用户增值部（实习）</div>
+          <div>📍 深圳 / 哈尔滨</div>
+          <div>🏆 国家奖学金 · SCI 一作</div>
+        </div>
+      </aside>
+
+      <!-- 右栏 -->
+      <div class="main">
+
+        <section class="card">
+          <div class="card-head">陶存心 / <a href="#">README.md</a></div>
+          <div class="card-body readme">
+            <p class="focus">I'm currently Focus on AI 产品落地 · 游戏活动业务 Agent · AIGC 创作.</p>
+
+            <p class="dim">🎂 23岁 · 来自江苏. 📍 Now Base in 深圳.</p>
+
+            <h2>💼 WORK EXPERIENCE</h2>
+            <ul>
+              <li>腾讯 -- IEG 用户增值部 · AI 产品实习 -- 2026.3 to Now.</li>
+            </ul>
+
+            <h2>🌱 INTERNSHIP EXPERIENCE</h2>
+            <ul>
+              <li>快手 -- 孵化产品部 · 用户增长产品实习 -- 2025.11 to 2026.03.</li>
+              <li>小红书 -- 跑测频道 · 用户增长产品实习 -- 2024.07 to 2024.10.</li>
+              <li>京东金融 -- 营销事业部 · AI 产品实习 -- 2024.01 to 2024.06.</li>
+              <li>携程 -- 海外事业部 · 用户增长产品实习 -- 2023.06 to 2023.9.</li>
+            </ul>
+
+            <h2>💻 PROJECTS</h2>
+            <ul>
+              <li>🛠 <strong>游戏活动业务 Agent</strong> —— 0→1 设计,信息查漏、活动校验、自动化配置,业务全流程提效.</li>
+              <li>🛠 <strong>SKU 标准化产品</strong> —— 非标需求转标准模板,接入平台数据自动校验补全.</li>
+              <li>🛠 <strong>Stable Diffusion · Lora 微调</strong> —— 通用文化 IP 图像生成,AHFE 2026 第一作者.</li>
+              <li>🛠 <strong>平安好车主</strong> —— 端到端负责营销增长、广告投放优化.</li>
+            </ul>
+
+            <h2>🏆 AWARDS</h2>
+            <ul>
+              <li>🏆 国家奖学金（1/115）</li>
+              <li>🏆 黑龙江省三好学生</li>
+              <li>🏆 米兰设计周等国家级设计奖 14 项</li>
+              <li>🏆 G-Mark 国际类设计奖项 3 项</li>
+              <li>🏆 IDEA 等设计奖项 3 项</li>
+              <li>🏆 互联网+ 等工程类奖 12 项</li>
+            </ul>
+
+            <h2>📝 RESEARCH</h2>
+            <ul>
+              <li>📄 第一作者发表 3 篇论文,其中 1 篇 <strong>SCI Q1（IF=13.9）</strong></li>
+              <li>📄 AHFE 2026 国际会议论文（SD · Lora 微调方向）</li>
+            </ul>
+
+            <div class="quote">
+              “人,不过是需要超越的存在。<br>我们为超越自身,究竟做了什么。”
+              <div class="dim" style="margin-top:8px;letter-spacing:4px;">共 勉</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">Pinned</div>
+          <div class="card-body pinned">
+            <div class="repo">
+              <div class="rname">游戏活动业务 Agent</div>
+              <div class="rdesc">信息查漏、活动校验、自动化配置,游戏活动业务全流程提效.</div>
+              <div class="rmeta"><span><span class="dot" style="background:#f1e05a;"></span>AI · Agent</span><span>⭐ 0</span></div>
+            </div>
+            <div class="repo">
+              <div class="rname">SKU 标准化产品</div>
+              <div class="rdesc">非标需求自动转标准模板,平台数据校验补全,减少重复劳动.</div>
+              <div class="rmeta"><span><span class="dot" style="background:#3572a5;"></span>Product</span><span>⭐ 0</span></div>
+            </div>
+            <div class="repo">
+              <div class="rname">Stable Diffusion · Lora</div>
+              <div class="rdesc">通用文化 IP 图像生成,AHFE 2026 第一作者会议论文.</div>
+              <div class="rmeta"><span><span class="dot" style="background:#b07219;"></span>Python · SD</span><span>⭐ 0</span></div>
+            </div>
+            <div class="repo">
+              <div class="rname">平安好车主</div>
+              <div class="rdesc">端到端负责营销增长、广告投放与产品功能设计.</div>
+              <div class="rmeta"><span><span class="dot" style="background:#f1e05a;"></span>Product · 增长</span><span>⭐ 0</span></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
