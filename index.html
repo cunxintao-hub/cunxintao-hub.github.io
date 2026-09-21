@@ -344,6 +344,18 @@
   .contact h2 { font-size: clamp(30px,5vw,58px); font-weight: 700; line-height: 1.16; max-width: 18ch; letter-spacing: -.02em; }
   .contact .sub { margin-top: 16px; color: var(--muted); max-width: 52ch; }
   .contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .contact-info { display: flex; flex-wrap: wrap; gap: 18px 56px; margin-top: 34px; }
+  .contact-info .ci b {
+    display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .contact-info .ci a {
+    font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; letter-spacing: .04em;
+    color: var(--text); border-bottom: 1px solid var(--line-2); padding-bottom: 4px;
+    transition: color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .contact-info .ci a:hover { color: var(--accent); border-color: var(--accent); }
+
   .contact-links a {
     font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
     color: var(--text); border: 1px solid var(--line-2); padding: 11px 20px;
@@ -897,12 +909,15 @@
   <div class="wrap">
     <p class="eyebrow">Zone 07 · Contact</p>
     <h2>一起做点能被现实验证的东西。</h2>
-    <p class="sub">Open to AI 产品 / 用户研究 / AIGC 方向的合作、实习与项目机会。</p>
-    <div class="contact-links">
-      <a href="https://github.com/cunxintao-hub" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://cunxintao-hub.github.io/ai-creation/">AI 影像</a>
-      <a href="https://cunxintao-hub.github.io/auto-design/">汽车专栏</a>
-      <a href="https://cunxintao-hub.github.io/certificates/">证书存档</a>
+    <div class="contact-info">
+      <div class="ci">
+        <b>Tel · 电话</b>
+        <a href="tel:+8615962945450">159 6294 5450</a>
+      </div>
+      <div class="ci">
+        <b>Email · 邮箱</b>
+        <a href="mailto:847924672@qq.com">847924672@qq.com</a>
+      </div>
     </div>
   </div>
 </section>
