@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.34"/>
+      <stop offset="30%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.44"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.22" r="0.55">
+      <stop offset="0%" stop-color="#5d7f57" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0b0c0f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0b0c0f"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect width="1600" height="900" fill="url(#scrim)"/>
+
+  <!-- 左上 logo -->
+  <text x="60" y="66" fill="#ffffff" fill-opacity="0.9" font-family="Helvetica Neue, Arial, sans-serif"
+        font-size="18" font-weight="700" letter-spacing="7">CUNXIN TAO</text>
+
+  <!-- 右上菜单 -->
+  <g fill="#ffffff" fill-opacity="0.72" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" letter-spacing="3">
+    <text x="1268" y="66">首页</text>
+    <text x="1340" y="66">关于我</text>
+    <text x="1424" y="66">证书</text>
+    <text x="1490" y="66">GITHUB</text>
+  </g>
+
+  <!-- 左下主标题 -->
+  <text x="60" y="700" fill="#ffffff" fill-opacity="0.85" font-family="Helvetica Neue, Arial, sans-serif"
+        font-size="20" letter-spacing="9">AI 产品 · 用户研究 · AIGC 创作</text>
+
+  <text x="56" y="808" fill="#ffffff" font-family="Helvetica Neue, Arial, sans-serif"
+        font-size="132" font-weight="900" letter-spacing="-2">CUNXIN</text>
+  <text x="56" y="928" fill="#e9b7c1" font-family="Helvetica Neue, Arial, sans-serif"
+        font-size="132" font-weight="900" letter-spacing="-2">TAO.</text>
+
+  <text x="60" y="992" fill="#ece9e3" font-family="Songti SC, SimSun, serif"
+        font-size="30" letter-spacing="18">陶存心的作品集</text>
+
+  <!-- 右下 SCROLL -->
+  <g>
+    <text x="1450" y="880" fill="#ffffff" fill-opacity="0.75" font-family="Helvetica Neue, Arial, sans-serif"
+          font-size="14" letter-spacing="6">SCROLL</text>
+    <rect x="1478" y="900" width="1" height="46" fill="#ffffff" fill-opacity="0.55"/>
+  </g>
+</svg>
