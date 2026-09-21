@@ -481,6 +481,10 @@
   .detail-text b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
     color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
   .detail-text p { font-size: 14px; color: var(--soft); line-height: 1.95; }
+  .detail-sec { margin-top: 16px; }
+  .detail-sec span { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .22em;
+    color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
+  .detail-sec p { font-size: 14px; color: var(--soft); line-height: 1.9; }
   .detail-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .detail-tags li { font-family: var(--sans); font-size: 11px; color: var(--muted);
     border: 1px solid var(--line-2); padding: 3px 12px; border-radius: 999px; }
@@ -814,8 +818,19 @@
           <video class="detail-video" data-src="assets/film-01.mp4" controls playsinline preload="none"></video>
           <div class="detail-text">
             <b>创作说明 · Statement</b>
-            <p>五镜首尾相连：窗内望雨、庭院积水、回廊檐滴、游廊转折、孤亭老树。全片以雨、水痕、檐角、框景为视觉母题，慢节奏推进，让镜头替观众呼吸。</p>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>分镜驱动</li><li>首尾帧</li><li>33s</li></ul>
+            <div class="detail-sec">
+              <span>创作思路 · Approach</span>
+              <p>以游园者的视线为线索，安排五个镜头首尾相连：窗内望雨 → 庭院积水 → 回廊檐滴 → 游廊转折 → 孤亭老树。上一镜的最后一帧，就是下一镜的第一帧，让整段影像像一次不间断的穿行。</p>
+            </div>
+            <div class="detail-sec">
+              <span>含义与主题 · Meaning</span>
+              <p>借用了园林特有的「框景」：窗、廊、檐都是画框，观众始终在被限定的视线里看雨。慢节奏不是拖沓，而是给空间留出呼吸的时间——雨、水痕、檐滴是同一件事在不同尺度上的重复，时间因此变得可见。</p>
+            </div>
+            <div class="detail-sec">
+              <span>技术手法 · Method</span>
+              <p>文生视频与图生视频混合生成，以首尾帧控制保证镜头衔接；统一雨丝密度、色温与镜头速度，避免不同模型出图带来的跳变。全片 16:9，33 秒，一镜到底式剪辑。</p>
+            </div>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>分镜驱动</li><li>首尾帧控制</li><li>东方美学</li><li>33s</li></ul>
           </div>
         </div>
       </article>
@@ -835,8 +850,19 @@
           <iframe class="detail-frame" data-src="viewer3d.html?embed=1" title="3D 模型查看" loading="lazy"></iframe>
           <div class="detail-text">
             <b>创作说明 · Statement</b>
-            <p>先确定 AIGC 人物形象的三视图，再生成可交互的三维模型（.glb）：从形象设定到可旋转、可缩放、可下载的三维资产，一次跑通。</p>
-            <ul class="detail-tags"><li>AIGC 3D</li><li>.glb 模型</li><li>可交互查看</li><li>4.9MB</li></ul>
+            <div class="detail-sec">
+              <span>创作思路 · Approach</span>
+              <p>先把形象"定死"：生成并确认人物的正面、侧面、背面三视图，固定发型、服装、比例与配色，再以此为基础生成三维模型。有了稳定的输入，模型的形体与气质才不会每次都漂移。</p>
+            </div>
+            <div class="detail-sec">
+              <span>含义与主题 · Meaning</span>
+              <p>AIGC 的价值不该停在"出一张好看的图"。这个作品要验证的是：从二维形象到可直接进入生产链路的三维资产（.glb），能否一次跑通——可旋转、可缩放、可下载，才是能交给下游使用的东西。</p>
+            </div>
+            <div class="detail-sec">
+              <span>技术手法 · Method</span>
+              <p>图生 3D 生成模型网格与贴图，导出 .glb（约 4.9MB）；网页端用 model-viewer 加载，支持拖动旋转、滚轮缩放与自动展示，并可下载源文件。</p>
+            </div>
+            <ul class="detail-tags"><li>AIGC 3D</li><li>图生 3D</li><li>.glb 资产</li><li>网页可交互</li><li>4.9MB</li></ul>
           </div>
         </div>
       </article>
@@ -857,8 +883,19 @@
                  controls playsinline preload="none"></video>
           <div class="detail-text">
             <b>创作说明 · Statement</b>
-            <p>以「簪花」这一传统习俗为线索，用 AI 影像重构四季：春樱、夏荷、秋菊、冬梅依次落在同一位少女的发间。转场取自书法笔触的起收，节奏由烟雾的扩散与大量留白控制，让花事成为时间的刻度。</p>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>文生视频</li><li>东方美学</li><li>5:00</li></ul>
+            <div class="detail-sec">
+              <span>创作思路 · Approach</span>
+              <p>用「簪花」这一传统习俗作线索，把四季变成可看的时间轴：春樱、夏荷、秋菊、冬梅依次落在同一位少女的发间。人物与构图保持不变，只让花与光变化——观众感知到的就是时间本身。</p>
+            </div>
+            <div class="detail-sec">
+              <span>含义与主题 · Meaning</span>
+              <p>簪花是把花别在身上的行为，也是一种对时节的回应。花开花落即四季轮回，影片想说的是：传统不是被保存的标本，它一直在被重新佩戴。转场取自书法笔触的起收，节奏由烟雾扩散与大量留白控制。</p>
+            </div>
+            <div class="detail-sec">
+              <span>技术手法 · Method</span>
+              <p>文生视频与图生视频结合，长片按分镜拆分生成再合成；通过固定角色参考图维持人物一致性，统一色调与胶片颗粒感。全片 16:9，5 分钟。</p>
+            </div>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>文生视频</li><li>图生视频</li><li>东方美学</li><li>5:00</li></ul>
           </div>
         </div>
       </article>
@@ -879,8 +916,19 @@
                  controls playsinline preload="none"></video>
           <div class="detail-text">
             <b>创作说明 · Statement</b>
-            <p>秋日，银杏铺满小路，机器人缓缓推着轮椅前行。我想象的是一种不喧哗的陪伴：科技不必像人，也不必证明自己温柔——它只要在。</p>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>情感叙事</li><li>图生视频</li><li>0:56</li></ul>
+            <div class="detail-sec">
+              <span>创作思路 · Approach</span>
+              <p>整支片子只有一个场景、一个动作：秋日，银杏铺满小路，机器人缓缓推着轮椅向前。没有台词，没有转折——把所有信息压缩在"一起往前走"这件事上，让情绪自己长出来。</p>
+            </div>
+            <div class="detail-sec">
+              <span>含义与主题 · Meaning</span>
+              <p>它要回应的是一个常被预设的问题：冰冷的机械，能否承载温柔的守望？我的答案是不必拟人化——科技不需要像人，也不需要证明自己温柔，它只要在。银杏的金黄与缓行的节奏，是这个答案的情绪底色。</p>
+            </div>
+            <div class="detail-sec">
+              <span>技术手法 · Method</span>
+              <p>以静态关键帧为锚点做图生视频，固定长镜头、慢速推进；统一秋色色温与景深虚化，避免镜头运动抢走情绪。16:9，56 秒。</p>
+            </div>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>情感叙事</li><li>图生视频</li><li>固定长镜</li><li>0:56</li></ul>
           </div>
         </div>
       </article>
@@ -901,8 +949,19 @@
                  controls playsinline preload="none"></video>
           <div class="detail-text">
             <b>创作说明 · Statement</b>
-            <p>霓虹、代码、墨镜上映出的反光——这是我对人机协作未来的一次视觉预演：当写代码变成一场即兴演奏，人依然是那个定节奏的人。</p>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>赛博朋克</li><li>未来叙事</li><li>1:00</li></ul>
+            <div class="detail-sec">
+              <span>创作思路 · Approach</span>
+              <p>用赛博朋克的视觉语法搭一个"未来工作台"：霓虹夜色、流动的代码、墨镜上映出的反光。镜头在特写与中景之间切换，让"手在键盘上"这件事被看成交响乐团的演奏。</p>
+            </div>
+            <div class="detail-sec">
+              <span>含义与主题 · Meaning</span>
+              <p>这不是对技术的恐惧叙事，而是一次协作预演：当生成式工具把写代码变成即兴演奏，人的角色从"敲每一行"变成"定节奏、定结构"。墨镜挡住的是脸，露出来的是判断力。</p>
+            </div>
+            <div class="detail-sec">
+              <span>技术手法 · Method</span>
+              <p>文生视频生成主体镜头，配合光效与粒子细节强化霓虹反射；统一青紫主色与高对比布光，短镜头快切维持节奏。16:9，1 分钟。</p>
+            </div>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>赛博朋克</li><li>未来叙事</li><li>快切节奏</li><li>1:00</li></ul>
           </div>
         </div>
       </article>
