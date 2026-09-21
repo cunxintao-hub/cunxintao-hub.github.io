@@ -377,6 +377,8 @@
   .ab-photo { width:100%; overflow:hidden; background:#15161a; }
   .ab-photo img { width:100%; height:100%; object-fit:cover; display:block; }
   .ab-photo--main { aspect-ratio:3/4.9; }
+  .ab-photo--video { aspect-ratio:3/4.9; object-fit:cover; }
+  video.ab-photo { width:100%; height:100%; display:block; }
   .ab-photo--sub { aspect-ratio:3/2; }
   .ab-slot { aspect-ratio:3/3.6; border:1px dashed #34353c; background:#121317;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--ab-muted); }
@@ -547,6 +549,7 @@
   <div class="ab-wrap">
 
     <aside class="ab-photos">
+      <video class="ab-photo ab-photo--video" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
       <figure class="ab-photo ab-photo--main">
         <img src="assets/about-portrait.jpg" alt="陶存心">
       </figure>
@@ -557,10 +560,9 @@
 
     <main>
       <div class="ab-intro">
-        <video class="ab-avatar" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
         <div class="ab-welcome">
           欢迎来到这里，我是<b>陶存心</b>。
-          <p class="ab-brief">画面里这个小男孩，是我的 AIGC 人物形象——由我设计与驱动，是我在 AI 世界里的另一个自己：他负责替我探索想象力的边界，而判断，始终留在我手里。</p>
+          <p class="ab-brief">左边这个会动的小男孩，是我的 AIGC 人物形象——由我设计与驱动，是我在 AI 世界里的另一个自己：他负责替我探索想象力的边界，而判断，始终留在我手里。</p>
           <p class="ab-brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>
       </div>
