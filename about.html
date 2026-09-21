@@ -72,8 +72,15 @@
     border:1px solid var(--line); background:#15161a; display:block; }
   .avatar { width: 260px; flex-shrink:0; border:1px solid var(--line); background:#15161a; }
   video.avatar { display:block; aspect-ratio:3/4; object-fit:cover; }
-  .welcome { font-size: 16.5px; }
-  .welcome b { font-weight:700; }
+  .welcome { font-family:var(--serif); color:var(--ink); }
+  .welcome .hi { font-family:var(--sans); font-size:10.5px; letter-spacing:.34em;
+    color:var(--green); margin-bottom:18px; }
+  .welcome .me { font-size:clamp(28px,3vw,38px); font-weight:700; line-height:1.25;
+    letter-spacing:.02em; margin-bottom:20px; }
+  .welcome .me .name {
+    background:linear-gradient(100deg,#ece9e3 15%,#a8c69e 55%,#e9b7c1 95%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; padding-right:2px; }
   .brief { margin-top:10px; font-size: 14.5px; color: var(--soft); line-height: 1.95; }
   .brief + .brief { margin-top: 5px; }
 
@@ -156,7 +163,8 @@
     <main>
       <div class="intro-top">
         <div class="welcome">
-          欢迎来到这里，我是<b>陶存心</b>。
+          <p class="hi">欢迎来到这里 · WELCOME</p>
+          <p class="me">我是<span class="name">陶存心</span>。</p>
           <p class="brief">我做的东西，一半是工具，一半是故事——把想象力交给工具，把判断留给自己。</p>
           <p class="brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>

@@ -387,8 +387,15 @@
     border:1px solid var(--ab-line); background:#15161a; display:block; }
   .ab-avatar { width:260px; flex-shrink:0; border:1px solid var(--ab-line); background:#15161a; }
   video.ab-avatar { display:block; aspect-ratio:3/4; object-fit:cover; }
-  .ab-welcome { font-family:var(--ab-serif); font-size:16.5px; color:#ece9e3; }
-  .ab-welcome b { font-weight:700; }
+  .ab-welcome { font-family:var(--ab-serif); color:#ece9e3; }
+  .ab-welcome .hi { font-family:var(--ab-sans); font-size:10.5px; letter-spacing:.34em;
+    color:var(--ab-green); margin-bottom:18px; }
+  .ab-welcome .me { font-size:clamp(28px,3vw,38px); font-weight:700; line-height:1.25;
+    letter-spacing:.02em; margin-bottom:20px; }
+  .ab-welcome .me .name {
+    background:linear-gradient(100deg,#ece9e3 15%,#a8c69e 55%,#e9b7c1 95%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; padding-right:2px; }
   .ab-brief { margin-top:10px; font-size:14.5px; color:var(--ab-soft); line-height:1.95; }
   .ab-rule { border:0; border-top:1px solid var(--ab-line); margin:30px 0; }
   .ab-title { font-family:var(--ab-serif); font-size:50px; font-weight:700; letter-spacing:.1em; color:#ece9e3; }
@@ -566,7 +573,8 @@
     <main>
       <div class="ab-intro">
         <div class="ab-welcome">
-          欢迎来到这里，我是<b>陶存心</b>。
+          <p class="hi">欢迎来到这里 · WELCOME</p>
+          <p class="me">我是<span class="name">陶存心</span>。</p>
           <p class="ab-brief">我做的东西，一半是工具，一半是故事——把想象力交给工具，把判断留给自己。</p>
           <p class="ab-brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>
