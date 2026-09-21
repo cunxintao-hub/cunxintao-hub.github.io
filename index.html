@@ -450,17 +450,15 @@
 
   /* ---------- 板块标题页（Zone 标题页式） ---------- */
   .zn-wrap { max-width: var(--maxw); margin: 0 auto; padding: 96px 48px 110px; }
-  .zn-banner { background: #f4f1ea; }
-  .zn-banner-inner { max-width: var(--maxw); margin: 0 auto; padding: 60px 48px 52px;
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 48px;
-    border-bottom: 1px solid #c9c2b1; }
-  .zn-banner .zn-kicker { color: #8a8578; }
+  .zn-banner { background: #1b222d; border-top: 1px solid #26262b; border-bottom: 1px solid #26262b; }
+  .zn-banner-inner { max-width: var(--maxw); margin: 0 auto; padding: 52px 48px;
+    display: flex; align-items: center; gap: 56px; border: 0; }
+  .zn-banner .zn-kicker { color: var(--muted); }
   .zn-btitle { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: clamp(52px, 7.5vw, 92px);
-    font-weight: 700; line-height: 1.05; color: #1c1b18; margin-top: 12px; }
+    font-weight: 700; line-height: 1.05; color: var(--text); margin-top: 12px; }
   .zn-ben { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-style: italic;
-    font-size: clamp(16px, 2vw, 22px); color: #8a8578; margin-top: 8px; }
-  .zn-bimg { width: 240px; aspect-ratio: 7/10; object-fit: cover; display: block; flex-shrink: 0;
-    margin-bottom: -56px; box-shadow: 0 22px 60px rgba(0,0,0,.5); }
+    font-size: clamp(16px, 2vw, 22px); color: var(--muted); margin-top: 8px; }
+  .zn-bimg { width: 300px; aspect-ratio: 16/9; object-fit: cover; display: block; flex-shrink: 0; }
   .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
   .zn-cards { display: flex; flex-direction: column; gap: 18px; }
   .zn-card { position: relative; display: block; background: #12141a; border: 1px solid var(--line);
@@ -480,8 +478,8 @@
   .zn-go { display: inline-block; font-family: var(--sans); font-size: 13px; color: var(--accent); margin-top: 18px; }
   @media (max-width: 900px) {
     .zn-wrap { padding: 70px 22px 80px; }
-    .zn-banner-inner { flex-direction: column; align-items: flex-start; padding: 44px 22px 0; }
-    .zn-bimg { width: 180px; margin-bottom: -36px; }
+    .zn-banner-inner { flex-direction: column; align-items: flex-start; padding: 44px 22px; gap: 24px; }
+    .zn-bimg { width: 100%; }
     .zn-card { flex-direction: column; gap: 10px; }
   }
 
@@ -670,6 +668,7 @@
 <section class="section section--panel reveal" id="skills">
   <div class="zn-banner">
     <div class="zn-banner-inner">
+      <img class="zn-bimg" src="assets/zn-figure.jpg" alt="人物形象">
       <div>
         <p class="zn-kicker">Zone 02 · 腾讯实习</p>
         <h2 class="zn-btitle">腾讯实习</h2>
