@@ -92,7 +92,8 @@
      HERO
      ========================================================== */
   .hero {
-    position: relative; overflow: hidden; padding: clamp(72px,13vw,140px) 0 clamp(44px,6vw,70px);
+    position: relative; overflow: hidden; padding: 0;
+    min-height: 100vh; display: flex; align-items: flex-end;
     border-bottom: 1px solid var(--line);
   }
   .hero::before {
@@ -123,7 +124,16 @@
       linear-gradient(90deg, rgba(13,17,23,.80) 0%, rgba(13,17,23,.26) 40%, rgba(13,17,23,0) 66%),
       radial-gradient(64% 56% at 92% 4%, rgba(88,166,255,.16), transparent 62%);
   }
-  .hero .wrap { z-index: 2; }
+  .hero .wrap { z-index: 2; width: 100%; padding-bottom: 46px; }
+  .hero .eyebrow { color: rgba(240,246,252,.85); margin-bottom: 16px; }
+  .hero .eyebrow::after { display: none; }
+  .hero-scroll {
+    position: absolute; right: var(--gutter); bottom: 86px; z-index: 3;
+    color: rgba(240,246,252,.8); font-family: var(--mono); font-size: 10.5px; letter-spacing: .3em;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .hero-scroll::after { content: ""; width: 1px; height: 34px; background: rgba(240,246,252,.55); animation: herodrop 1.8s ease-in-out infinite; }
+  @keyframes herodrop { 0% { transform: scaleY(.2); transform-origin: top; } 50% { transform: scaleY(1); } 100% { transform: scaleY(.2); transform-origin: bottom; } }
   .hero .hero-name, .hero .hero-lede, .hero .hero-latin {
     text-shadow: 0 2px 24px rgba(4,7,12,.85), 0 1px 3px rgba(4,7,12,.7);
   }
@@ -155,8 +165,14 @@
   .eyebrow::after { content:""; flex: 1; height: 1px; background: var(--line-2); max-width: 220px; }
 
   .hero-name {
-    font-size: clamp(56px, 12.5vw, 152px); font-weight: 700;
-    line-height: .9; letter-spacing: -.02em; color: #f0f6fc;
+    font-size: clamp(52px, 9vw, 108px); font-weight: 900;
+    line-height: .96; letter-spacing: -.01em; color: #f0f6fc;
+    text-transform: uppercase;
+  }
+  .hero-name .l2 { display: block; color: #e9b7c1; }
+  .hero-sub {
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; font-size: 15px; letter-spacing: .3em;
+    color: rgba(240,246,252,.92); margin-top: 16px;
   }
   .hero-latin {
     font-family: var(--mono); font-size: clamp(10px,1.3vw,13px);
@@ -455,19 +471,10 @@
 
   <div class="wrap">
     <p class="eyebrow">AI 产品 · 用户研究 · AIGC 创作</p>
-    <h1 class="hero-name">陶存心</h1>
-    <p class="hero-latin">Cunxin Tao</p>
-    <p class="hero-lede">
-      I'm currently focus on <b>AI 产品落地</b> · <b>游戏活动业务 Agent</b> · <b>AIGC 创作</b>.
-      用研究定义问题，用产品交付答案。
-    </p>
-    <div class="hero-meta">
-      <div><b>Education</b>哈工大（985）· 工业设计硕士在读</div>
-      <div><b>Current</b>腾讯 · IEG 用户增值部</div>
-      <div><b>Base</b>深圳 / 哈尔滨</div>
-      <div><b>Highlight</b>国家奖学金 · SCI 一作</div>
-    </div>
+    <h1 class="hero-name">Cunxin<span class="l2">Tao.</span></h1>
+    <p class="hero-sub">陶存心的作品集</p>
   </div>
+  <div class="hero-scroll">SCROLL</div>
 </header>
 
 <!-- ============ 关于（编辑排版版式，与 about.html 一致） ============ -->
