@@ -59,10 +59,8 @@
 
   .photos { display:flex; flex-direction:column; gap: 16px; }
   .photo { width:100%; overflow:hidden; background:#15161a; }
-  .photo img { width:100%; height:100%; object-fit:cover; }
+  .photo img, .photo video { width:100%; height:100%; object-fit:cover; }
   .photo--main { aspect-ratio: 3 / 4.9; }
-  .photo--video { aspect-ratio: 3 / 4.9; object-fit: cover; }
-  video.photo { width:100%; height:100%; display:block; }
   .photo--sub { aspect-ratio: 3 / 2; }
   .photo--slot { aspect-ratio: 3 / 3.6; border:1px dashed #34353c; background:#121317;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--muted); }
@@ -144,7 +142,7 @@
 
     <!-- 左：窄图列 -->
     <aside class="photos">
-      <video class="photo photo--video" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <video class="photo photo--main" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
       <figure class="photo photo--main">
         <img src="assets/about-portrait.jpg?v=2" alt="陶存心">
       </figure>
