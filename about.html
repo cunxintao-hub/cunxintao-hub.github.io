@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陶存心的作品集 · CUNXIN TAO</title>
+<meta name="description" content="陶存心 · AI 产品 · 用户研究 · AIGC 创作 — 哈工大工业设计硕士在读 · 腾讯 IEG">
+<style>
+  :root {
+    --bg: #0b0c0f;
+    --ink: #ece9e3;
+    --soft: #b6b2aa;
+    --muted: #7d7971;
+    --line: #26262b;
+    --green: #93b189;
+    --pink: #e9b7c1;
+    --serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--serif); font-size: 15px; line-height: 1.9; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display:block; max-width:100%; }
+
+  /* ---------- 导航 ---------- */
+  .nav {
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 0 34px; height: 58px;
+    color: #fff; transition: background .35s, color .35s, box-shadow .35s;
+  }
+  .nav .logo { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: .22em; }
+  .nav .menu { display:flex; gap: 26px; font-family: var(--sans); font-size: 12px; letter-spacing: .14em; }
+  .nav .menu a { opacity:.85; transition: opacity .2s; }
+  .nav .menu a:hover { opacity:1; }
+  .nav.solid { background: rgba(11,12,15,.86); color: #fff; box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(8px); }
+
+  /* ---------- 封面 ---------- */
+  .cover { position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #101210; }
+  .cover video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .cover .scrim { position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.44) 100%); }
+  .cover-inner { position:absolute; left: 34px; bottom: 42px; color:#fff; z-index:2; }
+  .cover-kicker { font-family: var(--sans); font-size: 11px; letter-spacing: .34em; opacity:.85; margin-bottom: 14px; }
+  .cover-name { font-family: var(--sans); font-weight: 900; font-size: clamp(52px, 9vw, 108px); line-height: .96; letter-spacing: -.01em; text-transform: uppercase; }
+  .cover-name .l2 { display:block; color: var(--pink); }
+  .cover-sub { font-family: var(--serif); font-size: 15px; letter-spacing: .3em; margin-top: 16px; opacity:.92; }
+  .cover-scroll {
+    position:absolute; right: 34px; bottom: 42px; z-index:2; color:#fff;
+    font-family: var(--sans); font-size: 10.5px; letter-spacing: .3em; opacity:.75;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .cover-scroll::after { content:""; width:1px; height:34px; background:rgba(255,255,255,.6); animation: drop 1.8s ease-in-out infinite; }
+  @keyframes drop { 0%{transform:scaleY(.2);transform-origin:top} 50%{transform:scaleY(1)} 100%{transform:scaleY(.2);transform-origin:bottom} }
+
+  /* ---------- 关于区 ---------- */
+  .about { padding: 130px 48px 110px; }
+  .wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 350px 1fr; gap: 64px; align-items: start; }
+
+  .photos { display:flex; flex-direction:column; gap: 16px; }
+  .photo { width:100%; overflow:hidden; background:#15161a; }
+  .photo img { width:100%; height:100%; object-fit:cover; }
+  .photo--main { aspect-ratio: 3 / 4.9; }
+  .photo--slot { aspect-ratio: 3 / 3.6; border:1px dashed #34353c; background:#121317;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--muted); }
+  .photo--slot .plus { font-family: var(--sans); font-size: 22px; font-weight:300; color:#565a63; }
+  .photo--slot .tip { font-family: var(--sans); font-size: 10px; letter-spacing:.16em; }
+
+  .intro-top { display:flex; gap:20px; align-items:flex-start; margin-bottom: 34px; }
+  .avatar { width: 124px; flex-shrink:0; border:1px solid var(--line); background:#15161a; }
+  .welcome { font-size: 16.5px; }
+  .welcome b { font-weight:700; }
+  .brief { margin-top:10px; font-size: 14.5px; color: var(--soft); line-height: 1.95; }
+  .brief + .brief { margin-top: 5px; }
+
+  .rule { border:0; border-top:1px solid var(--line); margin: 30px 0; }
+
+  .about-title { font-size: 50px; font-weight:700; letter-spacing:.1em; }
+  .about-sub { font-family:var(--sans); font-size:11px; letter-spacing:.3em; color:var(--muted); text-transform:uppercase; margin-top:5px; }
+  .about-lede { font-size: 15px; color: var(--muted); letter-spacing: .04em; margin-top: 14px; }
+  .quote { margin: 26px 0 24px; padding: 2px 0 2px 18px; border-left:2px solid var(--green); color: var(--soft); font-size: 16px; line-height: 1.85; }
+  .quote small { display:block; margin-top:6px; font-size:11px; letter-spacing:.2em; color:var(--muted); }
+  .body p { font-size: 16.5px; color: var(--soft); line-height: 2.1; }
+  .body p + p { margin-top: 16px; }
+  .body strong { font-weight:700; color: var(--ink); }
+
+  .honors-head { font-family:var(--sans); font-size:11px; letter-spacing:.26em; color:var(--muted); margin-bottom:12px; }
+  .honor { display:flex; justify-content:space-between; align-items:baseline; gap:18px; padding:14px 2px; border-bottom:1px solid var(--line); font-size:16px; }
+  .honor:first-of-type { border-top:1px solid var(--line); }
+  .honor .name b { font-weight:700; }
+  .honor .name small { font-family:var(--sans); font-size:10.5px; color:var(--green); border:1px solid #3c4a38; padding:1px 7px; margin-left:9px; letter-spacing:.06em; vertical-align:2px; white-space:nowrap; }
+  .honor .meta { font-family:var(--sans); font-size:13px; color:var(--muted); white-space:nowrap; }
+
+  .links { margin-top: 36px; display:flex; gap:22px; font-family:var(--sans); font-size:12px; }
+  .links a { color:var(--soft); border-bottom:1px solid var(--line); padding-bottom:2px; transition:color .2s,border-color .2s; }
+  .links a:hover { color:var(--green); border-color:var(--green); }
+
+  footer { padding: 26px 34px 40px; font-family:var(--sans); font-size:11px; color:var(--muted);
+    display:flex; justify-content:space-between; letter-spacing:.06em; border-top:1px solid var(--line); }
+
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: 1fr; }
+    .photos { flex-direction:row; }
+    .photos .photo, .photos .photo--slot { flex:1; }
+    .nav { padding: 0 20px; }
+    .cover-inner { left:20px; bottom:34px; }
+    .cover-scroll { display:none; }
+    footer { flex-direction:column; gap:6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav" id="nav">
+  <a class="logo" href="#top">CUNXIN TAO</a>
+  <div class="menu">
+    <a href="index.html">首页</a>
+    <a href="#about">关于我</a>
+    <a href="certificates/">证书</a>
+    <a href="https://github.com/cunxintao-hub" target="_blank" rel="noopener">GITHUB</a>
+  </div>
+</nav>
+
+<!-- 封面：全屏视频 -->
+<header class="cover" id="top">
+  <video src="assets/hero.mp4" poster="assets/hero-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <div class="scrim"></div>
+  <div class="cover-inner">
+    <p class="cover-kicker">AI 产品 · 用户研究 · AIGC 创作</p>
+    <h1 class="cover-name">Cunxin<span class="l2">Tao.</span></h1>
+    <p class="cover-sub">陶存心的作品集</p>
+  </div>
+  <div class="cover-scroll">SCROLL</div>
+</header>
+
+<!-- 关于我 -->
+<section class="about" id="about">
+  <div class="wrap">
+
+    <!-- 左：窄图列 -->
+    <aside class="photos">
+      <figure class="photo photo--main">
+        <img src="assets/about-portrait.jpg?v=2" alt="陶存心">
+      </figure>
+      <div class="photo--slot">
+        <span class="plus">＋</span>
+        <span class="tip">图片待放</span>
+      </div>
+    </aside>
+
+    <!-- 右：内容 -->
+    <main>
+      <div class="intro-top">
+        <img class="avatar" src="assets/hero-poster.jpg" alt="我的 AIGC 形象">
+        <div class="welcome">
+          欢迎来到这里，我是<b>陶存心</b>。
+          <p class="brief">画面里这个小男孩，是我造的第一个会走路的角色。他从我的 AI 影像里走出来，替我去到我没去过的地方——也替我记住一件事：想象力可以交给工具，判断不行。</p>
+          <p class="brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
+        </div>
+      </div>
+
+      <hr class="rule">
+
+      <h2 class="about-title">关于我</h2>
+      <p class="about-sub">About</p>
+      <p class="about-lede">关于我是谁，我为什么做这些，以及我想把它们做到哪里。</p>
+
+      <blockquote class="quote">
+        “人，不过是需要超越的存在。<br>我们为超越自身，究竟做了什么。”
+        <small>— 共 勉</small>
+      </blockquote>
+
+      <div class="body">
+        <p><strong>陶存心</strong>，一名关注 AI 时代创新的产品与市场心理研究者。现于<strong>哈尔滨工业大学攻读工业设计硕士</strong>，研究方向为 AI 产品；硕士期间完成多项设计作品，获米兰设计周、视觉设计大赛等 <strong>30+ 项国家级竞赛奖项</strong>。</p>
+        <p>我持续探索<strong>产品、影像、人工智能与商业</strong>之间的连接。我相信，技术不是替代创作者的工具，而是拓展想象力的新语言；真正有价值的创作，应当同时拥有<strong>审美的高度、情感的共鸣，以及被现实世界验证的能力</strong>。</p>
+        <p>于是我的工作横跨了<strong>用户研究、产品设计与 AIGC 工程</strong>：既做得出能被现实业务验证的工具，也写得出 SCI Q1 的论文。研究负责定义问题，产品负责交付答案；而<strong>当 AI 成为设计流程里的默认成员，人的判断力，应当被重新定价。</strong></p>
+      </div>
+
+      <hr class="rule">
+
+      <p class="honors-head">入选 · 荣誉 HONORS</p>
+      <div class="honor"><span class="name"><b>国家奖学金</b><small>1 / 115</small></span><span class="meta">哈工大 · 国家级</span></div>
+      <div class="honor"><span class="name"><b>黑龙江省三好学生</b></span><span class="meta">省级荣誉</span></div>
+      <div class="honor"><span class="name"><b>米兰设计周等设计作品展</b><small>14 项</small></span><span class="meta">国家级设计奖</span></div>
+      <div class="honor"><span class="name"><b>G-Mark 设计奖</b><small>3 项</small></span><span class="meta">国际设计奖</span></div>
+      <div class="honor"><span class="name"><b>IDEA 等设计奖</b><small>3 项</small></span><span class="meta">国际设计奖</span></div>
+      <div class="honor"><span class="name"><b>中国国际“互联网+”大赛等</b><small>12 项</small></span><span class="meta">工程类奖项</span></div>
+      <div class="honor"><span class="name"><b>SCI Q1 一作论文</b><small>3 篇</small></span><span class="meta">第一作者发表</span></div>
+
+      <div class="links">
+        <a href="index.html">← 返回首页</a>
+        <a href="certificates/">证书存档</a>
+      </div>
+    </main>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 陶存心 · CUNXIN TAO</span>
+  <span>Shenzhen / Harbin</span>
+</footer>
+
+<script>
+  // 封面滚动后导航变实色
+  var nav = document.getElementById('nav');
+  function onScroll() {
+    var coverH = document.getElementById('top').offsetHeight - 70;
+    nav.classList.toggle('solid', window.scrollY > coverH);
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>
