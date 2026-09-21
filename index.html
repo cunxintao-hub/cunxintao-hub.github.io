@@ -442,13 +442,16 @@
 
   /* ---------- 板块标题页（Zone 标题页式） ---------- */
   .zn-wrap { max-width: var(--maxw); margin: 0 auto; padding: 96px 48px 110px; }
-  .zn-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 40px; }
-  .zn-kicker { font-family: var(--mono); font-size: 10.5px; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
-  .zn-title { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: clamp(52px, 7.5vw, 92px);
-    font-weight: 700; line-height: 1.05; color: var(--text); margin-top: 12px; }
-  .zn-en { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-style: italic;
-    font-size: clamp(16px, 2vw, 22px); color: var(--dim); margin-top: 8px; }
-  .zn-img { width: 240px; aspect-ratio: 7/10; object-fit: cover; display: block; flex-shrink: 0; }
+  .zn-banner { background: #f4f1ea; }
+  .zn-banner-inner { max-width: var(--maxw); margin: 0 auto; padding: 60px 48px 0;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; }
+  .zn-banner .zn-kicker { color: #8a8578; }
+  .zn-btitle { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: clamp(52px, 7.5vw, 92px);
+    font-weight: 700; line-height: 1.05; color: #1c1b18; margin-top: 12px; }
+  .zn-ben { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-style: italic;
+    font-size: clamp(16px, 2vw, 22px); color: #8a8578; margin-top: 8px; }
+  .zn-bimg { width: 240px; aspect-ratio: 7/10; object-fit: cover; display: block; flex-shrink: 0;
+    margin-bottom: -56px; box-shadow: 0 22px 60px rgba(0,0,0,.5); }
   .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
   .zn-cards { display: flex; flex-direction: column; gap: 18px; }
   .zn-card { position: relative; display: block; background: #12141a; border: 1px solid var(--line);
@@ -468,8 +471,8 @@
   .zn-go { display: inline-block; font-family: var(--sans); font-size: 13px; color: var(--accent); margin-top: 18px; }
   @media (max-width: 900px) {
     .zn-wrap { padding: 70px 22px 80px; }
-    .zn-head { flex-direction: column; align-items: flex-start; }
-    .zn-img { width: 100%; }
+    .zn-banner-inner { flex-direction: column; align-items: flex-start; padding: 44px 22px 0; }
+    .zn-bimg { width: 180px; margin-bottom: -36px; }
     .zn-card { flex-direction: column; gap: 10px; }
   }
 
@@ -658,15 +661,17 @@
 
 <!-- ============ 腾讯实习（标题页 + 精简卡片） ============ -->
 <section class="section section--panel reveal" id="skills">
-  <div class="zn-wrap">
-    <div class="zn-head">
+  <div class="zn-banner">
+    <div class="zn-banner-inner">
       <div>
         <p class="zn-kicker">Zone 02 · 腾讯实习</p>
-        <h2 class="zn-title">腾讯实习</h2>
-        <p class="zn-en">Tencent IEG · AI Product</p>
+        <h2 class="zn-btitle">腾讯实习</h2>
+        <p class="zn-ben">Tencent IEG · AI Product</p>
       </div>
-      <img class="zn-img" src="assets/zn-figure.jpg" alt="人物形象">
+      <img class="zn-bimg" src="assets/zn-figure.jpg" alt="人物形象">
     </div>
+  </div>
+  <div class="zn-wrap">
     <p class="zn-lede">把业务里的重复判断交给 Agent，把人的判断留给真正需要判断的地方。</p>
 
     <div class="zn-cards">
