@@ -429,6 +429,33 @@
     color: var(--muted); text-transform: uppercase; margin-top: 12px;
   }
 
+  /* ---------- 板块标题页（Zone 标题页式） ---------- */
+  .zn-wrap { max-width: var(--maxw); margin: 0 auto; padding: 96px 48px 110px; }
+  .zn-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; margin-bottom: 40px; }
+  .zn-kicker { font-family: var(--mono); font-size: 10.5px; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
+  .zn-title { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: clamp(52px, 7.5vw, 92px);
+    font-weight: 700; line-height: 1.05; color: var(--text); margin-top: 12px; }
+  .zn-en { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-style: italic;
+    font-size: clamp(16px, 2vw, 22px); color: var(--dim); margin-top: 8px; }
+  .zn-img { width: 300px; aspect-ratio: 3/2; object-fit: cover; display: block; flex-shrink: 0; }
+  .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
+  .zn-card { display: flex; gap: 28px; padding: 32px 4px; border-top: 1px solid var(--line); color: inherit; }
+  .zn-card:last-of-type { border-bottom: 1px solid var(--line); }
+  .zn-no { font-family: var(--mono); font-size: 12px; color: var(--dim); padding-top: 6px; }
+  .zn-card h3 { font-size: 22px; font-weight: 700; color: var(--text); transition: color .25s var(--ease); }
+  .zn-card h3 em { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .18em;
+    color: var(--accent); margin-left: 12px; text-transform: uppercase; vertical-align: 3px; }
+  .zn-card p { font-size: 14px; color: var(--muted); margin-top: 9px; line-height: 1.8; max-width: 720px; }
+  .zn-go { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    color: var(--accent); margin-top: 14px; }
+  .zn-card:hover h3 { color: var(--accent); }
+  @media (max-width: 900px) {
+    .zn-wrap { padding: 70px 22px 80px; }
+    .zn-head { flex-direction: column; align-items: flex-start; }
+    .zn-img { width: 100%; }
+    .zn-card { flex-direction: column; gap: 10px; }
+  }
+
   .section--works { background:#0b0c0f; border-bottom:1px solid #26262b; }
   .sw-wrap { max-width:1320px; margin:0 auto; padding:96px 48px 110px; }
   .sw-kicker { font-family:var(--mono); font-size:10.5px; letter-spacing:.3em; color:#7d7971; text-transform:uppercase; }
@@ -612,33 +639,36 @@
   </div>
 </section>
 
-<!-- ============ 项目 ============ -->
+<!-- ============ 腾讯实习（标题页 + 精简卡片） ============ -->
 <section class="section section--panel reveal" id="skills">
-  <span class="sec-ghost">02</span>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-no">Zone 02</span>
-      <h2 class="sec-title">AI Skill 设计<em>AI Skills</em></h2>
+  <div class="zn-wrap">
+    <div class="zn-head">
+      <div>
+        <p class="zn-kicker">Zone 02 · 腾讯实习</p>
+        <h2 class="zn-title">腾讯实习</h2>
+        <p class="zn-en">Tencent IEG · AI Product</p>
+      </div>
+      <img class="zn-img" src="assets/work-agent.jpg" alt="腾讯实习 · AI 产品">
     </div>
-    <p style="color:var(--muted);margin-bottom:26px;">把业务里的重复判断交给 Agent，把人的判断留给真正需要判断的地方。</p>
+    <p class="zn-lede">把业务里的重复判断交给 Agent，把人的判断留给真正需要判断的地方。</p>
 
-    <article class="entry">
-      <span class="entry-no">01</span>
+    <a class="zn-card" href="tencent.html#agent">
+      <span class="zn-no">01</span>
       <div>
         <h3>游戏活动业务 Agent<em>Game Ops Agent</em></h3>
-        <p>0→1 设计面向游戏活动配置全流程的 Agent：信息查漏、活动校验、自动化配置，把原本依赖人工逐项核对的链路压缩为可复用的自动化流程，业务全流程提效。</p>
-        <ul class="tags"><li>0→1 设计</li><li>Agent</li><li>流程自动化</li><li>腾讯 IEG</li></ul>
+        <p>0→1 设计面向游戏活动配置全流程的 Agent：信息查漏、活动校验、自动化配置，业务全流程提效。</p>
+        <span class="zn-go">查看详情 →</span>
       </div>
-    </article>
+    </a>
 
-    <article class="entry">
-      <span class="entry-no">02</span>
+    <a class="zn-card" href="tencent.html#sku">
+      <span class="zn-no">02</span>
       <div>
         <h3>SKU 标准化产品<em>SKU Standardizer</em></h3>
-        <p>将运营侧的非标需求表转译为标准模板，接入平台既有数据做自动校验与缺失字段补全，让「配置」这件事从经验驱动变成规则驱动。</p>
-        <ul class="tags"><li>标准化</li><li>规则引擎</li><li>数据校验</li></ul>
+        <p>将运营侧的非标需求表转译为标准模板，接入平台既有数据做自动校验与缺失字段补全。</p>
+        <span class="zn-go">查看详情 →</span>
       </div>
-    </article>
+    </a>
 
     <p style="margin-top:26px;">
       <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/tencent-projects/" target="_blank" rel="noopener">查看完整项目总览（含演示视频）→</a>
