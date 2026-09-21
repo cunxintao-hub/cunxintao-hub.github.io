@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDIE 会议论文 · 老年用户产品理解 · 陶存心</title>
+<style>
+  :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e; --link:#58a6ff; --gold:#e3b341; --purple:#a371f7; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.75; font-size:15px; }
+  .wrap { max-width:1000px; margin:0 auto; padding:48px 20px 70px; }
+  .topnav { font-size:13px; color:var(--muted); margin-bottom:22px; }
+  .topnav a { color:var(--link); text-decoration:none; }
+
+  header h1 { font-size:26px; font-weight:600; line-height:1.45; letter-spacing:.3px; }
+  header .paper-title { color:var(--muted); margin-top:12px; font-size:14px; line-height:1.65; font-style:italic; }
+  header .authors { color:var(--muted); margin-top:8px; font-size:14.5px; }
+  .tags { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 26px; }
+  .tag { font-size:12px; padding:2px 10px; border-radius:20px; border:1px solid var(--border); color:var(--muted); }
+  .tag.gold { border-color:rgba(227,179,65,.5); color:var(--gold); }
+  .tag.blue { border-color:rgba(88,166,255,.5); color:var(--link); }
+  .tag.purple { border-color:rgba(163,113,247,.5); color:var(--purple); }
+
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:22px 26px; margin-bottom:22px; }
+  .card h2 { font-size:17px; font-weight:600; margin-bottom:14px; }
+  .meta-row { display:flex; gap:10px; padding:5px 0; font-size:14.5px; border-bottom:1px solid var(--border); }
+  .meta-row:last-child { border-bottom:none; }
+  .meta-row .k { color:var(--muted); min-width:88px; }
+  .meta-row .v { color:#c9d1d9; flex:1; }
+  .meta-row a { color:var(--link); text-decoration:none; word-break:break-all; }
+
+  .abstract { color:#c9d1d9; font-size:14.5px; }
+  .abstract b { color:var(--text); }
+
+  .btn { display:inline-block; margin-top:16px; background:#238636; color:#fff; text-decoration:none; font-size:14px; padding:8px 18px; border-radius:6px; font-weight:500; }
+  .btn:hover { background:#2ea043; }
+  .btn.ghost { background:#21262d; border:1px solid var(--border); color:var(--text); margin-left:10px; }
+  .btn.ghost:hover { background:#30363d; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+  .slide { background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; display:block; }
+  .slide:hover { border-color:#8b949e; transform:translateY(-2px); }
+  .slide img { width:100%; display:block; background:#000; }
+  .slide .cap { padding:10px 12px; font-size:13px; color:var(--muted); display:flex; justify-content:space-between; align-items:center; }
+  .slide .cap b { color:var(--text); font-weight:600; }
+  .slide .num { font-size:12px; color:#6b7590; }
+
+  footer { text-align:center; margin-top:48px; color:#6b7590; font-size:13px; line-height:2; }
+  footer a { color:var(--link); text-decoration:none; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topnav"><a href="https://cunxintao-hub.github.io/">← 返回个人主页</a></div>
+
+    <header>
+      <h1>IDIE 会议论文 · 老年用户产品理解</h1>
+      <div class="paper-title">How visual format and text description shape older adults' product comprehension</div>
+      <div class="authors">Cunxin Tao · 合作者待补充</div>
+    </header>
+
+    <div class="tags">
+      <span class="tag gold">IDIE 2026</span>
+      <span class="tag blue">第一作者</span>
+      <span class="tag purple">适老化 · 人因</span>
+      <span class="tag">2 × 2 实验</span>
+      <span class="tag">N = 290</span>
+    </div>
+
+    <section class="card">
+      <h2>论文信息</h2>
+      <div class="meta-row"><span class="k">会议</span><span class="v">IDIE 2026 International Conference</span></div>
+      <div class="meta-row"><span class="k">主题</span><span class="v">文本抽象度与图像复杂度对老年用户产品理解的影响</span></div>
+      <div class="meta-row"><span class="k">样本</span><span class="v">N = 290 位老年用户</span></div>
+      <div class="meta-row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
+      <div class="meta-row"><span class="k">在线</span><span class="v"><a href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank">Semantic Scholar 索引</a></span></div>
+    </section>
+
+    <section class="card">
+      <h2>研究简介</h2>
+      <p class="abstract">智能产品的功能说明越来越依赖图文组合，但老年用户常因信息呈现形式不当而难以理解。研究采用 <b>2 × 2 被试间实验</b>：自变量为<b>文本抽象度</b>（具体 / 抽象）与<b>图片视图</b>（普通视图 / 爆炸视图），以<b>心理意象（mental imagery）</b>为中介变量，因变量为老年用户的<b>产品理解度与态度</b>，共招募 290 位老年用户参与。</p>
+      <p class="abstract" style="margin-top:12px;">结果表明：文本表述越具体、图示信息越清晰，老年用户的产品理解度越高；且文本抽象度与图片视图之间存在交互——信息呈现形式的<b>匹配</b>，比单纯把内容简化更有效。这为适老化信息呈现、电商详情页与智能产品说明书的设计提供了可操作的准则。</p>
+    </section>
+
+    <section class="card">
+      <h2>论文图表（3 张，点击查看 PDF 原图）</h2>
+      <div class="grid">
+        <a class="slide" href="assets/papers/elder-overview.pdf" target="_blank">
+          <img src="assets/papers/elder-overview.jpg" alt="Research Overview">
+          <div class="cap"><b>Research Overview</b><span class="num">#1</span></div>
+        </a>
+        <a class="slide" href="assets/papers/elder-method.pdf" target="_blank">
+          <img src="assets/papers/elder-method.jpg" alt="Method: Design, Stimuli, Participants">
+          <div class="cap"><b>Method · 实验设计</b><span class="num">#2</span></div>
+        </a>
+        <a class="slide" href="assets/papers/elder-results.pdf" target="_blank">
+          <img src="assets/papers/elder-results.jpg" alt="Main Effects and Interaction Effect">
+          <div class="cap"><b>Results · 主效应与交互</b><span class="num">#3</span></div>
+        </a>
+      </div>
+      <a class="btn ghost" href="assets/papers/elder-overview.pdf" target="_blank">下载图表 PDF</a>
+    </section>
+
+    <footer>
+      <p>© 2026 陶存心</p>
+      <p><a href="https://cunxintao-hub.github.io/">个人主页</a> · <a href="https://cunxintao-hub.github.io/papers/">Papers</a> · <a href="https://github.com/cunxintao-hub">GitHub</a></p>
+      <p style="margin-top:10px;color:#8b949e;">“人，不过是需要超越的存在。我们为超越自身，究竟做了什么。”</p>
+    </footer>
+  </div>
+</body>
+</html>
