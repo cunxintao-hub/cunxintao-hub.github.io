@@ -443,15 +443,29 @@
   /* ==========================================================
      Selected Works · 作品精选
      ========================================================== */
-  /* ---------- 影片播放 ---------- */
-  .film-feature { margin-bottom: 34px; }
-  .film-feature video {
-    width: 100%; display: block; background: #000;
-    border: 1px solid var(--line); aspect-ratio: 16 / 9; object-fit: contain;
-  }
-  .film-cap {
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
-    color: var(--muted); text-transform: uppercase; margin-top: 12px;
+  /* ---------- 影片横条列表 ---------- */
+  .film-rows { display: flex; flex-direction: column; gap: 18px; }
+  .film-row { display: flex; gap: 30px; align-items: center;
+    background: #12141a; border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; color: inherit;
+    transition: border-color .25s var(--ease), background .25s var(--ease); }
+  .film-row:hover { border-color: #3a4149; background: #151821; }
+  .film-cover { width: 300px; aspect-ratio: 16/9; overflow: hidden; border-radius: 6px;
+    background: #0d1117; flex-shrink: 0; }
+  .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .film-cover--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; border: 1px dashed #34353c; color: var(--muted); }
+  .film-cover--slot span:first-child { font-size: 22px; font-weight: 300; color: #565a63; font-family: var(--sans); }
+  .slot-tip { font-family: var(--sans); font-size: 10px; letter-spacing: .16em; }
+  .film-info { flex: 1; }
+  .film-cat { font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
+    color: var(--muted); text-transform: uppercase; }
+  .film-info h3 { font-size: 21px; font-weight: 700; color: var(--text); margin-top: 8px; }
+  .film-desc { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.8; }
+  .film-info .zn-go { margin-top: 14px; }
+  @media (max-width: 900px) {
+    .film-row { flex-direction: column; align-items: stretch; }
+    .film-cover { width: 100%; }
   }
 
   /* ---------- 板块标题页（Zone 标题页式） ---------- */
@@ -725,38 +739,55 @@
 
 <!-- ============ AI 视频设计 ============ -->
 <section class="section section--ink reveal" id="videos">
-  <span class="sec-ghost">03</span>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-no">Zone 03</span>
-      <h2 class="sec-title">AI 视频设计<em>AIGC Film</em></h2>
+  <div class="zn-banner">
+    <div class="zn-banner-inner">
+      <img class="zn-bimg" src="assets/film-01.jpg" alt="AI 视频创作">
+      <div>
+        <p class="zn-kicker">Zone 03 · AI 视频创作</p>
+        <h2 class="zn-btitle">视频创作</h2>
+        <p class="zn-ben">AIGC Film · Direction</p>
+      </div>
     </div>
-    <p style="color:var(--muted);margin-bottom:26px;">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。</p>
+  </div>
+  <div class="zn-wrap">
+    <p class="zn-lede">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。</p>
 
-    <div class="film-feature">
-      <video src="assets/film-01.mp4" poster="assets/film-01.jpg"
-             controls playsinline preload="metadata"></video>
-      <p class="film-cap">Film 01 · 33s · 16:9 · 完全独立制作</p>
-    </div>
+    <div class="film-rows">
+      <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
+          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 01 · 33s · 16:9</p>
+          <h3>AI 影像作品 01</h3>
+          <p class="film-desc">文生视频 / 图生视频 · 分镜驱动 · 完全独立制作。点击观看完整版（含声音）。</p>
+          <span class="zn-go">观看完整版 →</span>
+        </div>
+      </a>
 
-    <div class="zones">
-      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
-        <span class="z-en">Film 01</span>
-        <h3>AIGC 影像作品 01</h3>
-        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
-        <span class="go">观看 →</span>
+      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
+        <div class="film-cover">
+          <img src="assets/hero-poster.jpg" alt="AI 影像作品 02">
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 02 · AIGC Character</p>
+          <h3>AI 影像作品 02</h3>
+          <p class="film-desc">AIGC 人物形象设计与动态叙事，更多作品见 AI 影像专栏。</p>
+          <span class="zn-go">查看专栏 →</span>
+        </div>
       </a>
-      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
-        <span class="z-en">Film 02</span>
-        <h3>AIGC 影像作品 02</h3>
-        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
-        <span class="go">观看 →</span>
-      </a>
-      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
-        <span class="z-en">Film 03</span>
-        <h3>AIGC 影像作品 03</h3>
-        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
-        <span class="go">观看 →</span>
+
+      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
+        <div class="film-cover film-cover--slot">
+          <span>＋</span>
+          <span class="slot-tip">封面待放</span>
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 03 · Upcoming</p>
+          <h3>AI 影像作品 03</h3>
+          <p class="film-desc">分镜脚本 + 首尾帧控制的新作品，制作中。</p>
+          <span class="zn-go">查看专栏 →</span>
+        </div>
       </a>
     </div>
   </div>
