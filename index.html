@@ -3,225 +3,686 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>陶存心 · GitHub</title>
+<title>陶存心 · CUNXIN TAO</title>
+<meta name="description" content="陶存心 · AI 产品 · 用户研究 · AIGC 创作 · 哈尔滨工业大学工业设计硕士在读 · 腾讯 IEG 用户增值部">
 <style>
+  /* ==========================================================
+     配色保持 GitHub Dark 科技感；只重做排版骨架
+     ========================================================== */
   :root {
-    --bg: #0d1117;
-    --panel: #161b22;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --link: #58a6ff;
+    --bg:      #0d1117;
+    --bg-2:    #0f141b;
+    --panel:   #161b22;
+    --line:    #21262d;
+    --line-2:  #30363d;
+    --text:    #e6edf3;
+    --soft:    #b9c3ce;
+    --muted:   #8b949e;
+    --dim:     #6b7590;
+    --accent:  #58a6ff;
+    --accent-dim: rgba(88,166,255,.14);
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    --maxw: 1120px;
+    --gutter: 28px;
+    --ease: cubic-bezier(.22,.61,.36,1);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    font-size: 15px;
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 15px; line-height: 1.75;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
+  a { color: inherit; text-decoration: none; }
+  img { max-width:100%; display:block; }
+  ::selection { background: var(--accent); color: #04070c; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- 顶部滚动进度条 ---------- */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0;
+    background: var(--accent); z-index: 100; transition: width .1s linear;
+  }
+
+  /* ==========================================================
+     导航
+     ========================================================== */
   .nav {
-    background: #010409;
-    border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
-    display: flex; align-items: center;
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(13,17,23,.82);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
   }
-  .nav .logo { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter);
+    height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { font-size: 15px; font-weight: 600; letter-spacing: .06em; white-space: nowrap; }
+  .brand em {
+    display: block; font-family: var(--mono); font-style: normal;
+    font-size: 9.5px; letter-spacing: .3em; color: var(--dim); margin-top: 2px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    position: relative; font-size: 13px; letter-spacing: .04em; color: var(--muted);
+    padding: 6px 0; white-space: nowrap; transition: color .25s var(--ease);
+  }
+  .nav-links a em {
+    font-family: var(--mono); font-style: normal; font-size: 10px;
+    letter-spacing: .12em; color: var(--dim); margin-left: 5px; transition: color .25s var(--ease);
+  }
+  .nav-links a::after {
+    content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform .35s var(--ease);
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after, .nav-links a.is-active::after { transform: scaleX(1); }
+  .nav-links a.is-active { color: var(--text); }
+  .nav-links a.is-active em { color: var(--accent); }
 
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 16px 60px; }
-  .profile {
-    display: grid;
-    grid-template-columns: 296px 1fr;
-    gap: 24px;
-    align-items: start;
+  /* ==========================================================
+     HERO
+     ========================================================== */
+  .hero {
+    position: relative; overflow: hidden; padding: clamp(72px,13vw,140px) 0 clamp(44px,6vw,70px);
+    border-bottom: 1px solid var(--line);
   }
-  .sidebar { position: sticky; top: 24px; }
-  .avatar {
-    width: 100%; aspect-ratio: 1; border-radius: 50%;
-    background: linear-gradient(135deg, #2f81f7, #a371f7);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 96px; color: #fff; border: 1px solid var(--border);
-    margin-bottom: 16px; font-weight: 300;
+  .hero::before {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(to right,  var(--line) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 64px);
+    opacity:.5;
+    -webkit-mask-image: radial-gradient(78% 68% at 42% 34%, #000 0%, transparent 76%);
+            mask-image: radial-gradient(78% 68% at 42% 34%, #000 0%, transparent 76%);
   }
-  .name { font-size: 24px; font-weight: 600; line-height: 1.25; }
-  .handle { color: var(--muted); font-size: 18px; font-weight: 300; margin-bottom: 12px; }
-  .bio { margin-bottom: 14px; color: var(--text); }
-  .btn-follow {
-    display: inline-block; background: #21262d; border: 1px solid var(--border);
-    color: var(--text); border-radius: 6px; padding: 5px 16px; font-size: 13px;
-    font-weight: 500; cursor: pointer; margin-bottom: 14px;
+  .hero::after {
+    content:""; position:absolute; width: 720px; height: 720px; right: -180px; top: -260px;
+    background: radial-gradient(circle, rgba(88,166,255,.16) 0%, transparent 62%);
+    pointer-events: none;
   }
-  .btn-follow:hover { background: #30363d; }
-  .meta { color: var(--muted); font-size: 14px; }
-  .meta div { padding: 2px 0; }
+  .hero > * { position: relative; }
 
-  .main { display: flex; flex-direction: column; gap: 16px; }
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
+  /* 首屏视频 */
+  .hero-media { position: absolute; inset: 0; overflow: hidden; background: #0d1117; }
+  .hero-media video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
-  .card-head {
-    padding: 12px 16px; border-bottom: 1px solid var(--border);
-    font-size: 13px; color: var(--muted);
+  .hero-scrim {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(13,17,23,.46) 0%, rgba(13,17,23,.06) 24%, rgba(13,17,23,.06) 58%, rgba(13,17,23,.80) 100%),
+      linear-gradient(90deg, rgba(13,17,23,.80) 0%, rgba(13,17,23,.26) 40%, rgba(13,17,23,0) 66%),
+      radial-gradient(64% 56% at 92% 4%, rgba(88,166,255,.16), transparent 62%);
   }
-  .card-head a { color: var(--link); text-decoration: none; font-weight: 600; }
-  .card-body { padding: 20px 24px; }
+  .hero .wrap { z-index: 2; }
+  .hero .hero-name, .hero .hero-lede, .hero .hero-latin {
+    text-shadow: 0 2px 24px rgba(4,7,12,.85), 0 1px 3px rgba(4,7,12,.7);
+  }
+  .hero::before { opacity: .10; }
 
-  .readme h2 {
-    font-size: 20px; font-weight: 600; margin: 22px 0 10px;
-    padding-bottom: 6px; border-bottom: 1px solid var(--border);
+  /* 声音开关 */
+  .sound-btn {
+    position: absolute; right: var(--gutter); bottom: 28px; z-index: 3;
+    display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+    background: rgba(13,17,23,.55); border: 1px solid var(--line-2); color: var(--text);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+    padding: 9px 16px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
   }
-  .readme h2:first-child { margin-top: 0; }
-  .readme p { margin: 8px 0; color: var(--text); }
-  .readme .focus { font-size: 18px; font-weight: 600; }
-  .readme .dim { color: var(--muted); }
-  .readme ul { list-style: none; margin: 8px 0; }
-  .readme ul li { padding: 5px 0; }
-  .readme .quote {
-    margin-top: 22px; padding: 16px 20px; border: 1px solid #21262d;
-    border-radius: 6px; background: #0d1117; color: #c9d1d9; text-align: center;
-  }
-  .readme a {
-    color: var(--link); text-decoration: none;
-    border-bottom: 1px solid rgba(88,166,255,.35);
-  }
-  .readme a:hover { border-bottom-color: var(--link); }
-  .readme ul li { line-height: 1.65; padding-bottom: 10px; }
+  .sound-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .sound-btn .bars { display: flex; align-items: flex-end; gap: 2px; height: 11px; }
+  .sound-btn .bars i { width: 2px; height: 30%; background: currentColor; }
+  .sound-btn.is-on .bars i { animation: eq .9s ease-in-out infinite alternate; }
+  .sound-btn .bars i:nth-child(2) { animation-delay: .15s; }
+  .sound-btn .bars i:nth-child(3) { animation-delay: .30s; }
+  .sound-btn .bars i:nth-child(4) { animation-delay: .45s; }
+  @keyframes eq { from { height: 25%; } to { height: 100%; } }
 
-  .pinned { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .repo {
-    border: 1px solid var(--border); border-radius: 6px; padding: 16px;
-    display: flex; flex-direction: column; gap: 10px;
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .34em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 12px; margin-bottom: clamp(24px,4vw,40px);
   }
-  .repo .rname { color: var(--link); font-weight: 600; font-size: 15px; }
-  .repo .rdesc { color: var(--muted); font-size: 13px; flex: 1; }
-  .repo .rmeta { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
-  .repo .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: -1px; }
+  .eyebrow::after { content:""; flex: 1; height: 1px; background: var(--line-2); max-width: 220px; }
 
-  a.repo { text-decoration: none; transition: border-color .15s, transform .15s; }
-  a.repo:hover { border-color: #8b949e; transform: translateY(-2px); }
-  .footer { text-align: center; margin-top: 28px; color: #6b7590; font-size: 13px; line-height: 2; }
-  .footer a { color: var(--link); text-decoration: none; }
+  .hero-name {
+    font-size: clamp(56px, 12.5vw, 152px); font-weight: 700;
+    line-height: .9; letter-spacing: -.02em; color: #f0f6fc;
+  }
+  .hero-latin {
+    font-family: var(--mono); font-size: clamp(10px,1.3vw,13px);
+    letter-spacing: .58em; text-transform: uppercase; color: var(--dim);
+    margin-top: clamp(18px,2.6vw,28px);
+  }
+  .hero-lede {
+    font-size: clamp(15px,1.7vw,19px); color: var(--soft);
+    max-width: 46ch; margin-top: clamp(26px,3.6vw,42px); line-height: 1.7;
+  }
+  .hero-lede b { color: var(--text); font-weight: 600; }
 
-  @media (max-width: 760px) {
-    .profile { grid-template-columns: 1fr; }
-    .sidebar { position: static; display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .avatar { width: 140px; font-size: 56px; }
-    .pinned { grid-template-columns: 1fr; }
+  .hero-meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+    gap: 0 24px; margin-top: clamp(40px,6vw,72px);
+    border-top: 1px solid var(--line);
+  }
+  .hero-meta div {
+    padding: 18px 0 2px; font-size: 13px; color: var(--soft);
+    text-wrap: pretty;
+  }
+  .hero-meta div b {
+    display: block; font-family: var(--mono); font-weight: 400;
+    font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 8px;
+  }
+
+  /* ==========================================================
+     区块通用
+     ========================================================== */
+  .section { position: relative; overflow: hidden; padding: clamp(60px,8vw,104px) 0; border-bottom: 1px solid var(--line); }
+  .section > .wrap { position: relative; z-index: 1; }
+
+  /* 每个模块用不同底色做硬分区 */
+  .section--paper  { background: var(--bg); }
+  .section--panel  { background: var(--panel); }
+  .section--ink    { background: #010409; border-color: #14181e; }
+  .section--accent {
+    background:
+      radial-gradient(86% 120% at 10% 0%, rgba(88,166,255,.18), transparent 58%),
+      radial-gradient(70% 100% at 100% 100%, rgba(88,166,255,.10), transparent 60%),
+      #0b1016;
+    border-color: #16202b;
+  }
+
+  /* 巨型描边编号水印 */
+  .sec-ghost {
+    position: absolute; right: 6px; top: -18px; z-index: 0;
+    font-family: var(--mono); font-weight: 700; line-height: .78;
+    font-size: clamp(110px, 17vw, 230px);
+    color: transparent; -webkit-text-stroke: 1px rgba(139,148,158,.15);
+    pointer-events: none; user-select: none; letter-spacing: -.04em;
+  }
+  .section--panel .sec-ghost { -webkit-text-stroke-color: rgba(139,148,158,.20); }
+  .section--accent .sec-ghost { -webkit-text-stroke-color: rgba(88,166,255,.28); }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 18px; margin-bottom: clamp(32px,5vw,54px);
+    flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid var(--line-2);
+  }
+  .sec-no {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--accent);
+    padding: 4px 10px; border: 1px solid rgba(88,166,255,.42); background: var(--accent-dim);
+    white-space: nowrap;
+  }
+  .sec-title { font-size: clamp(26px,3.6vw,40px); font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
+  .sec-title em {
+    font-family: var(--mono); font-style: normal; font-size: 11px;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--accent);
+    margin-left: 12px; vertical-align: middle;
+  }
+
+  /* ---------- 关于 ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px,5vw,64px); align-items: start; }
+  .quote {
+    border-left: 2px solid var(--accent); padding: 4px 0 4px 24px;
+    font-size: clamp(17px,2.1vw,23px); line-height: 1.62; color: var(--text); font-weight: 500;
+  }
+  .quote small {
+    display: block; margin-top: 16px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .34em; text-transform: uppercase; color: var(--dim); font-weight: 400;
+  }
+  .about-body p { color: var(--soft); margin-bottom: 16px; }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- 编号条目（项目 / 研究） ---------- */
+  .entry {
+    display: grid; grid-template-columns: 76px 1fr; gap: 0 24px;
+    padding: clamp(24px,3.4vw,34px) 0; border-top: 1px solid var(--line);
+    transition: background .3s var(--ease);
+  }
+  .entry:last-child { border-bottom: 1px solid var(--line); }
+  .entry:hover { background: linear-gradient(90deg, rgba(88,166,255,.05), transparent 62%); }
+  .entry-no {
+    font-family: var(--mono); font-size: 14px; letter-spacing: .1em;
+    color: var(--muted); padding-top: 6px; transition: color .3s var(--ease);
+  }
+  .entry:hover .entry-no { color: var(--accent); }
+  .entry h3 { font-size: clamp(18px,2.3vw,24px); font-weight: 650; letter-spacing: -.005em; line-height: 1.35; }
+  .entry h3 em {
+    display: block; font-family: var(--mono); font-style: normal; font-size: 10px;
+    letter-spacing: .24em; text-transform: uppercase; color: var(--accent);
+    margin-top: 8px; font-weight: 400;
+  }
+  .entry p { margin-top: 12px; color: var(--soft); max-width: 62ch; }
+  .entry .journal {
+    margin-top: 10px; font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: .04em; color: var(--dim);
+  }
+  .entry .journal b { color: var(--accent); font-weight: 400; }
+  .entry a.lnk {
+    display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    border-bottom: 1px solid rgba(88,166,255,.35); padding-bottom: 2px;
+    transition: border-color .25s var(--ease);
+  }
+  .entry a.lnk:hover { border-bottom-color: var(--accent); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; list-style: none; }
+  .tags li {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+    color: var(--muted); border: 1px solid var(--line-2); padding: 3px 9px;
+  }
+
+  /* ---------- 荣誉 ---------- */
+  .honors { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 48px; }
+  @media (max-width: 720px) { .honors { grid-template-columns: 1fr; gap: 0; } }
+  .honor {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding: 18px 0; border-top: 1px solid var(--line);
+  }
+  .honor span { color: var(--soft); font-size: 14px; }
+  .honor b { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .14em; color: var(--accent); white-space: nowrap; }
+
+  /* ---------- 专栏卡片 ---------- */
+  .zones { display: grid; grid-template-columns: repeat(auto-fill, minmax(292px,1fr)); gap: 14px; }
+  .zone {
+    background: var(--bg-2); border: 1px solid var(--line);
+    padding: 26px 24px 24px;
+    display: flex; flex-direction: column; gap: 12px; min-height: 176px;
+    transition: background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+  }
+  .zone:hover { border-color: var(--line-2); }
+  .section--panel .zone { background: #1b222b; }
+  .section--panel .zone:hover { background: #1f2731; }
+  .section--ink .zone { background: #101620; border-color: var(--line-2); }
+  .section--ink .zone:hover { background: #161e29; }
+  .zone:hover { background: var(--panel); transform: translateY(-3px); }
+  .zone .z-en {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .26em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .zone h3 { font-size: 18px; font-weight: 650; }
+  .zone p { color: var(--muted); font-size: 13.5px; flex: 1; }
+  .zone .go {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent);
+  }
+
+  /* ---------- 联系 / 页脚 ---------- */
+  .contact {
+    position: relative; overflow: hidden;
+    padding: clamp(64px,9vw,116px) 0; border-bottom: 1px solid var(--line);
+  }
+  .contact > .wrap { position: relative; z-index: 1; }
+  .contact h2 { font-size: clamp(30px,5vw,58px); font-weight: 700; line-height: 1.16; max-width: 18ch; letter-spacing: -.02em; }
+  .contact .sub { margin-top: 16px; color: var(--muted); max-width: 52ch; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .contact-links a {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--text); border: 1px solid var(--line-2); padding: 11px 20px;
+    transition: border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+  }
+  .contact-links a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 30px 0 44px;
+    display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim);
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ---------- 入场动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ==========================================================
+     响应式
+     ========================================================== */
+  @media (max-width: 880px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .entry { grid-template-columns: 1fr; }
+    .entry-no { padding: 0 0 10px; }
+  }
+  @media (max-width: 640px) {
+    :root { --gutter: 18px; }
+    .nav-inner { height: 56px; }
+    .nav-links { gap: 16px; }
+    .nav-links a em { display: none; }
+    .hero-meta div { flex-basis: 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <div class="logo">
-      <svg height="26" viewBox="0 0 16 16" width="26" fill="#e6edf3"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-      cunxintao-hub
+<div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">陶存心<em>cunxintao-hub</em></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">个人介绍<em>About</em></a>
+      <a href="#skills">AI Skill<em>Agent</em></a>
+      <a href="#videos">AI 视频<em>AIGC</em></a>
+      <a href="#research">AI 论文<em>Papers</em></a>
+      <a href="#auto">汽车专栏<em>Auto</em></a>
+      <a href="#awards">竞赛荣誉<em>Awards</em></a>
+      <a href="#contact">联系<em>Contact</em></a>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-media">
+    <video id="heroVideo" src="assets/hero.mp4" poster="assets/hero-poster.jpg"
+           autoplay muted loop playsinline preload="metadata"></video>
+  </div>
+  <div class="hero-scrim"></div>
+
+  <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false">
+    <span class="bars"><i></i><i></i><i></i><i></i></span>
+    <span id="soundLabel">点击开声音</span>
+  </button>
 
   <div class="wrap">
-    <div class="profile">
+    <p class="eyebrow">AI 产品 · 用户研究 · AIGC 创作</p>
+    <h1 class="hero-name">陶存心</h1>
+    <p class="hero-latin">Cunxin Tao</p>
+    <p class="hero-lede">
+      I'm currently focus on <b>AI 产品落地</b> · <b>游戏活动业务 Agent</b> · <b>AIGC 创作</b>.
+      用研究定义问题，用产品交付答案。
+    </p>
+    <div class="hero-meta">
+      <div><b>Education</b>哈工大（985）· 工业设计硕士在读</div>
+      <div><b>Current</b>腾讯 · IEG 用户增值部</div>
+      <div><b>Base</b>深圳 / 哈尔滨</div>
+      <div><b>Highlight</b>国家奖学金 · SCI 一作</div>
+    </div>
+  </div>
+</header>
 
-      <!-- 左栏 -->
-      <aside class="sidebar">
-        <div class="avatar">陶</div>
-        <div class="name">陶存心</div>
-        <div class="handle">cunxintao-hub</div>
-        <div class="bio">🌐 AI 产品 · AIGC 创作 · 游戏活动业务</div>
-        <button class="btn-follow">Follow</button>
-        <div class="meta">
-          <div>🎓 哈尔滨工业大学（985）· 工业设计硕士在读</div>
-          <div>🏢 腾讯 · IEG 用户增值部（实习）</div>
-          <div>📍 深圳 / 哈尔滨</div>
-          <div>🏆 国家奖学金 · SCI 一作</div>
-        </div>
-      </aside>
-
-      <!-- 右栏 -->
-      <div class="main">
-
-        <section class="card">
-          <div class="card-head">陶存心 / <a href="#">README.md</a></div>
-          <div class="card-body readme">
-            <p class="focus">I'm currently Focus on AI 产品落地 · 游戏活动业务 Agent · AIGC 创作.</p>
-
-            <p class="dim">🎂 23岁 · 来自江苏. 📍 Now Base in 深圳.</p>
-
-            <h2>💻 PROJECTS</h2>
-            <ul>
-              <li>🛠 <strong>游戏活动业务 Agent</strong> —— 0→1 设计,信息查漏、活动校验、自动化配置,业务全流程提效.</li>
-              <li>🛠 <strong>SKU 标准化产品</strong> —— 非标需求转标准模板,接入平台数据自动校验补全.</li>
-              <li>🛠 <strong>Stable Diffusion · Lora 微调</strong> —— 通用文化 IP 图像生成,AHFE 2026 第一作者.</li>
-              <li>🛠 <strong>平安好车主</strong> —— 端到端负责营销增长、广告投放优化.</li>
-            </ul>
-
-            <h2>🏆 AWARDS</h2>
-            <ul>
-              <li>🏆 国家奖学金（1/115）</li>
-              <li>🏆 黑龙江省三好学生</li>
-              <li>🏆 米兰设计周等国家级设计奖 14 项</li>
-              <li>🏆 G-Mark 国际类设计奖项 3 项</li>
-              <li>🏆 IDEA 等设计奖项 3 项</li>
-              <li>🏆 互联网+ 等工程类奖 12 项</li>
-            </ul>
-
-            <h2>📝 RESEARCH</h2>
-            <p class="dim" style="margin-bottom:10px;">第一作者发表 3 篇论文，其中 1 篇 <strong>SCI Q1（IF=13.9）</strong></p>
-            <ul>
-              <li>📄 <a href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank">Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design?</a><br><span class="dim">Journal of Retailing and Consumer Services, 94, 105018 (2027) · SCI Q1, IF 13.9</span></li>
-              <li>📄 <a href="https://doi.org/10.54941/ahfe1007635" target="_blank">The Inheritance and Innovation of Blue Calico Culture Driven by AIGC: Exploring the Generative AI Design Framework and Craft Visualization</a><br><span class="dim">AHFE 2026 International Conference · AHFE Open Access, vol 216</span></li>
-              <li>📄 <a href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank">Enhancing Comprehension of Smart Product: Benefits for Senior Users</a><br><span class="dim">IDIE 2026 · 文本抽象度与图像复杂度对老年用户产品理解的影响</span></li>
-            </ul>
-
-            <div class="quote">
-              “人,不过是需要超越的存在。<br>我们为超越自身,究竟做了什么。”
-              <div class="dim" style="margin-top:8px;letter-spacing:4px;">共 勉</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <div class="card-head">More · 更多内容</div>
-          <div class="card-body pinned">
-            <a class="repo" href="https://cunxintao-hub.github.io/papers/">
-              <div class="rname">📄 Papers 论文</div>
-              <div class="rdesc">3 篇学术论文，含 SCI Q1 一作与 AHFE 全文 PDF.</div>
-              <div class="rmeta"><span>Research</span><span>进入 →</span></div>
-            </a>
-            <a class="repo" href="https://cunxintao-hub.github.io/tencent-projects/">
-              <div class="rname">💼 Tencent Projects 项目总览</div>
-              <div class="rdesc">腾讯 IEG 期间主导的两个项目，均含演示视频.</div>
-              <div class="rmeta"><span>Product</span><span>进入 →</span></div>
-            </a>
-            <a class="repo" href="https://cunxintao-hub.github.io/auto-design/">
-              <div class="rname">🚗 汽车项目专栏</div>
-              <div class="rdesc">智能座舱 HMI · 品牌视觉 · 概念车造型 · 3 个项目.</div>
-              <div class="rmeta"><span>Automotive</span><span>进入 →</span></div>
-            </a>
-            <a class="repo" href="https://cunxintao-hub.github.io/ai-creation/">
-              <div class="rname">🎨 AI 创作</div>
-              <div class="rdesc">AIGC 视频作品集 · 3 件影像创作.</div>
-              <div class="rmeta"><span>AIGC</span><span>进入 →</span></div>
-            </a>
-            <a class="repo" href="https://cunxintao-hub.github.io/certificates/">
-              <div class="rname">🏆 获奖证书</div>
-              <div class="rdesc">设计竞赛获奖证书存档，含 5 份原文件.</div>
-              <div class="rmeta"><span>Awards</span><span>进入 →</span></div>
-            </a>
-          </div>
-        </section>
-
-        <div class="footer">
-          © 2026 陶存心 · <a href="https://github.com/cunxintao-hub">GitHub</a> · <a href="https://cunxintao-hub.github.io/papers/">Papers</a> · <a href="https://cunxintao-hub.github.io/tencent-projects/">Projects</a> · <a href="https://cunxintao-hub.github.io/certificates/">Certificates</a>
-        </div>
-
+<!-- ============ 关于 ============ -->
+<section class="section section--paper reveal" id="about">
+  <span class="sec-ghost">01</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 01</span>
+      <h2 class="sec-title">个人介绍<em>About</em></h2>
+    </div>
+    <div class="about-grid">
+      <blockquote class="quote">
+        “人，不过是需要超越的存在。<br>我们为超越自身，究竟做了什么。”
+        <small>— 共 勉</small>
+      </blockquote>
+      <div class="about-body">
+        <p>🎂 23 岁 · 来自江苏，现 Base 深圳。</p>
+        <p><strong>哈尔滨工业大学（985）工业设计硕士在读</strong>，现于<strong>腾讯 IEG 用户增值部</strong>负责 AI 产品落地与游戏活动业务 Agent 的 0→1 设计。</p>
+        <p>我的工作横跨<strong>用户研究、产品设计与 AIGC 工程</strong>：既做得出能被现实业务验证的工具，也写得出 SCI Q1 的论文。第一作者发表 3 篇论文，获国家级设计奖 14 项、G-Mark 等国际奖 3 项。</p>
+        <p>我关注的命题是：<strong>当 AI 成为设计流程里的默认成员，人的判断力应该如何重新定价。</strong></p>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ============ 项目 ============ -->
+<section class="section section--panel reveal" id="skills">
+  <span class="sec-ghost">02</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 02</span>
+      <h2 class="sec-title">AI Skill 设计<em>AI Skills</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">把业务里的重复判断交给 Agent，把人的判断留给真正需要判断的地方。</p>
+
+    <article class="entry">
+      <span class="entry-no">01</span>
+      <div>
+        <h3>游戏活动业务 Agent<em>Game Ops Agent</em></h3>
+        <p>0→1 设计面向游戏活动配置全流程的 Agent：信息查漏、活动校验、自动化配置，把原本依赖人工逐项核对的链路压缩为可复用的自动化流程，业务全流程提效。</p>
+        <ul class="tags"><li>0→1 设计</li><li>Agent</li><li>流程自动化</li><li>腾讯 IEG</li></ul>
+      </div>
+    </article>
+
+    <article class="entry">
+      <span class="entry-no">02</span>
+      <div>
+        <h3>SKU 标准化产品<em>SKU Standardizer</em></h3>
+        <p>将运营侧的非标需求表转译为标准模板，接入平台既有数据做自动校验与缺失字段补全，让「配置」这件事从经验驱动变成规则驱动。</p>
+        <ul class="tags"><li>标准化</li><li>规则引擎</li><li>数据校验</li></ul>
+      </div>
+    </article>
+
+    <p style="margin-top:26px;">
+      <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/tencent-projects/" target="_blank" rel="noopener">查看完整项目总览（含演示视频）→</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ AI 视频设计 ============ -->
+<section class="section section--ink reveal" id="videos">
+  <span class="sec-ghost">03</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 03</span>
+      <h2 class="sec-title">AI 视频设计<em>AIGC Film</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。</p>
+    <div class="zones">
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 01</span>
+        <h3>AIGC 影像作品 01</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 02</span>
+        <h3>AIGC 影像作品 02</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 03</span>
+        <h3>AIGC 影像作品 03</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI 论文 ============ -->
+<section class="section section--paper reveal" id="research">
+  <span class="sec-ghost">04</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 04</span>
+      <h2 class="sec-title">AI 论文<em>Research</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">第一作者发表 3 篇论文，其中 1 篇 <b style="color:var(--accent);font-weight:600;">SCI Q1（IF = 13.9）</b></p>
+
+    <article class="entry">
+      <span class="entry-no">01</span>
+      <div>
+        <h3>Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design?<em>Human-AI Collaboration</em></h3>
+        <p>探究人机协作设计中「任务如何分配」如何影响消费者对结果的评价，为 AI 介入设计流程的分工策略提供实证依据。</p>
+        <p class="journal">Journal of Retailing and Consumer Services, 94, 105018 (2027) · <b>SCI Q1 · IF 13.9</b></p>
+        <a class="lnk" href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <span class="entry-no">02</span>
+      <div>
+        <h3>The Inheritance and Innovation of Blue Calico Culture Driven by AIGC<em>AIGC · Blue Calico</em></h3>
+        <p>以蓝印花布为对象，探索生成式 AI 驱动的设计框架与工艺可视化路径，回应非遗传承中的创新命题。</p>
+        <p class="journal">AHFE 2026 International Conference · AHFE Open Access, vol 216</p>
+        <a class="lnk" href="https://doi.org/10.54941/ahfe1007635" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <span class="entry-no">03</span>
+      <div>
+        <h3>Enhancing Comprehension of Smart Product Benefits for Senior Users<em>Senior Users · Smart Products</em></h3>
+        <p>研究文本抽象度与图像复杂度对老年用户智能产品理解的影响，为适老化信息呈现提供设计准则。</p>
+        <p class="journal">IDIE 2026 · 文本抽象度与图像复杂度对老年用户产品理解的影响</p>
+        <a class="lnk" href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 荣誉 ============ -->
+<!-- ============ 汽车专栏 ============ -->
+<section class="section section--panel reveal" id="auto">
+  <span class="sec-ghost">05</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 05</span>
+      <h2 class="sec-title">汽车专栏<em>Automotive</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">智能座舱 HMI · 品牌视觉 · 概念车造型，共 3 个项目。</p>
+    <div class="zones">
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 01</span>
+        <h3>智能座舱 HMI</h3>
+        <p>座舱交互信息架构与界面设计，含完整设计流程。</p>
+        <span class="go">查看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 02</span>
+        <h3>汽车品牌视觉</h3>
+        <p>品牌视觉语言与延展物料设计。</p>
+        <span class="go">查看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 03</span>
+        <h3>概念车造型</h3>
+        <p>概念车外造型与三维建模。</p>
+        <span class="go">查看 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 设计竞赛荣誉 ============ -->
+<section class="section section--ink reveal" id="awards">
+  <span class="sec-ghost">06</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 06</span>
+      <h2 class="sec-title">设计竞赛荣誉<em>Awards</em></h2>
+    </div>
+    <div class="honors">
+      <div class="honor"><span>🏆 国家奖学金</span><b>1 / 115</b></div>
+      <div class="honor"><span>🏆 黑龙江省三好学生</span><b>Provincial</b></div>
+      <div class="honor"><span>🏆 米兰设计周等国家级设计奖</span><b>14 项</b></div>
+      <div class="honor"><span>🏆 G-Mark 国际类设计奖</span><b>3 项</b></div>
+      <div class="honor"><span>🏆 IDEA 等设计奖</span><b>3 项</b></div>
+      <div class="honor"><span>🏆 互联网+ 等工程类奖</span><b>12 项</b></div>
+    </div>
+    <p style="margin-top:26px;">
+      <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/certificates/">查看获奖证书存档（5 份原文件）→</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 联系 ============ -->
+<section class="contact section--accent reveal" id="contact">
+  <span class="sec-ghost">07</span>
+  <div class="wrap">
+    <p class="eyebrow">Zone 07 · Contact</p>
+    <h2>一起做点能被现实验证的东西。</h2>
+    <p class="sub">Open to AI 产品 / 用户研究 / AIGC 方向的合作、实习与项目机会。</p>
+    <div class="contact-links">
+      <a href="https://github.com/cunxintao-hub" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://cunxintao-hub.github.io/ai-creation/">AI 影像</a>
+      <a href="https://cunxintao-hub.github.io/auto-design/">汽车专栏</a>
+      <a href="https://cunxintao-hub.github.io/certificates/">证书存档</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 陶存心 · Cunxin Tao</span>
+  <span>Shenzhen / Harbin · <a href="https://github.com/cunxintao-hub" target="_blank" rel="noopener">github.com/cunxintao-hub</a></span>
+</footer>
+
+<script>
+  // 滚动进度条
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // 入场动画
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  // 导航高亮
+  var links = Array.prototype.slice.call(document.querySelectorAll('#navLinks a'));
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id);
+      });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  links.forEach(function (a) {
+    var el = document.querySelector(a.getAttribute('href'));
+    if (el) spy.observe(el);
+  });
+
+  // 首屏视频：确保自动播放 + 声音开关
+  var video = document.getElementById('heroVideo');
+  var sBtn  = document.getElementById('soundBtn');
+  var sTxt  = document.getElementById('soundLabel');
+
+  if (video) {
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { video.muted = true; video.play().catch(function () {}); });
+    // 低端设备省流：不可见时暂停
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { video.play().catch(function () {}); }
+        else { video.pause(); }
+      });
+    }, { threshold: 0 }).observe(video);
+  }
+
+  if (sBtn && video) {
+    sBtn.addEventListener('click', function () {
+      video.muted = !video.muted;
+      if (!video.muted) video.play().catch(function () {});
+      sBtn.classList.toggle('is-on', !video.muted);
+      sBtn.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
+      sTxt.textContent = video.muted ? '点击开声音' : '点击静音';
+    });
+  }
+</script>
 
 </body>
 </html>
