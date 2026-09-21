@@ -456,25 +456,28 @@
   /* ==========================================================
      Selected Works · 作品精选
      ========================================================== */
-  /* ---------- 影片并列网格 ---------- */
-  .film-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-  .film-cell { display: block; color: inherit; }
-  .film-media { aspect-ratio: 16/9; overflow: hidden; border-radius: 8px;
-    border: 1px solid var(--line); background: #0d1117; }
-  .film-media video, .film-media img { width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .5s var(--ease); }
-  .film-cell:hover .film-media video, .film-cell:hover .film-media img { transform: scale(1.04); }
-  .film-media--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
+  /* ---------- 影片横条列表 ---------- */
+  .film-rows { display: flex; flex-direction: column; gap: 18px; }
+  .film-row { display: flex; gap: 30px; align-items: center;
+    background: #12141a; border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; color: inherit;
+    transition: border-color .25s var(--ease), background .25s var(--ease); }
+  .film-row:hover { border-color: #3a4149; background: #151821; }
+  .film-cover { width: 280px; aspect-ratio: 16/9; overflow: hidden; border-radius: 6px;
+    background: #0d1117; flex-shrink: 0; }
+  .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .film-cover--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 6px; border: 1px dashed #34353c; color: var(--muted); }
-  .film-media--slot span:first-child { font-size: 24px; font-weight: 300; color: #565a63; font-family: var(--sans); }
+  .film-cover--slot span:first-child { font-size: 22px; font-weight: 300; color: #565a63; font-family: var(--sans); }
   .slot-tip { font-family: var(--sans); font-size: 10px; letter-spacing: .16em; }
-  .film-grid .film-cat { font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
-    color: var(--muted); text-transform: uppercase; margin-top: 14px; }
-  .film-grid h3 { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: 19px;
-    font-weight: 700; color: var(--text); margin-top: 6px; }
-  .film-cell:hover h3 { color: var(--accent); }
+  .film-info { flex: 1; }
+  .film-cat { font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
+    color: var(--muted); text-transform: uppercase; }
+  .film-info h3 { font-size: 21px; font-weight: 700; color: var(--text); margin-top: 8px; }
+  .film-desc { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.8; }
   @media (max-width: 760px) {
-    .film-grid { grid-template-columns: 1fr; }
+    .film-row { flex-direction: column; align-items: stretch; }
+    .film-cover { width: 100%; }
   }
 
   /* ---------- 板块标题页（Zone 标题页式） ---------- */
@@ -761,38 +764,50 @@
   <div class="zn-wrap">
     <p class="zn-lede">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。点击卡片观看完整版。</p>
 
-    <div class="film-grid">
-      <a class="film-cell" href="assets/film-01.mp4" target="_blank" rel="noopener">
-        <div class="film-media">
-          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
-        </div>
-        <p class="film-cat">Film 01 · 33s</p>
-        <h3>四季簪花录</h3>
-      </a>
-
-      <a class="film-cell" href="assets/hero.mp4" target="_blank" rel="noopener">
-        <div class="film-media">
+    <div class="film-rows">
+      <a class="film-row" href="assets/hero.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
           <video src="assets/hero.mp4" autoplay muted loop playsinline preload="metadata"></video>
         </div>
-        <p class="film-cat">Film 02 · 25s</p>
-        <h3>陪伴</h3>
+        <div class="film-info">
+          <p class="film-cat">Film 01 · 25s · 16:9</p>
+          <h3>四季簪花录</h3>
+          <p class="film-desc">文生视频 / 图生视频 · 分镜驱动 · 完全独立制作。点击观看完整版（含声音）。</p>
+        </div>
       </a>
 
-      <a class="film-cell" href="assets/film-02.mp4" target="_blank" rel="noopener">
-        <div class="film-media">
+      <a class="film-row" href="assets/film-02.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
           <video src="assets/film-02.mp4" autoplay muted loop playsinline preload="metadata"></video>
         </div>
-        <p class="film-cat">Film 03 · 5s</p>
-        <h3>赛博程序员</h3>
+        <div class="film-info">
+          <p class="film-cat">Film 02 · 5s · 竖屏</p>
+          <h3>陪伴</h3>
+          <p class="film-desc">AIGC 人物形象动态短片 · 完全独立制作。点击观看完整版。</p>
+        </div>
       </a>
 
-      <a class="film-cell film-cell--slot" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
-        <div class="film-media film-media--slot">
+      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
+        <div class="film-cover film-cover--slot">
           <span>＋</span>
           <span class="slot-tip">视频待补</span>
         </div>
-        <p class="film-cat">Film 04 · Upcoming</p>
-        <h3>园林雨景</h3>
+        <div class="film-info">
+          <p class="film-cat">Film 03 · Upcoming</p>
+          <h3>赛博程序员</h3>
+          <p class="film-desc">新作品制作中，完成后替换。更多作品见 AI 影像专栏。</p>
+        </div>
+      </a>
+
+      <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
+          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 04 · 33s · 16:9</p>
+          <h3>园林雨景</h3>
+          <p class="film-desc">五镜首尾相连 · 慢节奏东方美学 · 完全独立制作。点击观看完整版（含声音）。</p>
+        </div>
       </a>
     </div>
   </div>
