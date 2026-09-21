@@ -443,16 +443,22 @@
     font-size: clamp(16px, 2vw, 22px); color: var(--dim); margin-top: 8px; }
   .zn-img { width: 300px; aspect-ratio: 3/2; object-fit: cover; display: block; flex-shrink: 0; }
   .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
-  .zn-card { display: flex; gap: 28px; padding: 32px 4px; border-top: 1px solid var(--line); color: inherit; }
-  .zn-card:last-of-type { border-bottom: 1px solid var(--line); }
-  .zn-no { font-family: var(--mono); font-size: 12px; color: var(--dim); padding-top: 6px; }
-  .zn-card h3 { font-size: 22px; font-weight: 700; color: var(--text); transition: color .25s var(--ease); }
-  .zn-card h3 em { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .18em;
-    color: var(--accent); margin-left: 12px; text-transform: uppercase; vertical-align: 3px; }
-  .zn-card p { font-size: 14px; color: var(--muted); margin-top: 9px; line-height: 1.8; max-width: 720px; }
-  .zn-go { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
-    color: var(--accent); margin-top: 14px; }
-  .zn-card:hover h3 { color: var(--accent); }
+  .zn-cards { display: flex; flex-direction: column; gap: 18px; }
+  .zn-card { position: relative; display: block; background: #12141a; border: 1px solid var(--line);
+    border-radius: 10px; padding: 26px 34px 22px; color: inherit;
+    transition: border-color .25s var(--ease), background .25s var(--ease); }
+  .zn-card:hover { border-color: #3a4149; background: #151821; }
+  .zn-no { position: absolute; top: 18px; right: 30px; font-family: var(--mono);
+    font-size: 34px; font-weight: 700; color: rgba(230,237,243,.07); line-height: 1; }
+  .zn-card h3 { font-size: 20px; font-weight: 700; color: var(--text); padding-right: 70px; }
+  .zn-desc { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.8; }
+  .zn-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; list-style: none; }
+  .zn-tags li { font-family: var(--sans); font-size: 11px; padding: 3px 12px; border-radius: 999px; border: 1px solid transparent; }
+  .zn-tags .t-y { color: #e3b341; border-color: rgba(227,179,65,.45); background: rgba(227,179,65,.08); }
+  .zn-tags .t-b { color: #58a6ff; border-color: rgba(88,166,255,.45); background: rgba(88,166,255,.08); }
+  .zn-tags .t-p { color: #bc8cff; border-color: rgba(188,140,255,.45); background: rgba(188,140,255,.08); }
+  .zn-tags .t-g { color: var(--muted); border-color: var(--line-2); }
+  .zn-go { display: inline-block; font-family: var(--sans); font-size: 13px; color: var(--accent); margin-top: 18px; }
   @media (max-width: 900px) {
     .zn-wrap { padding: 70px 22px 80px; }
     .zn-head { flex-direction: column; align-items: flex-start; }
@@ -651,27 +657,38 @@
         <h2 class="zn-title">腾讯实习</h2>
         <p class="zn-en">Tencent IEG · AI Product</p>
       </div>
-      <img class="zn-img" src="assets/work-agent.jpg" alt="腾讯实习 · AI 产品">
+      <img class="zn-img" src="assets/zn-figure.jpg" alt="人物形象">
     </div>
     <p class="zn-lede">把业务里的重复判断交给 Agent，把人的判断留给真正需要判断的地方。</p>
 
-    <a class="zn-card" href="tencent.html#agent">
-      <span class="zn-no">01</span>
-      <div>
-        <h3>游戏活动业务 Agent<em>Game Ops Agent</em></h3>
-        <p>0→1 设计面向游戏活动配置全流程的 Agent：信息查漏、活动校验、自动化配置，业务全流程提效。</p>
-        <span class="zn-go">查看详情 →</span>
-      </div>
-    </a>
+    <div class="zn-cards">
+      <a class="zn-card" href="tencent.html#agent">
+        <span class="zn-no">01</span>
+        <h3>AMS 道聚城礼包单智能配置平台</h3>
+        <p class="zn-desc">把活动策划案，通过多轮对话变成平台可直接导入的标准配置表</p>
+        <ul class="zn-tags">
+          <li class="t-y">项目 Owner · 0→1</li>
+          <li class="t-b">Agent Skill</li>
+          <li class="t-p">多轮交互</li>
+          <li class="t-g">MCP 集成</li>
+          <li class="t-g">记忆复用</li>
+        </ul>
+        <span class="zn-go">查看详情与演示视频 →</span>
+      </a>
 
-    <a class="zn-card" href="tencent.html#sku">
-      <span class="zn-no">02</span>
-      <div>
-        <h3>SKU 标准化产品<em>SKU Standardizer</em></h3>
-        <p>将运营侧的非标需求表转译为标准模板，接入平台既有数据做自动校验与缺失字段补全。</p>
-        <span class="zn-go">查看详情 →</span>
-      </div>
-    </a>
+      <a class="zn-card" href="tencent.html#sku">
+        <span class="zn-no">02</span>
+        <h3>大商城 SKU 自动化配置 · 多 Agent 协作流水线</h3>
+        <p class="zn-desc">非标需求表 → 双系统落库，一条流水线跑通且每步可校验</p>
+        <ul class="zn-tags">
+          <li class="t-y">架构设计 · 0→1</li>
+          <li class="t-b">Multi-Agent</li>
+          <li class="t-p">回归校验</li>
+          <li class="t-g">双系统依赖</li>
+        </ul>
+        <span class="zn-go">查看详情与演示视频 →</span>
+      </a>
+    </div>
 
     <p style="margin-top:26px;">
       <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/tencent-projects/" target="_blank" rel="noopener">查看完整项目总览（含演示视频）→</a>
