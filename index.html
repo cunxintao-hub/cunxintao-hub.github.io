@@ -382,7 +382,9 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--ab-muted); }
   .ab-slot .plus { font-family:var(--ab-sans); font-size:22px; font-weight:300; color:#565a63; }
   .ab-slot .tip { font-family:var(--ab-sans); font-size:10px; letter-spacing:.16em; }
-  .ab-intro { display:flex; gap:20px; align-items:flex-start; margin-bottom:34px; }
+  .ab-intro { display:flex; gap:44px; align-items:flex-start; margin-bottom:34px; }
+  .ab-figure { width:260px; aspect-ratio:3/4; object-fit:cover; flex-shrink:0;
+    border:1px solid var(--ab-line); background:#15161a; display:block; }
   .ab-avatar { width:260px; flex-shrink:0; border:1px solid var(--ab-line); background:#15161a; }
   video.ab-avatar { display:block; aspect-ratio:3/4; object-fit:cover; }
   .ab-welcome { font-family:var(--ab-serif); font-size:16.5px; color:#ece9e3; }
@@ -568,6 +570,7 @@
           <p class="ab-brief">我做的东西，一半是工具，一半是故事——把想象力交给工具，把判断留给自己。</p>
           <p class="ab-brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>
+        <video class="ab-figure" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
       </div>
 
       <hr class="ab-rule">

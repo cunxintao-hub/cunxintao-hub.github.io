@@ -67,7 +67,9 @@
   .photo--slot .plus { font-family: var(--sans); font-size: 22px; font-weight:300; color:#565a63; }
   .photo--slot .tip { font-family: var(--sans); font-size: 10px; letter-spacing:.16em; }
 
-  .intro-top { display:flex; gap:20px; align-items:flex-start; margin-bottom: 34px; }
+  .intro-top { display:flex; gap:44px; align-items:flex-start; margin-bottom: 34px; }
+  .figure { width:260px; aspect-ratio:3/4; object-fit:cover; flex-shrink:0;
+    border:1px solid var(--line); background:#15161a; display:block; }
   .avatar { width: 260px; flex-shrink:0; border:1px solid var(--line); background:#15161a; }
   video.avatar { display:block; aspect-ratio:3/4; object-fit:cover; }
   .welcome { font-size: 16.5px; }
@@ -158,6 +160,7 @@
           <p class="brief">我做的东西，一半是工具，一半是故事——把想象力交给工具，把判断留给自己。</p>
           <p class="brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>
+        <video class="figure" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
       </div>
 
       <hr class="rule">
