@@ -68,6 +68,7 @@
 
   .intro-top { display:flex; gap:20px; align-items:flex-start; margin-bottom: 34px; }
   .avatar { width: 124px; flex-shrink:0; border:1px solid var(--line); background:#15161a; }
+  video.avatar { display:block; aspect-ratio:16/9; object-fit:cover; }
   .welcome { font-size: 16.5px; }
   .welcome b { font-weight:700; }
   .brief { margin-top:10px; font-size: 14.5px; color: var(--soft); line-height: 1.95; }
@@ -152,10 +153,10 @@
     <!-- 右：内容 -->
     <main>
       <div class="intro-top">
-        <img class="avatar" src="assets/hero-poster.jpg" alt="我的 AIGC 形象">
+        <video class="avatar" src="assets/avatar.mp4" autoplay muted loop playsinline preload="metadata"></video>
         <div class="welcome">
           欢迎来到这里，我是<b>陶存心</b>。
-          <p class="brief">画面里这个小男孩，是我造的第一个会走路的角色。他从我的 AI 影像里走出来，替我去到我没去过的地方——也替我记住一件事：想象力可以交给工具，判断不行。</p>
+          <p class="brief">画面里这个小男孩，是我的 AIGC 人物形象——由我设计与驱动，是我在 AI 世界里的另一个自己：他负责替我探索想象力的边界，而判断，始终留在我手里。</p>
           <p class="brief">往下，你会看见我在做什么、相信什么，以及它们被现实检验之后的样子。</p>
         </div>
       </div>
