@@ -466,6 +466,22 @@
   .film-cover { width: 280px; aspect-ratio: 16/9; overflow: hidden; border-radius: 6px;
     background: #0d1117; flex-shrink: 0; }
   .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .film-cover { position: relative; cursor: pointer; }
+  .play-btn {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 54px; height: 54px; border-radius: 50%;
+    background: rgba(11,12,15,.62); border: 1px solid rgba(236,233,227,.5);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .play-btn::after {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    transform: translate(-40%,-50%);
+    border-left: 15px solid #ece9e3;
+    border-top: 9px solid transparent; border-bottom: 9px solid transparent;
+  }
+  .film-cover:hover .play-btn { transform: translate(-50%,-50%) scale(1.1); background: rgba(11,12,15,.8); }
+  .play-btn.is-hidden { opacity: 0; pointer-events: none; }
   .film-cover--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 6px; border: 1px dashed #34353c; color: var(--muted); }
   .film-cover--slot span:first-child { font-size: 22px; font-weight: 300; color: #565a63; font-family: var(--sans); }
@@ -767,7 +783,8 @@
     <div class="film-rows">
       <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4" target="_blank" rel="noopener">
         <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4" muted loop playsinline preload="metadata"></video>
+          <span class="play-btn" aria-hidden="true"></span>
         </div>
         <div class="film-info">
           <p class="film-cat">Film 01 · 中国风 AI 影像 · 5:00</p>
@@ -778,7 +795,8 @@
 
       <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4" target="_blank" rel="noopener">
         <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4" muted loop playsinline preload="metadata"></video>
+          <span class="play-btn" aria-hidden="true"></span>
         </div>
         <div class="film-info">
           <p class="film-cat">Film 02 · AI 影像 · 暖心 · 0:56</p>
@@ -789,7 +807,8 @@
 
       <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4" target="_blank" rel="noopener">
         <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4" muted loop playsinline preload="metadata"></video>
+          <span class="play-btn" aria-hidden="true"></span>
         </div>
         <div class="film-info">
           <p class="film-cat">Film 03 · 赛博朋克 AI 影像 · 1:00</p>
@@ -800,7 +819,8 @@
 
       <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
         <div class="film-cover">
-          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="assets/film-01.mp4" muted loop playsinline preload="metadata"></video>
+          <span class="play-btn" aria-hidden="true"></span>
         </div>
         <div class="film-info">
           <p class="film-cat">Film 04 · 慢节奏东方美学 · 33s</p>
@@ -811,7 +831,8 @@
 
       <a class="film-row" href="viewer3d.html">
         <div class="film-cover">
-          <video src="assets/model-preview.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="assets/model-preview.mp4" muted loop playsinline preload="metadata"></video>
+          <span class="play-btn" aria-hidden="true"></span>
         </div>
         <div class="film-info">
           <p class="film-cat">3D Model · AIGC · .glb</p>
@@ -1041,6 +1062,25 @@
       sTxt.textContent = video.muted ? '点击开声音' : '点击静音';
     });
   }
+
+  // 作品封面：默认暂停，点击播放按钮就地播放；点击卡片其他区域才进入详情
+  document.querySelectorAll('.film-cover').forEach(function (cover) {
+    var v = cover.querySelector('video');
+    var btn = cover.querySelector('.play-btn');
+    if (!v) return;
+    v.pause();
+    v.removeAttribute('autoplay');
+
+    function toggle(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (v.paused) { v.play().catch(function () {}); } else { v.pause(); }
+    }
+    if (btn) btn.addEventListener('click', toggle);
+    v.addEventListener('click', toggle);
+
+    v.addEventListener('play', function () { if (btn) btn.classList.add('is-hidden'); });
+    v.addEventListener('pause', function () { if (btn) btn.classList.remove('is-hidden'); });
+  });
 </script>
 
 </body>
