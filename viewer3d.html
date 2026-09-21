@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D 模型查看 · 陶存心 CUNXIN TAO</title>
+<style>
+  :root { --bg:#0b0c0f; --ink:#ece9e3; --muted:#7d7971; --line:#26262b; --green:#93b189;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --serif:"Noto Serif SC","Songti SC","SimSun",serif; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--serif); }
+  a { color:inherit; text-decoration:none; }
+  .nav { display:flex; align-items:center; justify-content:space-between;
+    padding:0 34px; height:58px; border-bottom:1px solid var(--line); }
+  .nav .logo { font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.22em; }
+  .nav .back { font-family:var(--sans); font-size:12px; color:var(--muted); }
+  .nav .back:hover { color:var(--ink); }
+  .wrap { max-width:1080px; margin:0 auto; padding:56px 34px 80px; }
+  .kicker { font-family:var(--sans); font-size:11px; letter-spacing:.3em; color:var(--muted); text-transform:uppercase; }
+  h1 { font-size:clamp(30px,4.5vw,48px); font-weight:700; margin-top:12px; }
+  .sub { color:var(--muted); font-style:italic; margin-top:8px; font-size:16px; }
+  .stage { margin-top:36px; border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    background:radial-gradient(120% 100% at 50% 0%, #171a21 0%, #0b0c0f 70%); }
+  model-viewer { width:100%; height:min(72vh,720px); }
+  .tips { display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:22px;
+    font-family:var(--sans); font-size:12px; color:var(--muted); letter-spacing:.06em; }
+  .tips span b { color:var(--green); font-weight:600; margin-right:6px; }
+  .dl { margin-top:34px; display:flex; gap:22px; font-family:var(--sans); font-size:13px; }
+  .dl a { color:var(--soft); border:1px solid var(--line); padding:10px 20px; border-radius:4px;
+    transition:color .2s,border-color .2s; }
+  .dl a:hover { color:var(--green); border-color:var(--green); }
+  footer { border-top:1px solid var(--line); padding:26px 34px 40px; font-family:var(--sans);
+    font-size:11px; color:var(--muted); letter-spacing:.06em; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a class="logo" href="index.html">CUNXIN TAO</a>
+  <a class="back" href="index.html#videos">← 返回作品</a>
+</div>
+
+<div class="wrap">
+  <p class="kicker">3D Model · AIGC</p>
+  <h1>3D 模型创作</h1>
+  <p class="sub">从 AIGC 人物形象到可交互三维模型 —— 拖动旋转，滚轮缩放。</p>
+
+  <div class="stage">
+    <model-viewer src="assets/model-boy.glb" alt="AIGC 3D 模型"
+      camera-controls auto-rotate rotation-per-second="30deg"
+      shadow-intensity="1" exposure="1.05"
+      interaction-prompt="auto"></model-viewer>
+  </div>
+
+  <div class="tips">
+    <span><b>拖动</b>旋转视角</span>
+    <span><b>滚轮</b>缩放模型</span>
+    <span><b>自动</b>匀速展示</span>
+  </div>
+
+  <div class="dl">
+    <a href="assets/model-boy.glb" download>下载模型 (.glb)</a>
+    <a href="index.html#videos">返回视频创作区</a>
+  </div>
+</div>
+
+<footer>© 2026 陶存心 · CUNXIN TAO</footer>
+
+<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</body>
+</html>
