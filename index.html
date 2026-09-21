@@ -418,6 +418,17 @@
   /* ==========================================================
      Selected Works · 作品精选
      ========================================================== */
+  /* ---------- 影片播放 ---------- */
+  .film-feature { margin-bottom: 34px; }
+  .film-feature video {
+    width: 100%; display: block; background: #000;
+    border: 1px solid var(--line); aspect-ratio: 16 / 9; object-fit: contain;
+  }
+  .film-cap {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    color: var(--muted); text-transform: uppercase; margin-top: 12px;
+  }
+
   .section--works { background:#0b0c0f; border-bottom:1px solid #26262b; }
   .sw-wrap { max-width:1120px; margin:0 auto; padding:96px 40px 110px; }
   .sw-kicker { font-family:var(--mono); font-size:10.5px; letter-spacing:.3em; color:#7d7971; text-transform:uppercase; }
@@ -644,6 +655,13 @@
       <h2 class="sec-title">AI 视频设计<em>AIGC Film</em></h2>
     </div>
     <p style="color:var(--muted);margin-bottom:26px;">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。</p>
+
+    <div class="film-feature">
+      <video src="assets/film-01.mp4" poster="assets/film-01.jpg"
+             controls playsinline preload="metadata"></video>
+      <p class="film-cap">Film 01 · 33s · 16:9 · 完全独立制作</p>
+    </div>
+
     <div class="zones">
       <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
         <span class="z-en">Film 01</span>
