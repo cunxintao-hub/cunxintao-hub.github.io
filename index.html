@@ -416,6 +416,31 @@
   }
 
   /* ==========================================================
+     Selected Works · 作品精选
+     ========================================================== */
+  .section--works { background:#0b0c0f; border-bottom:1px solid #26262b; }
+  .sw-wrap { max-width:1120px; margin:0 auto; padding:96px 40px 110px; }
+  .sw-kicker { font-family:var(--mono); font-size:10.5px; letter-spacing:.3em; color:#7d7971; text-transform:uppercase; }
+  .sw-title { font-family:"Noto Serif SC","Songti SC","SimSun",serif; font-size:clamp(34px,4.6vw,52px);
+    line-height:1.12; color:#ece9e3; margin:10px 0 46px; font-weight:700; }
+  .sw-title span { display:block; font-style:italic; font-weight:400; color:#6d6963; }
+  .sw-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .sw-card { display:block; color:inherit; }
+  .sw-img { aspect-ratio:3/2.1; overflow:hidden; background:#15161a; }
+  .sw-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease); }
+  .sw-card:hover .sw-img img { transform:scale(1.05); }
+  .sw-cat { font-family:var(--mono); font-size:10px; letter-spacing:.24em; color:#7d7971; text-transform:uppercase; margin-top:16px; }
+  .sw-name { font-family:"Noto Serif SC","Songti SC","SimSun",serif; font-size:21px; font-weight:700; color:#ece9e3; margin-top:7px; }
+  .sw-desc { font-size:12.5px; color:#8d887c; margin-top:5px; line-height:1.7; }
+  @media (max-width:900px) {
+    .sw-wrap { padding:70px 22px 80px; }
+    .sw-grid { grid-template-columns:repeat(2,1fr); gap:18px; }
+  }
+  @media (max-width:600px) {
+    .sw-grid { grid-template-columns:1fr; }
+  }
+
+  /* ==========================================================
      响应式
      ========================================================== */
   @media (max-width: 880px) {
@@ -533,6 +558,46 @@
         <a href="certificates/">证书存档</a>
       </div>
     </main>
+  </div>
+</section>
+
+<!-- ============ 作品精选 ============ -->
+<section class="section section--works" id="works">
+  <div class="sw-wrap">
+    <p class="sw-kicker">作品全览 · Selected</p>
+    <h2 class="sw-title">Selected<span>Works</span></h2>
+    <div class="sw-grid">
+      <a class="sw-card" href="#skills">
+        <div class="sw-img"><img src="assets/work-agent.jpg" alt="腾讯实习"></div>
+        <p class="sw-cat">Tencent IEG · AI Product</p>
+        <h3 class="sw-name">腾讯实习</h3>
+        <p class="sw-desc">AI 产品落地 · 游戏活动业务 Agent 0→1 设计</p>
+      </a>
+      <a class="sw-card" href="#videos">
+        <div class="sw-img"><img src="assets/hero-poster.jpg" alt="AI 视频创作"></div>
+        <p class="sw-cat">AIGC Film · Direction</p>
+        <h3 class="sw-name">AI 视频创作</h3>
+        <p class="sw-desc">完全独立制作的 AI 影像与动态叙事</p>
+      </a>
+      <a class="sw-card" href="#research">
+        <div class="sw-img"><img src="assets/work-paper.jpg" alt="AI 论文"></div>
+        <p class="sw-cat">Research · SCI Q1</p>
+        <h3 class="sw-name">AI 论文</h3>
+        <p class="sw-desc">第一作者发表 3 篇，含 SCI Q1 与 AHFE 国际会议</p>
+      </a>
+      <a class="sw-card" href="#auto">
+        <div class="sw-img"><img src="assets/work-auto.jpg" alt="汽车专栏"></div>
+        <p class="sw-cat">Automotive · HMI</p>
+        <h3 class="sw-name">汽车专栏</h3>
+        <p class="sw-desc">智能座舱体验研究与 HMI 设计实践</p>
+      </a>
+      <a class="sw-card" href="#awards">
+        <div class="sw-img"><img src="assets/work-award.jpg" alt="竞赛荣誉"></div>
+        <p class="sw-cat">Awards · Honors</p>
+        <h3 class="sw-name">竞赛荣誉</h3>
+        <p class="sw-desc">国家奖学金 · 30+ 项国际与国家级设计奖项</p>
+      </a>
+    </div>
   </div>
 </section>
 
