@@ -32,9 +32,20 @@
   .dl a:hover { color:var(--green); border-color:var(--green); }
   footer { border-top:1px solid var(--line); padding:26px 34px 40px; font-family:var(--sans);
     font-size:11px; color:var(--muted); letter-spacing:.06em; }
+  /* 内嵌模式（在首页展开时隐藏外层导航与页脚） */
+  .embed .nav, .embed footer, .embed .dl { display:none !important; }
+  .embed .wrap { padding:22px 20px 34px; }
+  .embed h1 { font-size:24px; }
+  .embed .sub { font-size:14px; }
+  .embed .stage { margin-top:20px; }
+  .embed model-viewer { height:420px; }
 </style>
 </head>
 <body>
+
+<script>
+  if (location.search.indexOf('embed') >= 0) document.body.classList.add('embed');
+</script>
 
 <div class="nav">
   <a class="logo" href="index.html">CUNXIN TAO</a>

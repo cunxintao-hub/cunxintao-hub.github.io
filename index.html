@@ -467,6 +467,24 @@
     background: #0d1117; flex-shrink: 0; }
   .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .film-cover { position: relative; cursor: pointer; }
+  .film-row { flex-wrap: wrap; cursor: pointer; }
+  .film-more { display: inline-block; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: .18em; color: var(--accent); margin-top: 14px; }
+  .film-row.is-open .film-more { color: var(--muted); }
+  .film-detail { flex: 0 0 100%; display: none; margin-top: 22px; padding-top: 22px;
+    border-top: 1px solid var(--line); cursor: default; }
+  .film-row.is-open .film-detail { display: block; }
+  .detail-video { width: 100%; aspect-ratio: 16/9; background: #000; display: block;
+    border: 1px solid var(--line); border-radius: 8px; }
+  .detail-frame { width: 100%; height: 560px; border: 1px solid var(--line); border-radius: 8px; background: #0b0c0f; }
+  .detail-text { margin-top: 20px; }
+  .detail-text b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
+    color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
+  .detail-text p { font-size: 14px; color: var(--soft); line-height: 1.95; }
+  .detail-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .detail-tags li { font-family: var(--sans); font-size: 11px; color: var(--muted);
+    border: 1px solid var(--line-2); padding: 3px 12px; border-radius: 999px; }
+  @media (max-width: 760px) { .detail-frame { height: 420px; } }
   .play-btn {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
     width: 54px; height: 54px; border-radius: 50%;
@@ -781,7 +799,7 @@
     <p class="zn-lede">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。点击卡片观看完整版。</p>
 
     <div class="film-rows">
-      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/video.html" target="_blank" rel="noopener">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
         <div class="film-cover">
           <video src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4" muted loop playsinline preload="metadata"></video>
           <span class="play-btn" aria-hidden="true"></span>
@@ -790,10 +808,20 @@
           <p class="film-cat">Film 01 · 中国风 AI 影像 · 5:00</p>
           <h3>四季簪花录</h3>
           <p class="film-desc">以中国传统「簪花」文化为灵感，用 AI 影像呈现四季流转下的花事美学，融合书法、烟雾、留白等东方视觉语言。</p>
+          <span class="film-more">展开完整影片与创作说明 ↓</span>
         </div>
-      </a>
+        <div class="film-detail">
+          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4"
+                 controls playsinline preload="none"></video>
+          <div class="detail-text">
+            <b>创作说明 · Statement</b>
+            <p>以「簪花」这一传统习俗为线索，用 AI 影像重构四季：春樱、夏荷、秋菊、冬梅依次落在同一位少女的发间。转场取自书法笔触的起收，节奏由烟雾的扩散与大量留白控制，让花事成为时间的刻度。</p>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>文生视频</li><li>东方美学</li><li>5:00</li></ul>
+          </div>
+        </div>
+      </article>
 
-      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/video.html" target="_blank" rel="noopener">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
         <div class="film-cover">
           <video src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4" muted loop playsinline preload="metadata"></video>
           <span class="play-btn" aria-hidden="true"></span>
@@ -802,10 +830,20 @@
           <p class="film-cat">Film 02 · AI 影像 · 暖心 · 0:56</p>
           <h3>陪伴</h3>
           <p class="film-desc">机器人推着轮椅，在秋日银杏小路缓缓前行。探讨科技与陪伴的关系——冰冷的机械，能否承载温柔的守望。</p>
+          <span class="film-more">展开完整影片与创作说明 ↓</span>
         </div>
-      </a>
+        <div class="film-detail">
+          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4"
+                 controls playsinline preload="none"></video>
+          <div class="detail-text">
+            <b>创作说明 · Statement</b>
+            <p>秋日，银杏铺满小路，机器人缓缓推着轮椅前行。我想象的是一种不喧哗的陪伴：科技不必像人，也不必证明自己温柔——它只要在。</p>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>情感叙事</li><li>图生视频</li><li>0:56</li></ul>
+          </div>
+        </div>
+      </article>
 
-      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/video.html" target="_blank" rel="noopener">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
         <div class="film-cover">
           <video src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4" muted loop playsinline preload="metadata"></video>
           <span class="play-btn" aria-hidden="true"></span>
@@ -814,10 +852,20 @@
           <p class="film-cat">Film 03 · 赛博朋克 AI 影像 · 1:00</p>
           <h3>赛博程序员</h3>
           <p class="film-desc">霓虹夜色，墨镜下的指尖飞舞于代码之间。一个 AI 想象的人机协作未来场景。</p>
+          <span class="film-more">展开完整影片与创作说明 ↓</span>
         </div>
-      </a>
+        <div class="film-detail">
+          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4"
+                 controls playsinline preload="none"></video>
+          <div class="detail-text">
+            <b>创作说明 · Statement</b>
+            <p>霓虹、代码、墨镜上映出的反光——这是我对人机协作未来的一次视觉预演：当写代码变成一场即兴演奏，人依然是那个定节奏的人。</p>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>赛博朋克</li><li>未来叙事</li><li>1:00</li></ul>
+          </div>
+        </div>
+      </article>
 
-      <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
         <div class="film-cover">
           <video src="assets/film-01.mp4" muted loop playsinline preload="metadata"></video>
           <span class="play-btn" aria-hidden="true"></span>
@@ -825,11 +873,20 @@
         <div class="film-info">
           <p class="film-cat">Film 04 · 慢节奏东方美学 · 33s</p>
           <h3>园林雨景</h3>
-          <p class="film-desc">五镜首尾相连，窗、庭、廊、檐、亭的雨中漫游——留白与框景的东方叙事。点击观看完整版（含声音）。</p>
+          <p class="film-desc">五镜首尾相连，窗、庭、廊、檐、亭的雨中漫游——留白与框景的东方叙事。</p>
+          <span class="film-more">展开完整影片与创作说明 ↓</span>
         </div>
-      </a>
+        <div class="film-detail">
+          <video class="detail-video" data-src="assets/film-01.mp4" controls playsinline preload="none"></video>
+          <div class="detail-text">
+            <b>创作说明 · Statement</b>
+            <p>五镜首尾相连：窗内望雨、庭院积水、回廊檐滴、游廊转折、孤亭老树。全片以雨、水痕、檐角、框景为视觉母题，慢节奏推进，让镜头替观众呼吸。</p>
+            <ul class="detail-tags"><li>AIGC 影像</li><li>分镜驱动</li><li>首尾帧</li><li>33s</li></ul>
+          </div>
+        </div>
+      </article>
 
-      <a class="film-row" href="viewer3d.html">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
         <div class="film-cover">
           <video src="assets/model-preview.mp4" muted loop playsinline preload="metadata"></video>
           <span class="play-btn" aria-hidden="true"></span>
@@ -837,9 +894,18 @@
         <div class="film-info">
           <p class="film-cat">3D Model · AIGC · .glb</p>
           <h3>3D 模型创作</h3>
-          <p class="film-desc">从 AIGC 人物形象到可交互三维模型——进入页面可拖动旋转、缩放查看，支持下载 .glb 源文件。</p>
+          <p class="film-desc">从 AIGC 人物形象到可交互三维模型——展开后可拖动旋转、缩放查看，支持下载 .glb 源文件。</p>
+          <span class="film-more">展开 3D 模型与创作说明 ↓</span>
         </div>
-      </a>
+        <div class="film-detail">
+          <iframe class="detail-frame" data-src="viewer3d.html?embed=1" title="3D 模型查看" loading="lazy"></iframe>
+          <div class="detail-text">
+            <b>创作说明 · Statement</b>
+            <p>先确定 AIGC 人物形象的三视图，再生成可交互的三维模型（.glb）：从形象设定到可旋转、可缩放、可下载的三维资产，一次跑通。</p>
+            <ul class="detail-tags"><li>AIGC 3D</li><li>.glb 模型</li><li>可交互查看</li><li>4.9MB</li></ul>
+          </div>
+        </div>
+      </article>
     </div>
 
     <div class="zones" style="margin-top:30px;">
@@ -1089,6 +1155,42 @@
 
     v.addEventListener('play', function () { if (btn) btn.classList.add('is-hidden'); });
     v.addEventListener('pause', function () { if (btn) btn.classList.remove('is-hidden'); });
+  });
+
+  // 作品条目：就地展开完整影片 / 3D 模型 + 创作说明（不跳转新页面）
+  document.querySelectorAll('.film-row').forEach(function (row) {
+    function toggle() {
+      var open = row.classList.toggle('is-open');
+      row.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var more = row.querySelector('.film-more');
+      if (more) more.textContent = open ? '收起 ↑' : (row.querySelector('.detail-frame') ? '展开 3D 模型与创作说明 ↓' : '展开完整影片与创作说明 ↓');
+      var cover = row.querySelector('.film-cover video');
+      if (open) {
+        if (cover) cover.pause();
+        var dv = row.querySelector('.detail-video');
+        if (dv && !dv.getAttribute('src')) {
+          var s = dv.getAttribute('data-src');
+          if (s) dv.setAttribute('src', s);
+        }
+        var fr = row.querySelector('.detail-frame');
+        if (fr && !fr.getAttribute('src')) {
+          var fs = fr.getAttribute('data-src');
+          if (fs) fr.setAttribute('src', fs);
+        }
+      } else {
+        var dv2 = row.querySelector('.detail-video');
+        if (dv2) dv2.pause();
+      }
+    }
+    row.addEventListener('click', function (e) {
+      if (e.target.closest('.film-detail')) return;
+      if (e.target.closest('.play-btn')) return;
+      if (e.target.tagName === 'VIDEO') return;
+      toggle();
+    });
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
   });
 </script>
 
