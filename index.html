@@ -286,12 +286,11 @@
   }
   .entry .journal b { color: var(--accent); font-weight: 400; }
   .entry a.lnk {
-    display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12.5px;
-    letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
-    border: 1px solid rgba(88,166,255,.45); padding: 10px 22px; border-radius: 4px;
-    transition: border-color .25s var(--ease), background .25s var(--ease);
+    display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    border-bottom: 1px solid rgba(88,166,255,.35); padding-bottom: 2px;
+    transition: border-color .25s var(--ease);
   }
-  .entry a.lnk:hover { background: var(--accent-dim); border-color: var(--accent); }
   .entry a.lnk:hover { border-bottom-color: var(--accent); }
 
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; list-style: none; }
@@ -344,18 +343,6 @@
   .contact h2 { font-size: clamp(30px,5vw,58px); font-weight: 700; line-height: 1.16; max-width: 18ch; letter-spacing: -.02em; }
   .contact .sub { margin-top: 16px; color: var(--muted); max-width: 52ch; }
   .contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-  .contact-info { display: flex; flex-wrap: wrap; gap: 18px 56px; margin-top: 34px; }
-  .contact-info .ci b {
-    display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-  }
-  .contact-info .ci a {
-    font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; letter-spacing: .04em;
-    color: var(--text); border-bottom: 1px solid var(--line-2); padding-bottom: 4px;
-    transition: color .25s var(--ease), border-color .25s var(--ease);
-  }
-  .contact-info .ci a:hover { color: var(--accent); border-color: var(--accent); }
-
   .contact-links a {
     font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
     color: var(--text); border: 1px solid var(--line-2); padding: 11px 20px;
@@ -456,28 +443,15 @@
   /* ==========================================================
      Selected Works · 作品精选
      ========================================================== */
-  /* ---------- 影片横条列表 ---------- */
-  .film-rows { display: flex; flex-direction: column; gap: 18px; }
-  .film-row { display: flex; gap: 30px; align-items: center;
-    background: #12141a; border: 1px solid var(--line); border-radius: 10px;
-    padding: 18px; color: inherit;
-    transition: border-color .25s var(--ease), background .25s var(--ease); }
-  .film-row:hover { border-color: #3a4149; background: #151821; }
-  .film-cover { width: 280px; aspect-ratio: 16/9; overflow: hidden; border-radius: 6px;
-    background: #0d1117; flex-shrink: 0; }
-  .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .film-cover--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; border: 1px dashed #34353c; color: var(--muted); }
-  .film-cover--slot span:first-child { font-size: 22px; font-weight: 300; color: #565a63; font-family: var(--sans); }
-  .slot-tip { font-family: var(--sans); font-size: 10px; letter-spacing: .16em; }
-  .film-info { flex: 1; }
-  .film-cat { font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
-    color: var(--muted); text-transform: uppercase; }
-  .film-info h3 { font-size: 21px; font-weight: 700; color: var(--text); margin-top: 8px; }
-  .film-desc { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.8; }
-  @media (max-width: 760px) {
-    .film-row { flex-direction: column; align-items: stretch; }
-    .film-cover { width: 100%; }
+  /* ---------- 影片播放 ---------- */
+  .film-feature { margin-bottom: 34px; }
+  .film-feature video {
+    width: 100%; display: block; background: #000;
+    border: 1px solid var(--line); aspect-ratio: 16 / 9; object-fit: contain;
+  }
+  .film-cap {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    color: var(--muted); text-transform: uppercase; margin-top: 12px;
   }
 
   /* ---------- 板块标题页（Zone 标题页式） ---------- */
@@ -751,63 +725,38 @@
 
 <!-- ============ AI 视频设计 ============ -->
 <section class="section section--ink reveal" id="videos">
-  <div class="zn-banner">
-    <div class="zn-banner-inner">
-      <img class="zn-bimg" src="assets/film-01.jpg" alt="AI 视频创作">
-      <div>
-        <p class="zn-kicker">Zone 03 · AI 视频创作</p>
-        <h2 class="zn-btitle">视频创作</h2>
-        <p class="zn-ben">AIGC Film · Direction</p>
-      </div>
+  <span class="sec-ghost">03</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 03</span>
+      <h2 class="sec-title">AI 视频设计<em>AIGC Film</em></h2>
     </div>
-  </div>
-  <div class="zn-wrap">
-    <p class="zn-lede">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。点击卡片观看完整版。</p>
+    <p style="color:var(--muted);margin-bottom:26px;">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。</p>
 
-    <div class="film-rows">
-      <a class="film-row" href="assets/hero.mp4" target="_blank" rel="noopener">
-        <div class="film-cover">
-          <video src="assets/hero.mp4" autoplay muted loop playsinline preload="metadata"></video>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 01 · 25s · 16:9</p>
-          <h3>四季簪花录</h3>
-          <p class="film-desc">文生视频 / 图生视频 · 分镜驱动 · 完全独立制作。点击观看完整版（含声音）。</p>
-        </div>
+    <div class="film-feature">
+      <video src="assets/film-01.mp4" poster="assets/film-01.jpg"
+             controls playsinline preload="metadata"></video>
+      <p class="film-cap">Film 01 · 33s · 16:9 · 完全独立制作</p>
+    </div>
+
+    <div class="zones">
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 01</span>
+        <h3>AIGC 影像作品 01</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
       </a>
-
-      <a class="film-row" href="assets/film-02.mp4" target="_blank" rel="noopener">
-        <div class="film-cover">
-          <video src="assets/film-02.mp4" autoplay muted loop playsinline preload="metadata"></video>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 02 · 5s · 竖屏</p>
-          <h3>陪伴</h3>
-          <p class="film-desc">AIGC 人物形象动态短片 · 完全独立制作。点击观看完整版。</p>
-        </div>
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 02</span>
+        <h3>AIGC 影像作品 02</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
       </a>
-
-      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
-        <div class="film-cover film-cover--slot">
-          <span>＋</span>
-          <span class="slot-tip">视频待补</span>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 03 · Upcoming</p>
-          <h3>赛博程序员</h3>
-          <p class="film-desc">新作品制作中，完成后替换。更多作品见 AI 影像专栏。</p>
-        </div>
-      </a>
-
-      <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
-        <div class="film-cover">
-          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 04 · 33s · 16:9</p>
-          <h3>园林雨景</h3>
-          <p class="film-desc">五镜首尾相连 · 慢节奏东方美学 · 完全独立制作。点击观看完整版（含声音）。</p>
-        </div>
+      <a class="zone" href="https://cunxintao-hub.github.io/ai-creation/">
+        <span class="z-en">Film 03</span>
+        <h3>AIGC 影像作品 03</h3>
+        <p>文生视频 / 图生视频 · 分镜驱动 · 待补充标题</p>
+        <span class="go">观看 →</span>
       </a>
     </div>
   </div>
@@ -916,15 +865,12 @@
   <div class="wrap">
     <p class="eyebrow">Zone 07 · Contact</p>
     <h2>一起做点能被现实验证的东西。</h2>
-    <div class="contact-info">
-      <div class="ci">
-        <b>Tel · 电话</b>
-        <a href="tel:+8615962945450">159 6294 5450</a>
-      </div>
-      <div class="ci">
-        <b>Email · 邮箱</b>
-        <a href="mailto:847924672@qq.com">847924672@qq.com</a>
-      </div>
+    <p class="sub">Open to AI 产品 / 用户研究 / AIGC 方向的合作、实习与项目机会。</p>
+    <div class="contact-links">
+      <a href="https://github.com/cunxintao-hub" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://cunxintao-hub.github.io/ai-creation/">AI 影像</a>
+      <a href="https://cunxintao-hub.github.io/auto-design/">汽车专栏</a>
+      <a href="https://cunxintao-hub.github.io/certificates/">证书存档</a>
     </div>
   </div>
 </section>
