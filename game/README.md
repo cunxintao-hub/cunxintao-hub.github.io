@@ -228,11 +228,12 @@ z-index 0 在所有叠加层之下）。**状态机、按钮、判定、结算�
 | idle 未开始 | `idle.mp4`（0.等待） | 循环 |
 | waiting 抛竿 | `cast.mp4`（1.钓鱼） | **只播一次**，播完/2.6s 超时自动接 `wait` |
 | biting 等待咬钩 | `wait.mp4`（2.等待） | 循环 |
-| tension / reel 拉线 | `reel.mp4`（3.拉线） | 循环，按时长拉伸到 6s |
-| caught 成功上鱼 | `success.mp4`（4.上了） | 循环（结算卡片浮在上层） |
+| tension / reel 拉线 | `fight.mp4`（鱼咬钩拉扯·12.26s） | **原速循环，不强行播完**：结果一出立刻切下一条 |
+| caught 成功上鱼 | `success.mp4`（4.上了） | **先播 `catchShowMs`(1.4s) 演出再弹结算卡片**（否则居中卡片立刻盖住视频）；卡片浅色遮罩，视频在背后继续循环 |
 | 失败（没鱼/超时/断线） | `fail.mp4`（4.断了） | 演出 2.8s 后自动回阶段视频 |
 
-- **时长拉伸**：`playbackRate = 视频时长 ÷ seconds`，夹在 `videoRateRange [0.35, 1.6]`
+- **时长拉伸**：`playbackRate = 视频时长 ÷ seconds`，夹在 `videoRateRange [0.35, 1.6]`（`seconds:0` = 原速循环）
+- **上鱼演出**：`catchShowMs`(1400ms) 内只放「4.上了」视频 + 🎉 toast，到点再开结算卡片（定时器挂在 `rt.timers`，放弃/结算会一并清掉）
 - **兜底**：视频缺失/解码失败/自动播放被拦 → 移除 `video-on`，自动回退 `assets/scene/{location}.png` 插画或 CSS 渐变，不报错不白屏
 - **不占后台**：离开钓鱼页 `pauseSceneVideo()` 暂停隐藏并取消未播完的演出；有视频时隐藏 Lottie 人物层避免重影
 - 配置在 `CONFIG.fishing.videos`（`{src, seconds, once}`），映射集中在 `render.phaseVideoKey()`；
