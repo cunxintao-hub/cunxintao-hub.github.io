@@ -296,8 +296,13 @@
     rt.reel = null;
     setPhase('caught');
     FG.toast('🎉 上鱼了！' + rt.caught.name + ' ' + U.formatWeight(rt.caught.weight) + 'kg', 'ok');
-    FG.render.renderFishing();
-    FG.render.showCatchCard(rt.caught);
+    FG.render.renderFishing();                 // 先切到「4.上了」视频
+    /* 🆕 让「上了」演出先播 catchShowMs 再弹结算卡片：
+       卡片是居中浮层，立刻弹出会正好盖住场景，玩家看不到上鱼视频 */
+    later(function () {
+      if (rt.phase !== 'caught' || !rt.caught) return;   // 期间被放弃/结算则不再弹
+      FG.render.showCatchCard(rt.caught);
+    }, Number(cfg().catchShowMs) || 1400);
     return true;
   }
 
