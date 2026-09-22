@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1024" />
+<title>🎣 疯狂钓鱼佬</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 视口容器：负责居中与整体等比缩放（<1024px 时） -->
+  <div id="viewport">
+    <!-- #app 内容由 src/ui/layout.js 的 mount() 填充 -->
+    <div id="app"></div>
+  </div>
+
+  <!-- 浮层：toast / modal 挂在 body 上，脱离三栏布局 -->
+  <div id="toast-layer" class="toast-layer"></div>
+  <div id="modal-layer" class="modal-layer" style="display:none"></div>
+
+  <!--
+    加载顺序 = 依赖顺序（classic script，file:// 双击即可打开）
+    迁移到 ES Module 时：把每个文件的 IIFE 收尾改为 export 即可，顺序不变。
+  -->
+  <!-- 第三方运行时与动画数据（本地文件，file:// 直接可用；缺失时人物动画自动降级为静态） -->
+  <script src="vendor/lottie.min.js"></script>
+  <script src="assets/actor/actor-data.js"></script>
+
+  <script src="src/config.js"></script>
+  <script src="src/utils.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/save.js"></script>
+
+  <script src="src/systems/fishing.js"></script>
+  <script src="src/systems/equip.js"></script>
+  <script src="src/systems/merge.js"></script>
+  <script src="src/systems/craft.js"></script>
+  <script src="src/systems/growth.js"></script>
+  <script src="src/systems/codex.js"></script>
+  <script src="src/systems/market.js"></script>
+  <script src="src/systems/social.js"></script>
+  <script src="src/systems/diamond.js"></script>
+
+  <script src="src/ui/toast.js"></script>
+  <script src="src/ui/modal.js"></script>
+  <script src="src/ui/settings.js"></script>
+  <script src="src/ui/explorePanel.js"></script>
+  <script src="src/ui/bag.js"></script>
+  <script src="src/ui/locations.js"></script>
+  <script src="src/ui/growth.js"></script>
+  <script src="src/ui/float.js"></script>
+  <script src="src/ui/codex.js"></script>
+  <script src="src/ui/workshop.js"></script>
+  <script src="src/ui/market.js"></script>
+  <script src="src/ui/social.js"></script>
+  <script src="src/ui/diamond.js"></script>
+  <script src="src/ui/animator.js"></script>
+  <script src="src/ui/mergeBoard.js"></script>
+  <script src="src/ui/craftBoard.js"></script>
+  <script src="src/ui/layout.js"></script>
+
+  <script src="src/render.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
