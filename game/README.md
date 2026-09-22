@@ -234,6 +234,9 @@ z-index 0 在所有叠加层之下）。**状态机、按钮、判定、结算�
 
 - **时长拉伸**：`playbackRate = 视频时长 ÷ seconds`，夹在 `videoRateRange [0.35, 1.6]`（`seconds:0` = 原速循环）
 - **上鱼演出**：`catchShowMs`(1400ms) 内只放「4.上了」视频 + 🎉 toast，到点再开结算卡片（定时器挂在 `rt.timers`，放弃/结算会一并清掉）
+- **结算卡片必须选一个才能继续**：`modal.open({ dismissible:false, light:true })` → 无 ✕、点遮罩不关、`Esc` 也不关
+  （收杆是连点操作，遮罩可关就会被连点尾巴"点没"，玩家没选就 auto-settle 进背包）；
+  卡片出现后 `catchClickGuardMs`(250ms) 内忽略按钮点击，防连点误选（`main.js` 的 Esc 走 `modal.isDismissible()`）
 - **兜底**：视频缺失/解码失败/自动播放被拦 → 移除 `video-on`，自动回退 `assets/scene/{location}.png` 插画或 CSS 渐变，不报错不白屏
 - **不占后台**：离开钓鱼页 `pauseSceneVideo()` 暂停隐藏并取消未播完的演出；有视频时隐藏 Lottie 人物层避免重影
 - 配置在 `CONFIG.fishing.videos`（`{src, seconds, once}`），映射集中在 `render.phaseVideoKey()`；
