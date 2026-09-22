@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《疯狂钓鱼佬》创作过程 · 陶存心 CUNXIN TAO</title>
+<meta name="description" content="疯狂钓鱼佬创作过程：阶段背景视频 / 13 份设计教程文档 / 3D 模型创建">
+<style>
+  :root {
+    --bg:#0b0c0f; --ink:#ece9e3; --soft:#b6b2aa; --muted:#7d7971;
+    --line:#26262b; --green:#93b189; --pink:#e9b7c1; --card:#14161b;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--serif); font-size:15px; line-height:1.85; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  img { display:block; max-width:100%; }
+
+  /* ---------- 导航 ---------- */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    padding:0 34px; height:58px; background:rgba(11,12,15,.86); color:#fff; box-shadow:0 1px 0 var(--line); backdrop-filter:blur(8px); }
+  .nav .logo { font-family:var(--sans); font-size:13px; font-weight:700; letter-spacing:.22em; }
+  .nav .back { font-family:var(--sans); font-size:12px; color:var(--muted); }
+  .nav .back:hover { color:var(--ink); }
+
+  /* ---------- 头部 ---------- */
+  .wrap { max-width:1180px; margin:0 auto; padding:96px 34px 90px; }
+  .kicker { font-family:var(--sans); font-size:11px; letter-spacing:.3em; color:var(--muted); text-transform:uppercase; }
+  h1 { font-size:clamp(28px,4.4vw,46px); font-weight:700; margin-top:12px; line-height:1.25; }
+  .sub { color:var(--muted); margin-top:10px; font-size:16px; }
+  .quick { margin-top:22px; display:flex; flex-wrap:wrap; gap:12px; font-family:var(--sans); font-size:13px; }
+  .quick a { border:1px solid var(--line); padding:9px 18px; border-radius:4px; color:var(--soft); transition:color .2s,border-color .2s; }
+  .quick a:hover { color:var(--green); border-color:var(--green); }
+
+  /* ---------- 三行结构 ---------- */
+  .row { margin-top:64px; border-top:1px solid var(--line); padding-top:34px; }
+  .row-head { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px; }
+  .row-no { font-family:var(--sans); font-size:11px; letter-spacing:.24em; color:var(--green); }
+  .row-title { font-size:24px; font-weight:700; }
+  .row-en { font-family:var(--sans); font-size:11px; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; }
+  .row-lede { color:var(--muted); font-size:14px; margin-bottom:22px; }
+
+  /* ① 视频 */
+  .vgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+  .vcard { background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .vcard video { width:100%; aspect-ratio:16/9; background:#000; display:block; }
+  .vcard .vb { padding:12px 14px 14px; }
+  .vcard .vt { font-family:var(--sans); font-size:14px; font-weight:700; }
+  .vcard .vd { color:var(--muted); font-size:12.5px; margin-top:4px; line-height:1.7; }
+  .vcard .vm { font-family:var(--sans); font-size:11px; color:var(--green); letter-spacing:.08em; margin-top:6px; }
+
+  /* ② 文档 */
+  .docs { display:grid; grid-template-columns:280px 1fr; gap:26px; align-items:start; }
+  .doclist { display:flex; flex-direction:column; gap:6px; max-height:640px; overflow:auto; padding-right:6px; }
+  .docitem { text-align:left; width:100%; cursor:pointer; background:var(--card); border:1px solid var(--line);
+    border-radius:8px; padding:10px 13px; color:var(--soft); font-family:var(--sans); font-size:13px;
+    display:flex; gap:10px; align-items:baseline; transition:color .2s,border-color .2s,background .2s; }
+  .docitem:hover { color:var(--ink); border-color:#3a3a42; }
+  .docitem.on { color:var(--green); border-color:var(--green); background:#151a17; }
+  .docitem i { font-style:normal; color:var(--muted); font-size:11px; letter-spacing:.06em; }
+  .reader { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:24px 26px; min-height:520px; max-height:760px; overflow:auto; }
+  .reader .rh { font-family:var(--sans); font-size:12px; color:var(--muted); letter-spacing:.1em; margin-bottom:14px;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .reader .rh a { color:var(--green); border-bottom:1px solid transparent; }
+  .reader .rh a:hover { border-color:var(--green); }
+  .md h1,.md h2,.md h3,.md h4 { font-family:var(--sans); margin:20px 0 10px; line-height:1.4; }
+  .md h1 { font-size:22px; } .md h2 { font-size:19px; } .md h3 { font-size:16px; } .md h4 { font-size:14px; color:var(--soft); }
+  .md p { margin:10px 0; }
+  .md ul,.md ol { margin:10px 0 10px 22px; }
+  .md li { margin:4px 0; }
+  .md code { font-family:ui-monospace,Consolas,Menlo,monospace; font-size:12.5px; background:#1d1f25; padding:1px 5px; border-radius:4px; color:var(--pink); }
+  .md pre { background:#101216; border:1px solid var(--line); border-radius:8px; padding:12px 14px; overflow:auto; margin:12px 0; }
+  .md pre code { background:none; color:var(--soft); padding:0; }
+  .md table { width:100%; border-collapse:collapse; margin:12px 0; font-family:var(--sans); font-size:12.5px; }
+  .md th,.md td { border:1px solid var(--line); padding:6px 9px; text-align:left; }
+  .md th { background:#191c22; }
+  .md blockquote { border-left:2px solid var(--green); padding-left:12px; color:var(--muted); margin:12px 0; }
+  .md hr { border:none; border-top:1px solid var(--line); margin:22px 0; }
+  .md a { color:var(--green); }
+
+  /* ③ 模型 */
+  .mstage { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:radial-gradient(120% 100% at 50% 0%, #171a21 0%, #0b0c0f 70%); }
+  model-viewer { width:100%; height:min(66vh,620px); }
+  .tips { display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:18px; font-family:var(--sans); font-size:12px; color:var(--muted); }
+  .tips span b { color:var(--green); font-weight:600; margin-right:6px; }
+  .dl { margin-top:24px; display:flex; flex-wrap:wrap; gap:14px; font-family:var(--sans); font-size:13px; }
+  .dl a { color:var(--soft); border:1px solid var(--line); padding:10px 18px; border-radius:4px; transition:color .2s,border-color .2s; }
+  .dl a:hover { color:var(--green); border-color:var(--green); }
+  .note { margin-top:16px; font-family:var(--sans); font-size:12px; color:var(--muted); line-height:1.8; }
+
+  footer { border-top:1px solid var(--line); padding:26px 34px 40px; font-family:var(--sans); font-size:11px; color:var(--muted); letter-spacing:.06em; }
+  @media (max-width:860px){ .docs { grid-template-columns:1fr; } .doclist { max-height:none; } .reader { min-height:320px; } }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a class="logo" href="index.html">CUNXIN TAO</a>
+  <a class="back" href="index.html#games">← 返回 AI 游戏</a>
+</div>
+
+<div class="wrap">
+  <p class="kicker">Creation Process · Vibe Coding · Playable</p>
+  <h1>《疯狂钓鱼佬》创作过程</h1>
+  <p class="sub">从 13 份设计文档、7 段阶段视频与 1 个 3D 模型，到一个能直接玩完核心循环的网页游戏。</p>
+  <div class="quick">
+    <a href="game/index.html" target="_blank" rel="noopener">▶ 打开游戏</a>
+    <a href="#row-video">① 视频部分</a>
+    <a href="#row-docs">② 设计教程</a>
+    <a href="#row-model">③ 模型创建</a>
+  </div>
+
+  <!-- ==================== ① 视频部分 ==================== -->
+  <section class="row" id="row-video">
+    <div class="row-head">
+      <span class="row-no">01</span>
+      <h2 class="row-title">视频部分</h2>
+      <span class="row-en">Scene Videos</span>
+    </div>
+    <p class="row-lede">7 段场景素材：先按钓鱼的 6 个节点各做一条循环镜头，再补一条 12.26s 的咬钩拉扯长镜头。游戏里按阶段自动切换（只做演出，不影响判定与状态机）。</p>
+    <div class="vgrid">
+      <div class="vcard">
+        <video src="assets/process/video/0.等待.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">0.等待</div><div class="vd">待机画面：还没抛竿时的场景，循环播放。</div><div class="vm">idle · 5.6 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/1.钓鱼.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">1.钓鱼（抛竿）</div><div class="vd">抛竿动作，只播一次，播完自动接「等待」。</div><div class="vm">cast · 7.0 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/2.等待.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">2.等待（浮漂）</div><div class="vd">浮漂静候咬钩，循环播放；咬钩提示浮在这一层之上。</div><div class="vm">wait · 6.5 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/3.拉线.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">3.拉线（初版）</div><div class="vd">收线拉扯的初版镜头，后被下面的长镜头取代，保留作过程记录。</div><div class="vm">reel（初版）· 6.2 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/video.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">咬钩拉扯长镜头（现行）</div><div class="vd">12.26s 长镜头，原速循环：搏斗多久播多久，鱼一上岸或跑掉立刻切下一条。</div><div class="vm">fight · 15.6 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/4.上了.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">4.上了（成功）</div><div class="vd">鱼出水的成功演出；结算卡片用浅色遮罩，让这段透出来。</div><div class="vm">success · 6.2 MB</div></div>
+      </div>
+      <div class="vcard">
+        <video src="assets/process/video/4.断了.mp4" controls playsinline preload="metadata"></video>
+        <div class="vb"><div class="vt">4.断了（失败）</div><div class="vd">断线/脱钩的失败演出，播 2.8s 后自动回到当前阶段视频。</div><div class="vm">fail · 5.9 MB</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ② 设计教程 ==================== -->
+  <section class="row" id="row-docs">
+    <div class="row-head">
+      <span class="row-no">02</span>
+      <h2 class="row-title">设计教程</h2>
+      <span class="row-en">Design Docs · 13 份</span>
+    </div>
+    <p class="row-lede">整个游戏是「文档驱动」做出来的：先写清状态机、数值与验收清单，再让 AI 按文档分批实现。左侧点开任意一份，右侧直接阅读（不跳走）。</p>
+    <div class="docs">
+      <div class="doclist" id="doclist">
+        <button class="docitem on" data-src="assets/process/docs/00-总纲与投喂指南.md"><i>00</i>总纲与投喂指南</button>
+        <button class="docitem" data-src="assets/process/docs/01-核心循环-钓鱼.md"><i>01</i>核心循环 · 钓鱼</button>
+        <button class="docitem" data-src="assets/process/docs/02-装备系统.md"><i>02</i>装备系统</button>
+        <button class="docitem" data-src="assets/process/docs/03-材料与二合合成.md"><i>03</i>材料与二合合成</button>
+        <button class="docitem" data-src="assets/process/docs/04-钓具配方合成.md"><i>04</i>钓具配方合成</button>
+        <button class="docitem" data-src="assets/process/docs/05-成长体系.md"><i>05</i>成长体系</button>
+        <button class="docitem" data-src="assets/process/docs/06-收集与长线.md"><i>06</i>收集与长线</button>
+        <button class="docitem" data-src="assets/process/docs/07-经济与市场.md"><i>07</i>经济与市场</button>
+        <button class="docitem" data-src="assets/process/docs/08-社交系统.md"><i>08</i>社交系统</button>
+        <button class="docitem" data-src="assets/process/docs/09-存档与云同步.md"><i>09</i>存档与云同步</button>
+        <button class="docitem" data-src="assets/process/docs/10-交互与异常规则.md"><i>10</i>交互与异常规则</button>
+        <button class="docitem" data-src="assets/process/docs/11-数值配置总表.md"><i>11</i>数值配置总表</button>
+        <button class="docitem" data-src="assets/process/docs/12-验收清单.md"><i>12</i>验收清单</button>
+        <button class="docitem" data-src="assets/process/docs/13-投喂执行手册.md"><i>13</i>投喂执行手册</button>
+      </div>
+      <div class="reader">
+        <div class="rh">
+          <span id="doc-name">00 · 总纲与投喂指南</span>
+          <a id="doc-raw" href="assets/process/docs/00-总纲与投喂指南.md" target="_blank" rel="noopener">在新标签打开原文 ↗</a>
+        </div>
+        <div class="md" id="doc-body"><p style="color:var(--muted)">正在加载…</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ③ 模型创建 ==================== -->
+  <section class="row" id="row-model">
+    <div class="row-head">
+      <span class="row-no">03</span>
+      <h2 class="row-title">模型创建</h2>
+      <span class="row-en">3D Model · AIGC</span>
+    </div>
+    <p class="row-lede">3D 生成器场景模型：由 AIGC 生成后导出为 .glb / .obj，网页端用 model-viewer 直接加载，可拖动旋转、滚轮缩放。</p>
+    <div class="mstage">
+      <model-viewer src="assets/process/model/3D生成器.glb" alt="3D 生成器场景模型"
+        camera-controls auto-rotate rotation-per-second="24deg"
+        shadow-intensity="1" exposure="1.05" loading="lazy"
+        interaction-prompt="auto"></model-viewer>
+    </div>
+    <div class="tips">
+      <span><b>拖动</b>旋转视角</span>
+      <span><b>滚轮</b>缩放模型</span>
+      <span><b>自动</b>匀速展示</span>
+    </div>
+    <div class="dl">
+      <a href="assets/process/model/3D生成器.glb" download>下载模型 (.glb · 41 MB)</a>
+      <a href="assets/process/model/3D生成器-assets.zip" download>下载贴图资源 (.zip · 3.1 MB)</a>
+      <a href="game/index.html" target="_blank" rel="noopener">▶ 打开游戏</a>
+    </div>
+    <p class="note">※ 原始 .obj 文件 212 MB，超过 GitHub 单文件 100 MB 上限，未随站点托管；需要可本地查看或改用外部网盘链接。</p>
+  </section>
+</div>
+
+<footer>© 2026 陶存心 · CUNXIN TAO · 疯狂钓鱼佬创作过程</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script>
+(function () {
+  var list = document.getElementById('doclist');
+  var body = document.getElementById('doc-body');
+  var nameEl = document.getElementById('doc-name');
+  var rawEl = document.getElementById('doc-raw');
+  var cur = null;
+
+  function render(text, src) {
+    if (window.marked && window.marked.parse) {
+      body.innerHTML = window.marked.parse(text);
+    } else {                                   // marked 没加载成功时退回纯文本，保证内容仍可读
+      body.textContent = text;
+    }
+    void src;
+  }
+
+  function pick(btn) {
+    var src = btn.getAttribute('data-src');
+    if (!src || src === cur) return;
+    cur = src;
+    [].forEach.call(list.children, function (b) { b.classList.toggle('on', b === btn); });
+    nameEl.textContent = btn.textContent.replace(/^\d\d/, '').trim() + ' · ' + btn.querySelector('i').textContent;
+    rawEl.setAttribute('href', src);
+    body.innerHTML = '<p style="color:var(--muted)">正在加载…</p>';
+    fetch(src).then(function (r) { return r.text(); })
+      .then(function (t) { render(t, src); })
+      .catch(function () {                     // 本地 file:// 打开时 fetch 受限 → 直接新标签看原文
+        body.innerHTML = '<p style="color:var(--muted)">当前环境无法直接读取文件，已在新标签打开原文；部署到站点后可在此直接阅读。</p>';
+        window.open(src, '_blank');
+      });
+  }
+
+  [].forEach.call(list.children, function (b) {
+    b.addEventListener('click', function () { pick(b); });
+  });
+
+  var first = list.children[0];
+  if (first) pick(first);
+})();
+</script>
+</body>
+</html>

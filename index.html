@@ -583,18 +583,6 @@
     .zn-card--game { flex-direction: column; align-items: stretch; }
     .zn-card--game .gc-cover { width: 100%; max-width: none; }
   }
-  .gp-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
-    padding: 40px 20px; background: rgba(8,10,14,.78); backdrop-filter: blur(4px); }
-  .gp-modal[hidden] { display: none; }
-  .gp-sheet { position: relative; width: min(860px, 100%); max-height: 82vh; overflow-y: auto;
-    background: #12141a; border: 1px solid var(--line-2); border-radius: 16px; padding: 34px 38px 40px; }
-  .gp-sheet h3 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 18px; padding-right: 44px; }
-  .gp-content { font-size: 14px; line-height: 1.9; color: var(--text); }
-  .gp-content img { max-width: 100%; border-radius: 10px; display: block; margin: 14px 0; }
-  .gp-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%;
-    border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--muted);
-    font-size: 15px; cursor: pointer; transition: background .2s, color .2s; }
-  .gp-close:hover { background: rgba(255,255,255,.1); color: var(--text); }
   @media (max-width: 900px) {
     .zn-wrap { padding: 70px 22px 80px; }
     .zn-banner-inner { flex-direction: column; align-items: flex-start; padding: 44px 22px; gap: 24px; }
@@ -873,27 +861,8 @@
     <p style="margin-top:26px;">
       <a class="lnk" style="margin-top:0" href="game/index.html" target="_blank" rel="noopener">打开完整游戏（建议桌面窗口）→</a>
       <span style="opacity:.3;margin:0 14px;">|</span>
-      <a class="lnk" style="margin-top:0" href="javascript:void(0)" id="gp-open">📖 查看创作过程 →</a>
+      <a class="lnk" style="margin-top:0" href="game-process.html" target="_blank" rel="noopener">📖 查看创作过程（视频 / 设计教程 / 模型）→</a>
     </p>
-
-    <div class="gp-modal" id="gp-modal" hidden>
-      <div class="gp-sheet">
-        <button class="gp-close" id="gp-close" aria-label="关闭">✕</button>
-        <h3>🎣 《疯狂钓鱼佬》创作过程</h3>
-        <div class="gp-content" id="gp-content">
-          <p style="color:var(--muted)">内容整理中，稍后补充。</p>
-        </div>
-      </div>
-    </div>
-    <script>
-    (function(){
-      var m = document.getElementById('gp-modal');
-      document.getElementById('gp-open').addEventListener('click', function(){ m.hidden = false; });
-      document.getElementById('gp-close').addEventListener('click', function(){ m.hidden = true; });
-      m.addEventListener('click', function(e){ if(e.target === m) m.hidden = true; });
-      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') m.hidden = true; });
-    })();
-    </script>
   </div>
 </section>
 
