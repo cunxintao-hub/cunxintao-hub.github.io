@@ -486,6 +486,16 @@
     color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
   .detail-sec p { font-size: 14px; color: var(--soft); line-height: 1.9; }
   .detail-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .dmeta { margin-top: 14px; }
+  .dmeta .row { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .dmeta .row .k { color: var(--muted); min-width: 64px; flex-shrink: 0; }
+  .dmeta .row .v { color: #c9d1d9; flex: 1; word-break: break-all; }
+  .dmeta a { color: var(--link); text-decoration: none; }
+  .detail-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .detail-links a { font-family: var(--sans); font-size: 12.5px; color: var(--link);
+    border: 1px solid rgba(88,166,255,.45); padding: 9px 18px; border-radius: 4px;
+    text-decoration: none; transition: background .25s var(--ease), border-color .25s var(--ease); }
+  .detail-links a:hover { background: rgba(88,166,255,.12); border-color: var(--link); }
   .detail-tags li { font-family: var(--sans); font-size: 11px; color: var(--muted);
     border: 1px solid var(--line-2); padding: 3px 12px; border-radius: 999px; }
   @media (max-width: 760px) { .detail-frame { height: 420px; } }
@@ -984,88 +994,117 @@
 </section>
 
 <!-- ============ 设计竞赛荣誉 ============ -->
-id="research">
-
-  <span class="sec-ghost">04</span>
-
-  <div class="wrap">
-
-    <div class="sec-head">
-
-      <span class="sec-no">Zone 04</span>
-
-      <h2 class="sec-title">AI 论文<em>Research</em></h2>
-
+<section class="section section--ink reveal" id="research">
+  <div class="zn-banner">
+    <div class="zn-banner-inner">
+      <div>
+        <p class="zn-kicker">Zone 04 · AI 论文</p>
+        <h2 class="zn-btitle">AI 论文</h2>
+        <p class="zn-ben">Research · Publications</p>
+      </div>
     </div>
-
-    <p style="color:var(--muted);margin-bottom:26px;">第一作者发表 3 篇论文，其中 1 篇 <b style="color:var(--accent);font-weight:600;">SCI Q1（IF = 13.9）</b></p>
-
-
-
-    <article class="entry">
-
-      <span class="entry-no">01</span>
-
-      <div>
-
-        <h3>Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design?<em>Human-AI Collaboration</em></h3>
-
-        <p>探究人机协作设计中「任务如何分配」如何影响消费者对结果的评价，为 AI 介入设计流程的分工策略提供实证依据。</p>
-
-        <p class="journal">Journal of Retailing and Consumer Services, 94, 105018 (2027) · <b>SCI Q1 · IF 13.9</b></p>
-
-        <a class="lnk" href="sci2027.html">查看论文专题（含 3 张研究图表）→</a>
-
-      </div>
-
-    </article>
-
-
-
-    <article class="entry">
-
-      <span class="entry-no">02</span>
-
-      <div>
-
-        <h3>The Inheritance and Innovation of Blue Calico Culture Driven by AIGC<em>AIGC · Blue Calico</em></h3>
-
-        <p>以蓝印花布为对象，探索生成式 AI 驱动的设计框架与工艺可视化路径，回应非遗传承中的创新命题。</p>
-
-        <p class="journal">AHFE 2026 International Conference · AHFE Open Access, vol 216</p>
-
-        <a class="lnk" href="ahfe2026/">查看论文专题（含全文 PDF 与 14 页 Slides）→</a>
-
-      </div>
-
-    </article>
-
-
-
-    <article class="entry">
-
-      <span class="entry-no">03</span>
-
-      <div>
-
-        <h3>Enhancing Comprehension of Smart Product Benefits for Senior Users<em>Senior Users · Smart Products</em></h3>
-
-        <p>研究文本抽象度与图像复杂度对老年用户智能产品理解的影响，为适老化信息呈现提供设计准则。</p>
-
-        <p class="journal">IDIE 2026 · 文本抽象度与图像复杂度对老年用户产品理解的影响</p>
-
-        <a class="lnk" href="elderly2026.html">查看论文专题（含 3 张研究图表）→</a>
-
-      </div>
-
-    </article>
-
   </div>
+  <div class="zn-wrap">
+    <p class="zn-lede">第一作者发表 3 篇论文，其中 1 篇 SCI Q1（IF = 13.9）。点击条目展开期刊信息与全文链接。</p>
 
+    <div class="film-rows">
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
+        <div class="film-cover">
+          <img src="assets/papers/sci-framework.jpg" alt="Human-AI Collaboration">
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Paper 01 · SCI Q1 · IF 13.9</p>
+          <h3>人机协作设计中的任务分配</h3>
+          <p class="film-desc">Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design? —— 探究「任务如何分配」如何影响消费者对结果的评价。</p>
+          <span class="film-more">展开期刊信息与全文链接 ↓</span>
+        </div>
+        <div class="film-detail">
+          <div class="detail-text">
+            <b>论文信息 · Info</b>
+            <div class="dmeta">
+              <div class="row"><span class="k">期刊</span><span class="v">Journal of Retailing and Consumer Services, 94, 105018 (2027)</span></div>
+              <div class="row"><span class="k">分区</span><span class="v">JCR Q1 · IF = 13.9</span></div>
+              <div class="row"><span class="k">研究</span><span class="v">4 项实验（Study 1–4），检验 H1–H4 假设链</span></div>
+              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
+            </div>
+            <div class="detail-sec">
+              <span>研究简介 · Abstract</span>
+              <p>当 AI 进入设计流程，消费者真正追问的往往不是「做得好不好」，而是「谁做的」。研究以设计任务分配为核心自变量——同一件设计成果，标注为 AI 主导还是人类主导——考察其对消费者态度的影响，并检验服务提升感知与成本降低感知的中介作用。</p>
+            </div>
+            <div class="detail-links">
+              <a href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank" rel="noopener">ScienceDirect 全文 →</a>
+              <a href="sci2027.html">论文专题页（含 3 张研究图表）→</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
+        <div class="film-cover">
+          <img src="https://cunxintao-hub.github.io/ahfe2026/slides/preview/2.png" alt="AIGC · Blue Calico">
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Paper 02 · AHFE 2026 · 第一作者</p>
+          <h3>AIGC 驱动的蓝印花布传承与创新</h3>
+          <p class="film-desc">The Inheritance and Innovation of Blue Calico Culture Driven by AIGC —— 以蓝印花布为对象，探索生成式 AI 驱动的设计框架与工艺可视化路径。</p>
+          <span class="film-more">展开出版信息与专题页 ↓</span>
+        </div>
+        <div class="film-detail">
+          <div class="detail-text">
+            <b>论文信息 · Info</b>
+            <div class="dmeta">
+              <div class="row"><span class="k">会议</span><span class="v">AHFE 2026 International Conference — Human Factors in Communication of Design</span></div>
+              <div class="row"><span class="k">出版</span><span class="v">AHFE Open Access, vol 216, AHFE International, USA</span></div>
+              <div class="row"><span class="k">DOI</span><span class="v"><a href="https://doi.org/10.54941/ahfe1007635" target="_blank">10.54941/ahfe1007635</a></span></div>
+              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
+            </div>
+            <div class="detail-sec">
+              <span>研究简介 · Abstract</span>
+              <p>针对通用生成模型难以理解非遗工艺特征与文化语义的问题，以中国国家级非物质文化遗产「蓝印花布」为对象：构建并清洗工艺图像数据集，CLIP 自动描述结合人工多维标注强化图文对齐；基于 SDXL 1.0 + LoRA 完成领域微调，搭建「T2I 发散生成 → I2I 迭代收敛 → 方案筛选」的设计生成链路，形成 AIGC 与传统非遗深度融合的设计框架。</p>
+            </div>
+            <div class="detail-links">
+              <a href="ahfe2026/">论文专题页（含全文 PDF 与 14 页 Slides）→</a>
+              <a href="https://doi.org/10.54941/ahfe1007635" target="_blank" rel="noopener">官方 DOI →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
+        <div class="film-cover">
+          <img src="assets/papers/elder-overview.jpg" alt="Senior Users · Smart Products">
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Paper 03 · IDIE 2026 · 第一作者</p>
+          <h3>老年用户的智能产品理解</h3>
+          <p class="film-desc">How visual format and text description shape older adults' product comprehension —— 研究文本抽象度与图像复杂度对老年用户产品理解的影响。</p>
+          <span class="film-more">展开实验信息与专题页 ↓</span>
+        </div>
+        <div class="film-detail">
+          <div class="detail-text">
+            <b>论文信息 · Info</b>
+            <div class="dmeta">
+              <div class="row"><span class="k">会议</span><span class="v">IDIE 2026 International Conference</span></div>
+              <div class="row"><span class="k">样本</span><span class="v">N = 290 位老年用户</span></div>
+              <div class="row"><span class="k">设计</span><span class="v">2 × 2 被试间实验：文本抽象度 × 图片视图，心理意象为中介</span></div>
+              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
+            </div>
+            <div class="detail-sec">
+              <span>研究简介 · Abstract</span>
+              <p>智能产品的功能说明越来越依赖图文组合，但老年用户常因呈现形式不当而难以理解。2 × 2 实验结果表明：文本越具体、图示越清晰，理解度越高；且两者存在交互——信息呈现形式的匹配，比单纯把内容简化更有效。</p>
+            </div>
+            <div class="detail-links">
+              <a href="elderly2026.html">论文专题页（含 3 张研究图表）→</a>
+              <a href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank" rel="noopener">Semantic Scholar →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>
 
-id="auto">
-
+<section class="section section--panel reveal" id="auto">
   <span class="sec-ghost">05</span>
 
   <div class="zn-banner">
@@ -1100,7 +1139,7 @@ id="auto">
 
         <div class="film-cover">
 
-          <img src="assets/auto-figure.jpg" alt="理想汽车 UX 设计">
+          <img src="https://cunxintao-hub.github.io/auto-design/li-auto/preview/A2-1.jpg" alt="理想汽车 UX 设计">
 
         </div>
 
