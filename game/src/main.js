@@ -120,7 +120,8 @@
         e.preventDefault();
         if (!FG.modal.isOpen()) FG.ui.layout.triggerMainAction();
       } else if (e.code === 'Escape') {
-        if (FG.modal.isOpen()) FG.modal.close();
+        /* 鱼获结算这类不可关闭弹窗，Esc 也不能关（必须点按钮选择处理方式） */
+        if (FG.modal.isOpen() && FG.modal.isDismissible()) FG.modal.close();
       } else if (e.code === 'Enter') {
         const ok = document.querySelector('#modal-layer .btn-primary');
         if (ok) ok.click();

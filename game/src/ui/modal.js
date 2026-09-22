@@ -11,7 +11,9 @@
   /**
    * @param {{title?:string, body?:string, onConfirm?:Function, confirmText?:string,
    *          cancelText?:string, showCancel?:boolean, onClose?:Function,
-   *          light?:boolean}} options   light = 浅色遮罩（鱼获结算用，让背景视频透出来）
+   *          light?:boolean, dismissible?:boolean}} options
+   *   light = 浅色遮罩（鱼获结算用，让背景视频透出来）；
+   *   dismissible:false = 禁止遮罩/✕/Esc 关闭，只能点面板里的按钮（鱼获结算防连点误关）
    */
   function openModal(options) {
     const opt = options || {};
@@ -54,11 +56,17 @@
       footEl.appendChild(cancel);
     }
 
-    // 遮罩点击关闭（仅在点到遮罩本身时）
-    FG.utils.onPointer(backdrop, function (e) { if (e.target === backdrop) closeModal(); });
-    FG.utils.onPointer(closeBtn, function () { closeModal(); });
+    /* 🆕 dismissible:false 的弹窗（如鱼获结算）不能用遮罩/✕/Esc 关闭，必须走面板里的按钮，
+       否则收杆时的连点会正好点中遮罩把卡片「点没」，玩家还没选就把鱼处理掉了 */
+    if (opt.dismissible === false) {
+      closeBtn.style.display = 'none';
+    } else {
+      // 遮罩点击关闭（仅在点到遮罩本身时）
+      FG.utils.onPointer(backdrop, function (e) { if (e.target === backdrop) closeModal(); });
+      FG.utils.onPointer(closeBtn, function () { closeModal(); });
+    }
 
-    current = { onClose: opt.onClose };
+    current = { onClose: opt.onClose, dismissible: opt.dismissible !== false };
     console.log('[modal] open', opt.title || '');
   }
 
@@ -79,10 +87,13 @@
 
   function isOpen() { return !!current; }
 
+  /** 当前弹窗是否允许「非按钮」关闭（遮罩 / ✕ / Esc） */
+  function isDismissible() { return !current || current.dismissible !== false; }
+
   /** 二次确认（重置游戏、覆盖存档等有损操作统一走这里） */
   function confirmModal(title, body, onConfirm) {
     openModal({ title: title, body: body, onConfirm: onConfirm, confirmText: '确认', cancelText: '取消' });
   }
 
-  FG.modal = { open: openModal, close: closeModal, isOpen: isOpen, confirm: confirmModal };
+  FG.modal = { open: openModal, close: closeModal, isOpen: isOpen, isDismissible: isDismissible, confirm: confirmModal };
 })(window.FG = window.FG || {});

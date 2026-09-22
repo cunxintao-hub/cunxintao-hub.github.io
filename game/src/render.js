@@ -681,6 +681,8 @@
         '</div>',
       showCancel: false,
       light: true,                    // 🆕 浅色遮罩：让背后的「上了」视频透出来
+      /* 🆕 不可关闭：只能在三个按钮里选一个才继续（否则收杆连点会点到遮罩把卡片点没） */
+      dismissible: false,
       onClose: function () {
         if (FG.systems.fishing.getPhase() === 'caught') FG.systems.fishing.settle('bag');   // 防卡死兜底
       }
@@ -689,10 +691,13 @@
   }
 
   function bindCatchButtons() {
+    /* 🆕 防误选：卡片刚出现的一小段时间内忽略点击（收杆是连点操作，尾巴容易误选到按钮） */
+    const guardUntil = Date.now() + (Number((FG.CONFIG.fishing || {}).catchClickGuardMs) || 250);
     ['bag', 'codex', 'sell'].forEach(function (act) {
       const node = document.getElementById('catch-' + act);
       if (!node) return;
       U.onPointer(node, U.throttleLead(function () {
+        if (Date.now() < guardUntil) return;      // 静默忽略，不改状态、不关卡片
         FG.systems.fishing.settle(act);
         FG.modal.close(true);
       }, FG.CONFIG.ui.throttleMs));
