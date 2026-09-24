@@ -70,7 +70,11 @@
     s.stats.fishingAttempts = (s.stats.fishingAttempts || 0) + 1;
     FG.save.markDirty();
 
-    const wait = U.randInt(cfg().waitMin, cfg().waitMax);
+    /* 🆕 等待时长受装备影响：鱼竿「范围」+ 饵料溢出「吸引」→ 缩短（有下限，保留节奏） */
+    const dr = derived();
+    const scale = Number(dr.waitScale) || 1;
+    const floorMs = Number((FG.CONFIG.equip || {}).waitMinMs) || 900;
+    const wait = Math.max(floorMs, Math.round(U.randInt(cfg().waitMin, cfg().waitMax) * scale));
     rt.waitEndsAt = Date.now() + wait;
     setPhase('waiting');
     later(onWaitEnd, wait);
@@ -312,9 +316,11 @@
     /* 05 §4：稀有鱼概率 / 鱼重量 / 售鱼价 三个技能加成，全部走 getSkillEffect */
     const g = FG.systems.growth;
     const eff = (g && g.getSkillEffect) ? g.getSkillEffect : function () { return 0; };
-    const rareBonus = eff('rareRate');
+    /* 🆕 装备也参与掉落：鱼竿「运气」→ 稀有鱼概率；渔网「加成」→ 售价 */
+    const dr = (FG.systems.equip && FG.systems.equip.getDerived) ? FG.systems.equip.getDerived() : null;
+    const rareBonus = eff('rareRate') + (dr ? (Number(dr.rareBonus) || 0) : 0);
     const weightMul = 1 + eff('fishWeight');
-    const priceMul = 1 + eff('fishPrice');
+    const priceMul = (1 + eff('fishPrice')) * (dr ? (Number(dr.priceMul) || 1) : 1);
     const HIGH = ['rare', 'epic', 'legendary'];
     const rarity = weightedRandom(rarities, function (r) {
       return weights[r] * (HIGH.indexOf(r) !== -1 ? (1 + rareBonus) : 1);

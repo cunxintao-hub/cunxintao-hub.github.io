@@ -118,7 +118,9 @@
   function tuneDerived(d) {
     if (!d) return d;
     const b = getSkillBonus();
-    const out = {
+    /* 🆕 先整体继承装备派生值（含 rareBonus / waitScale / priceMul 等），再叠加技能，
+       否则新增的装备派生字段会被这里「漏掉」，导致数值写了却不生效 */
+    const out = Object.assign({}, d, {
       /* 疯狂点击：收杆所需点击减少 10% = 每次点击增益 +10% */
       reelGainPerClick: d.reelGainPerClick * (1 + b.reelGain),
       /* 稳如泰山 + 铁腕遛鱼：绿区（命中区域）加宽 */
@@ -128,7 +130,7 @@
       biteRate: d.biteRate * (1 + b.castDistance),
       biteWindow: d.biteWindow + b.biteWindow,
       bonus: d.bonus
-    };
+    });
     /* 指针速度：技能是负加成（更慢更好瞄），与配置里的 cursorSpeed 一起给 01 用 */
     out.cursorSpeed = Math.max(0.01, (d.cursorSpeed || cfg().fishing.cursorSpeed || 0.1) * (1 + b.cursorSpeed));
     return out;

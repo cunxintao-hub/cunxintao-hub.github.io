@@ -57,11 +57,22 @@
     const C = FG.CONFIG, F = C.fishing, E = C.equip;
     const b = getEquipBonus();
     const baseTargetWidth = (F.targetWidthMin + F.targetWidthMax) / 2;   // 绿区基准宽度
+    /* 🆕 吸引超过「必咬钩」阈值的部分：原本完全浪费，现在转为缩短等待 */
+    const attractNeed = Math.max(0, (1 - F.biteBaseRate) / (E.attractToBiteRate || 1));
+    const overflow = Math.max(0, b.attract - attractNeed);
+    const waitCut = Math.min(
+      Number(E.rangeToWaitReduceCap) || 0.35,
+      b.range * (Number(E.rangeToWaitReduce) || 0) + overflow * (Number(E.attractOverflowToWait) || 0)
+    );
     return {
       reelGainPerClick: F.reelGainPerClick * (1 + b.power * E.powerToReelGain),
       targetWidth: baseTargetWidth * (1 + b.accuracy * E.accuracyToTargetWidth),
       biteRate: F.biteBaseRate + b.attract * E.attractToBiteRate + b.stealth * (E.stealthToBiteRate || 0),
       biteWindow: F.biteWindow + b.tough * E.toughToBiteWindow,
+      /* 🆕 以下三项让 luck / range / bonus（渔网）真正进入玩法 */
+      rareBonus: b.luck * (Number(E.luckToRareRate) || 0),               // 运气 → 稀有鱼概率
+      waitScale: Math.max(0.4, 1 - waitCut),                             // 范围 + 溢出吸引 → 等待缩短
+      priceMul: 1 + b.bonus * (Number(E.bonusToFishPrice) || 0),         // 渔网 → 售价加成
       bonus: b
     };
   }

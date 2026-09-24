@@ -159,6 +159,17 @@
       attractToBiteRate: 0.01,        // 吸引 → 咬钩概率
       toughToBiteWindow: 40,          // 拉力/强度 → 咬钩响应窗口(ms)
       stealthToBiteRate: 0.004,       // 🆕 隐蔽(20~70) → 咬钩概率小幅加成（参考稿只给数值，换算为自有口径）
+      /* 🆕 补齐「原本白写」的三条属性：运气 / 范围 / 渔网加成
+         （此前它们只出现在物品表里，没有任何玩法消费点） */
+      luckToRareRate: 0.01,           // 运气 → 稀有鱼概率加成（龙王竿 luck 12 → +12%）
+      rangeToWaitReduce: 0.05,        // 范围 → 抛竿等待缩短（每点 5%）
+      rangeToWaitReduceCap: 0.35,     // 等待缩短上限（防止直接秒咬钩）
+      bonusToFishPrice: 0.01,         // 渔网加成 → 售鱼价加成（每点 1%，撒网 35 → +35%）
+      /* 🆕 吸引超过「必咬钩」的部分不再浪费：转为缩短等待
+         （基础咬钩率 0.9 + attract×0.01 → attract ≥10 就必咬钩，秘制饵 45 的溢出部分此前完全没用） */
+      attractOverflowToWait: 0.01,    // 溢出吸引 → 等待缩短（每点 1%）
+      attractOverflowCap: 0.4,        // 上限 40%
+      waitMinMs: 900,                 // 等待时间下限（再多的缩短也保留一点节奏）
       baitConsumePerCast: 1,
       lowStockThreshold: 1,
       lockedSlots: []                 // 🆕 渔网按参考稿补齐后启用（原先 lockedSlots:['net']）
