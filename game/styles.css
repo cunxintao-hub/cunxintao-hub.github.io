@@ -225,6 +225,12 @@ html,body{
 .stage-scene.video-on{ background-image:none !important; }
 /* 视频里已含垂钓者，隐藏 Lottie 人物层，避免两个角色 */
 .stage-scene.video-on .scene-actor{ display:none; }
+/* 🆕 视频画面里本来就有浮漂与水面 → 隐藏 CSS 浮标与涟漪：
+   否则会在水里多出一个「错位的假漂」（视频是 16:9 裁切，位置和插画的 bobberAt 对不上）。
+   咬钩反馈仍由叠加提示（❗气泡 + 场景提示胶囊）承担；
+   视频缺失回退插画时，这两个元素照旧显示、照旧能下沉/晃动 */
+.stage-scene.video-on .scene-bobber,
+.stage-scene.video-on .scene-ripples{ display:none; }
 
 .scene-vignette{
   position:absolute; inset:0; pointer-events:none; z-index:1;
