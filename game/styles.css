@@ -217,8 +217,10 @@ html,body{
   position:absolute; inset:0; z-index:0;
   width:100%; height:100%; object-fit:cover;
   display:none; pointer-events:none; background:#0d2233;
+  opacity:0; transition:opacity .22s linear;          /* 🆕 双缓冲：淡入淡出，换片不闪黑 */
 }
 .stage-scene.video-on .scene-video{ display:block; }
+.stage-scene.video-on .scene-video.is-active{ opacity:1; }
 /* 有视频时关掉背景图（含兜底渐变），避免与视频叠影 */
 .stage-scene.video-on{ background-image:none !important; }
 /* 视频里已含垂钓者，隐藏 Lottie 人物层，避免两个角色 */

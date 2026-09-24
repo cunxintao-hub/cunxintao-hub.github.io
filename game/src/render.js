@@ -377,7 +377,12 @@
 
   /* ---------------- 🆕 阶段背景视频（只做演出，不改交互与状态机） ---------------- */
 
-  const vstate = { key: '', timer: 0, flashTimer: 0, bound: false };
+  /* 🆕 双缓冲播放器：active = 当前可见的那个；切换时先在另一个里缓冲好再淡入，
+     线上（GitHub Pages / 任意 http）换片不会再出现黑屏/卡顿 */
+  const vstate = {
+    key: '', active: null, timer: 0, flashTimer: 0,
+    bound: [], warm: false, loadToken: 0
+  };
 
   /** 阶段 → 视频 key */
   function phaseVideoKey(phase) {
@@ -389,6 +394,32 @@
   }
 
   function sceneVideoEl() { return document.getElementById('scene-video'); }
+
+  /** 第二个播放器（懒创建）：与 #scene-video 同款样式，叠在同一层 */
+  function sceneVideoEl2() {
+    let b = document.getElementById('scene-video-b');
+    if (b) return b;
+    const a = sceneVideoEl();
+    if (!a || !a.parentNode) return null;            // 非钓鱼页没有场景容器
+    b = document.createElement('video');
+    b.id = 'scene-video-b';
+    b.className = 'scene-video';
+    b.muted = true;
+    b.playsInline = true;
+    b.preload = 'auto';
+    b.setAttribute('aria-hidden', 'true');
+    a.parentNode.insertBefore(b, a.nextSibling);
+    bindVideoEl(b);
+    return b;
+  }
+
+  function allVideoEls() {
+    const list = [];
+    const a = sceneVideoEl(); if (a) list.push(a);
+    const b = sceneVideoEl2(); if (b && list.indexOf(b) < 0) list.push(b);
+    return list;
+  }
+
   function videoConf() { return (FG.CONFIG.fishing || {}).videos || {}; }
   function fishingConf() { return FG.CONFIG.fishing || {}; }
 
@@ -408,19 +439,24 @@
     else v.addEventListener('loadedmetadata', apply, { once: true });
   }
 
-  function bindSceneVideo() {
-    const v = sceneVideoEl();
-    if (!v || vstate.bound) return;
-    vstate.bound = true;
+  /** 单个播放器的公共绑定（两个播放器都会走这里） */
+  function bindVideoEl(v) {
+    if (!v || vstate.bound.indexOf(v) >= 0) return;
+    vstate.bound.push(v);
     v.muted = true;                                   // 静音：浏览器才允许自动播放
     v.playsInline = true;
     v.addEventListener('error', function () {         // 视频缺失/不支持 → 回退场景图，不报错中断
       console.warn('[render] 背景视频加载失败，已回退场景图/渐变', v.currentSrc || '');
-      const scene = document.getElementById('stage-scene');
-      if (scene) scene.classList.remove('video-on');
-      vstate.key = '';
+      if (vstate.active === v) {
+        const scene = document.getElementById('stage-scene');
+        if (scene) scene.classList.remove('video-on');
+        v.classList.remove('is-active');
+        vstate.active = null;
+        vstate.key = '';
+      }
     });
     v.addEventListener('ended', function () {         // once 型（抛竿）播完 → 接「等待」
+      if (vstate.active !== v) return;
       const entry = videoConf()[vstate.key];
       if (entry && entry.once) {
         clearTimeout(vstate.timer); vstate.timer = 0;
@@ -431,6 +467,82 @@
     });
   }
 
+  function bindSceneVideo() { bindVideoEl(sceneVideoEl()); }
+
+  /** 让 v 成为可见画面（淡入），另一个暂停并淡出；没就绪前不调用，避免黑帧 */
+  function activateVideo(v, seconds) {
+    if (!v) return;
+    const scene = document.getElementById('stage-scene');
+    allVideoEls().forEach(function (x) {
+      if (x === v) { x.classList.add('is-active'); }
+      else { x.classList.remove('is-active'); try { x.pause(); } catch (e) { } }
+    });
+    vstate.active = v;
+    if (scene) scene.classList.add('video-on');
+    try {
+      const p = v.play();                             // 自动播放被拦时静默失败，场景图继续兜底
+      if (p && typeof p.catch === 'function') p.catch(function () { });
+    } catch (e) { }
+    stretchVideo(v, seconds);
+  }
+
+  /**
+   * 在备用播放器里先把新片源缓冲好，readyState>=2（已有可渲染帧）再淡入。
+   * 线上缓冲慢时保留上一画面继续播，绝不切到黑屏。
+   */
+  function loadInto(v, key, entry) {
+    if (!v) return;
+    const token = ++vstate.loadToken;
+    const timeoutMs = Number(fishingConf().videoSwitchTimeoutMs) || 2500;
+    let done = false;
+
+    const finish = function () {
+      if (done || token !== vstate.loadToken || vstate.key !== key) return;
+      done = true; clearTimeout(timer);
+      activateVideo(v, entry.seconds);
+    };
+
+    const timer = setTimeout(function () {
+      if (done || token !== vstate.loadToken || vstate.key !== key) return;
+      if (v.readyState >= 2) { done = true; activateVideo(v, entry.seconds); return; }
+      /* 还没缓冲出首帧：保持旧画面（或插画/渐变），下次刷新再试，不切黑屏 */
+      console.warn('[render] 背景视频缓冲超时，保留上一画面:', key);
+      vstate.key = '';
+    }, timeoutMs);
+
+    v.loop = !entry.once;
+    if (v.getAttribute('src') !== entry.src) { v.src = entry.src; }
+    else { try { v.currentTime = 0; } catch (e) { } }
+
+    if (v.readyState >= 2) { finish(); return; }
+    v.addEventListener('loadeddata', finish, { once: true });
+    v.addEventListener('canplay', finish, { once: true });
+  }
+
+  /** 预热：进入钓鱼页后按顺序把各阶段视频静默下载进浏览器缓存（线上首播/换片才不卡） */
+  function warmVideos() {
+    if (vstate.warm) return;
+    vstate.warm = true;
+    const conf = videoConf();
+    const keys = Object.keys(conf).filter(function (k) { return conf[k] && conf[k].src; });
+    let i = 0;
+    (function next() {
+      if (i >= keys.length) return;
+      const src = conf[keys[i++]].src;
+      const w = document.createElement('video');
+      w.preload = 'auto'; w.muted = true; w.playsInline = true;
+      w.style.cssText = 'position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none';
+      document.body.appendChild(w);
+      const drop = function () {
+        setTimeout(function () { if (w.parentNode) w.parentNode.removeChild(w); }, 300);
+      };
+      w.addEventListener('loadeddata', drop, { once: true });
+      w.addEventListener('error', drop, { once: true });
+      w.src = src;
+      setTimeout(next, 600);                          // 逐个排队，不跟正在播的抢带宽
+    })();
+  }
+
   /**
    * 按阶段切换背景视频
    * @param {string} phase idle/waiting/biting/tension/reel/caught
@@ -438,9 +550,10 @@
    */
   function applySceneVideo(phase, forceKey) {
     const scene = document.getElementById('stage-scene');
-    const v = sceneVideoEl();
-    if (!scene || !v) return;
+    const a = sceneVideoEl();
+    if (!scene || !a) return;
     bindSceneVideo();
+    if (fishingConf().preloadAllVideos !== false) warmVideos();
 
     /* 失败/结果演出期间：普通阶段刷新不打断演出（演出结束会自动回到阶段视频） */
     if (!forceKey && Date.now() < (vstate.flashUntil || 0)) return;
@@ -449,24 +562,29 @@
     const entry = videoConf()[key];
     if (!entry || !entry.src) {                       // 没配视频 → 回退场景图/渐变
       scene.classList.remove('video-on');
-      vstate.key = '';
-      try { v.pause(); } catch (e) { }
+      vstate.key = ''; vstate.active = null; vstate.loadToken++;
+      allVideoEls().forEach(function (x) { x.classList.remove('is-active'); try { x.pause(); } catch (e) { } });
       return;
     }
 
-    if (vstate.key !== key) {
-      clearTimeout(vstate.timer); vstate.timer = 0;
-      vstate.key = key;
-      v.loop = !entry.once;
-      if (v.getAttribute('src') !== entry.src) v.src = entry.src;
-      else { try { v.currentTime = 0; } catch (e) { } }
-      try {
-        const p = v.play();                           // 自动播放被拦时静默失败，场景图继续兜底
-        if (p && typeof p.catch === 'function') p.catch(function () { });
-      } catch (e) { }
+    if (vstate.key === key && vstate.active) {         // 已经在播这段：只更新倍速
+      stretchVideo(vstate.active, entry.seconds);
+      return;
     }
-    scene.classList.add('video-on');
-    stretchVideo(v, entry.seconds);
+
+    clearTimeout(vstate.timer); vstate.timer = 0;
+    vstate.key = key;
+
+    const cur = vstate.active || a;
+    const next = (cur === a) ? (sceneVideoEl2() || a) : a;
+    if (next === cur) {                                // 只有单个播放器可用 → 退回直接换源
+      cur.loop = !entry.once;
+      if (cur.getAttribute('src') !== entry.src) cur.src = entry.src;
+      else { try { cur.currentTime = 0; } catch (e) { } }
+      activateVideo(cur, entry.seconds);
+    } else {
+      loadInto(next, key, entry);                      // 双缓冲：缓冲好首帧再淡入
+    }
 
     /* 抛竿视频兜底：最长 castVideoMaxMs，超时必定切「等待」（10 §2 阶段出口） */
     if (key === 'cast' && !vstate.timer) {
@@ -499,14 +617,18 @@
 
   /** 离开钓鱼页：暂停并隐藏视频，同时取消未播完的结果演出（不占后台资源，10 §9） */
   function pauseSceneVideo() {
-    const v = sceneVideoEl();
     const scene = document.getElementById('stage-scene');
-    if (v) { try { v.pause(); } catch (e) { } }
+    allVideoEls().forEach(function (x) {                 // 两个播放器都停，避免后台继续解码
+      x.classList.remove('is-active');
+      try { x.pause(); } catch (e) { }
+    });
     if (scene) scene.classList.remove('video-on');
     clearTimeout(vstate.timer); vstate.timer = 0;
     clearTimeout(vstate.flashTimer); vstate.flashTimer = 0;
     vstate.flashUntil = 0;
     vstate.key = '';
+    vstate.active = null;
+    vstate.loadToken++;
   }
 
   /** 预读图片真实尺寸，加载完成后重算落点 */
