@@ -776,6 +776,11 @@
     if (fill) fill.style.width = U.clamp(r.progress, 0, 100) + '%';
     set('reel-progress', r.progress.toFixed(1) + '%');
     set('reel-timer', '剩余 ' + remainSec(r.endsAt) + 's');
+    /* 🆕 起始进度（张力命中奖励）与松线回退提示 */
+    set('reel-start', r.start > 0
+      ? '张力命中 ' + (r.hits || 0) + ' 次 → 起手 +' + Math.round(r.start) + '%'
+      : '');
+    set('reel-slip', r.decay > 0 ? '松线 −' + r.decay + '%/s' : '');
   }
 
   /** 鱼获结算卡片：三选一（01 §5）。关闭兜底 = 收入背包，避免停在 caught 阶段 */

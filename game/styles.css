@@ -394,6 +394,15 @@ html,body{
   transition:width .08s linear;
 }
 .reel-foot span{ color:var(--navy); font-weight:800; font-size:16px; }
+/* 🆕 起手加成 / 松线回退提示 */
+.reel-sub{
+  min-height:16px; text-align:center; font-size:12px; font-weight:700;
+  color:var(--green, #2E7D32); margin-bottom:2px;
+}
+.reel-foot #reel-slip{
+  font-size:12px; font-weight:700; color:#C62828; opacity:.85;
+}
+.reel-foot #reel-slip:empty{ display:none; }
 
 /* ---------- 鱼获结算卡片（参考图 ⑥ 结算卡） ---------- */
 .catch-card{

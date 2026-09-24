@@ -19,7 +19,18 @@
       cursorSpeed: 0.105,                 // 指针速度 %/ms（≈105%/s，单程约 950ms）
       targetWidthMin: 0.20, targetWidthMax: 0.28, // 绿区宽度占比
       reelDuration: 6000,                 // 收杆时长(ms)（基准 5000，+1s）
-      reelGainPerClick: 5.7,              // 每次点击进度增益 %（×力量加成 1.1 = 6.27%/次 → 正好 16 次满进度）
+      /* 🆕 收杆改造（真实手感 + 总难度不升）：
+         - reelStartPerHit：张力阶段每个「命中」给收杆的初始进度（预判越准，起手越高）
+         - reelDecayPerSec：不点击时每秒回退（鱼在挣，松线就退）
+         - reelStartMax：初始进度上限，防止轮次多时直接白给
+         难度核算（初始装备 gain≈6.93%/次、窗口 6s）：
+           旧：需 100/6/6.27 ≈ 2.66 次/秒（约 16 次满）
+           新·刚好达标(命中 2)：(84/6+4)/6.93 ≈ 2.60 次/秒（约 14 次）
+           新·全中(命中 3~4)：≈2.2 次/秒 —— 更轻松，作为预判奖励 */
+      reelGainPerClick: 6.3,              // 每次点击进度增益 %（原 5.7，上调以抵消回退带来的额外消耗）
+      reelStartPerHit: 8,                 // 🆕 每个命中 → 收杆初始进度 %
+      reelStartMax: 40,                   // 🆕 初始进度上限 %
+      reelDecayPerSec: 4,                 // 🆕 松线回退速度 %/秒（0 = 不回退）
       tensionTimeout: 10000,              // 张力阶段超时(ms)
       hitFeedbackMs: 420,                 // 单轮命中/未命中反馈时长，期间忽略连点
       maxTargetWidthRatio: 0.6,           // 绿区宽度上限（叠加装备加成后裁剪，避免满屏）

@@ -213,17 +213,43 @@
     clearTimers();
     const c = cfg();
     const d = derived();
-    rt.reel = { progress: 0, gain: d.reelGainPerClick, endsAt: Date.now() + c.reelDuration, clicks: 0 };
+    const t = rt.tension || { hits: 0 };
+    /* 🆕 张力阶段预判越准（命中越多），收杆起手越高 —— 让「准」真的有回报 */
+    const perHit = Number(c.reelStartPerHit) || 0;
+    const cap = Number(c.reelStartMax) || 40;
+    const hits = Number(t.hits) || 0;
+    const start = Math.min(cap, hits * perHit);
+    rt.reel = {
+      progress: start, gain: d.reelGainPerClick,
+      endsAt: Date.now() + c.reelDuration, clicks: 0,
+      start: start, hits: hits,                                // 起始进度（UI 展示用）
+      decay: Number(c.reelDecayPerSec) || 0                    // 松线回退 %/秒
+    };
     setPhase('reel');
     later(onReelTimeout, c.reelDuration);                      // 兜底超时
     startReelLoop();
-    FG.toast('🔥 疯狂收杆！');
+    FG.toast(start > 0
+      ? '🔥 疯狂收杆！命中 ' + hits + ' 次，起手 +' + Math.round(start) + '%'
+      : '🔥 疯狂收杆！');
     FG.render.renderFishing();
   }
 
+  /** rAF：刷新画面 + 🆕 松线回退（不点击时进度按 reelDecayPerSec 缓慢后退） */
   function startReelLoop() {
-    const step = function () {
+    const now0 = (window.performance && performance.now) ? performance.now() : Date.now();
+    let last = now0;
+    const step = function (now) {
       if (rt.phase !== 'reel') { rt.raf = 0; return; }
+      const r = rt.reel;
+      if (r && r.decay > 0 && r.progress > 0) {
+        const t = (typeof now === 'number') ? now : ((window.performance && performance.now) ? performance.now() : Date.now());
+        const dt = Math.min(Math.max(t - last, 0), 100) / 1000;   // 秒（切后台钳制，避免瞬间掉一大截）
+        last = t;
+        if (dt > 0) r.progress = Math.max(0, r.progress - r.decay * dt);
+      } else {
+        const t2 = (typeof now === 'number') ? now : ((window.performance && performance.now) ? performance.now() : Date.now());
+        last = t2;
+      }
       FG.render.renderFishing();
       rt.raf = requestAnimationFrame(step);
     };

@@ -78,9 +78,10 @@
           '</div>' +
           '<div class="stage-overlay" id="reel-system">' +
             '<div class="reel-box">' +
-              '<div class="reel-head">🔥 疯狂收杆！</div>' +
-              '<div class="reel-bar"><div class="reel-fill" id="reel-fill"></div></div>' +
-              '<div class="reel-foot"><span id="reel-progress">0%</span><span id="reel-timer"></span></div>' +
+            '<div class="reel-head">🔥 疯狂收杆！</div>' +
+            '<div class="reel-sub" id="reel-start"></div>' +
+            '<div class="reel-bar"><div class="reel-fill" id="reel-fill"></div></div>' +
+            '<div class="reel-foot"><span id="reel-progress">0%</span><span id="reel-slip"></span><span id="reel-timer"></span></div>' +
             '</div>' +
           '</div>' +
           '<div class="stage-actions">' +
