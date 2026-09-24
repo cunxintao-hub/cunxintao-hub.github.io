@@ -70,7 +70,8 @@
       biteRate: F.biteBaseRate + b.attract * E.attractToBiteRate + b.stealth * (E.stealthToBiteRate || 0),
       biteWindow: F.biteWindow + b.tough * E.toughToBiteWindow,
       /* 🆕 以下三项让 luck / range / bonus（渔网）真正进入玩法 */
-      rareBonus: b.luck * (Number(E.luckToRareRate) || 0),               // 运气 → 稀有鱼概率
+      /* 运气 + 饵料吸引 → 稀有（大）鱼概率：吸引力越大越能钓到大鱼 */
+      rareBonus: b.luck * (Number(E.luckToRareRate) || 0) + b.attract * (Number(E.attractToRareRate) || 0),
       waitScale: Math.max(0.4, 1 - waitCut),                             // 范围 + 溢出吸引 → 等待缩短
       priceMul: 1 + b.bonus * (Number(E.bonusToFishPrice) || 0),         // 渔网 → 售价加成
       bonus: b

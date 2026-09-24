@@ -240,11 +240,12 @@
     const cap = Number(c.reelStartMax) || 40;
     const hits = Number(t.hits) || 0;
     const start = Math.min(cap, hits * perHit);
-    /* 🆕 收杆前先把这条鱼定下来：松线程度由它的稀有度与重量决定 */
+    /* 🆕 收杆前先把这条鱼定下来：松线程度与「每次点击进度」都由它的稀有度与重量决定 */
     const fish = rollFish();
     const decay = reelDecayFor(fish);
+    const gainMul = Number((c.reelGainByRarity || {})[fish.rarity]) || 1;   // 越贵越沉：点一次拉得越少
     rt.reel = {
-      progress: start, gain: d.reelGainPerClick,
+      progress: start, gain: d.reelGainPerClick * gainMul,
       endsAt: Date.now() + c.reelDuration, clicks: 0,
       start: start, hits: hits,                                // 起始进度（UI 展示用）
       fish: fish,                                              // 🆕 已定下的鱼（上岸时直接用）
