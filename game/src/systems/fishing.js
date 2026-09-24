@@ -329,7 +329,9 @@
     const candidates = pool.filter(function (id) { return FG.CONFIG.fish[id].rarity === rarity; });
     const id = candidates[U.randInt(0, candidates.length - 1)];
     const f = FG.CONFIG.fish[id];
-    const weight = +((Math.random() * (f.weightMax - f.weightMin) + f.weightMin) * weightMul).toFixed(2);
+    /* 🆕 钓场越高级，同一条鱼也越大（locations[x].weightScale），价格按重量走 → 价值同步更高 */
+    const locScale = Number(loc.weightScale) || 1;
+    const weight = +((Math.random() * (f.weightMax - f.weightMin) + f.weightMin) * weightMul * locScale).toFixed(2);
     const price = Math.round(FG.CONFIG.economy.fishBasePrice * FG.CONFIG.economy.rarityPriceFactor[f.rarity] * weight * priceMul);
     return { id: id, name: f.name, icon: f.icon, rarity: rarity, weight: weight, desc: f.desc, price: price };
   }

@@ -79,15 +79,53 @@
       preloadAllVideos: true              // 进入钓鱼页后按顺序静默预下载全部阶段视频（首播/换片不卡）
     },
 
-    /* 01 §6 鱼类数据表（首版 7 种，其余钓场同结构扩展） */
+    /* 01 §6 / 05 §3 鱼类数据表（🆕 由 7 种扩到 32 种，按钓场分层）
+       设计口径：钓场等级越高 → 池子里稀有度越高、鱼的重量越大（另叠 locations[x].weightScale）
+       - rarity 决定它在「稀有度权重」里属于哪一档（rollFish 先抽稀有度，再在该档里挑鱼种）
+       - weightMin/Max 是基准区间，实际再 × 钓场 weightScale × 技能/装备加成 */
     fish: {
-      crucian_carp:   { name: '鲫鱼',   icon: '🐟', rarity: 'common',   weightMin: 0.3,  weightMax: 2.0, desc: '最常见的小河鱼' },
-      common_carp:    { name: '鲤鱼',   icon: '🎏', rarity: 'common',   weightMin: 0.8,  weightMax: 4.0, desc: '力气不小，容易脱钩' },
-      snakehead:      { name: '黑鱼',   icon: '🐍', rarity: 'rare',     weightMin: 2.0,  weightMax: 6.0, desc: '凶猛的淡水霸主，力大无穷' },
-      catfish:        { name: '鲶鱼',   icon: '🐱', rarity: 'uncommon', weightMin: 1.0,  weightMax: 5.0, desc: '夜行的底栖鱼' },
-      mandarin_fish:  { name: '鳜鱼',   icon: '🐡', rarity: 'uncommon', weightMin: 0.8,  weightMax: 3.5, desc: '肉质鲜美，价值不菲' },
-      bitterling:     { name: '鳑鲏',   icon: '🐠', rarity: 'common',   weightMin: 0.05, weightMax: 0.3, desc: '色彩斑斓的小鱼' },
-      yellow_catfish: { name: '黄颡鱼', icon: '🐟', rarity: 'common',   weightMin: 0.2,  weightMax: 1.0, desc: '会「咕咕」叫' }
+      /* --- 通用淡水（T1~T2：村口河滩 / 幽静小溪） --- */
+      bitterling:     { name: '鳑鲏',     icon: '🐠', rarity: 'common',   weightMin: 0.05, weightMax: 0.30, desc: '色彩斑斓的小鱼' },
+      crucian_carp:   { name: '鲫鱼',     icon: '🐟', rarity: 'common',   weightMin: 0.30, weightMax: 2.00, desc: '最常见的小河鱼' },
+      yellow_catfish: { name: '黄颡鱼',   icon: '🐡', rarity: 'common',   weightMin: 0.20, weightMax: 1.00, desc: '会「咕咕」叫' },
+      minnow:         { name: '白条鱼',   icon: '🐠', rarity: 'common',   weightMin: 0.05, weightMax: 0.25, desc: '溪面成群掠食的小鱼' },
+      opsariichthys:  { name: '马口鱼',   icon: '🐟', rarity: 'common',   weightMin: 0.10, weightMax: 0.50, desc: '溪流里的追击手，咬口凶' },
+      common_carp:    { name: '鲤鱼',     icon: '🎏', rarity: 'uncommon', weightMin: 0.80, weightMax: 4.00, desc: '力气不小，容易脱钩' },
+      catfish:        { name: '鲶鱼',     icon: '🐱', rarity: 'uncommon', weightMin: 1.00, weightMax: 5.00, desc: '夜行的底栖鱼，吞钩很深' },
+      mandarin_fish:  { name: '鳜鱼',     icon: '🐡', rarity: 'uncommon', weightMin: 0.80, weightMax: 3.50, desc: '肉质鲜美，价值不菲' },
+      culter:         { name: '翘嘴鲌',   icon: '🐍', rarity: 'uncommon', weightMin: 1.00, weightMax: 6.00, desc: '水面掠食者，爆发力极强' },
+      snakehead:      { name: '黑鱼',     icon: '🐍', rarity: 'rare',     weightMin: 2.00, weightMax: 7.00, desc: '凶猛的淡水霸主，力大无穷' },
+
+      /* --- 湖泊 / 大江（T3~T4：碧波湖泊 / 奔腾江河） --- */
+      silver_carp:    { name: '鲢鱼',     icon: '🐠', rarity: 'common',   weightMin: 1.50, weightMax: 8.00, desc: '喜跳跃，出水动静很大' },
+      coreius:        { name: '铜鱼',     icon: '🐟', rarity: 'common',   weightMin: 0.30, weightMax: 1.20, desc: '江底常见的小型底栖鱼' },
+      grass_carp:     { name: '草鱼',     icon: '🐟', rarity: 'uncommon', weightMin: 2.00, weightMax: 12.0, desc: '吃草长大，力道绵长' },
+      bighead_carp:   { name: '鳙鱼',     icon: '🐡', rarity: 'uncommon', weightMin: 2.00, weightMax: 14.0, desc: '头大身沉，稳而持久' },
+      black_carp:     { name: '青鱼',     icon: '🐋', rarity: 'rare',     weightMin: 5.00, weightMax: 30.0, desc: '底层巨物，耐力惊人' },
+      yellowcheek:    { name: '鳡鱼',     icon: '🐍', rarity: 'rare',     weightMin: 6.00, weightMax: 35.0, desc: '江中「水老虎」，冲刺极猛' },
+      myxocyprinus:   { name: '胭脂鱼',   icon: '🎏', rarity: 'epic',     weightMin: 8.00, weightMax: 40.0, desc: '体色如胭脂，国家二级保护鱼类' },
+      chinese_sturgeon:{ name: '中华鲟',  icon: '🐋', rarity: 'epic',     weightMin: 20.0, weightMax: 120., desc: '活化石，体型庞大而生性稳重' },
+
+      /* --- 近海（T5：金色近海） --- */
+      yellowfin_seabream:{ name: '黄鳍鲷', icon: '🐠', rarity: 'common',  weightMin: 0.50, weightMax: 3.00, desc: '近海礁区最常见的小鲷' },
+      golden_pompano: { name: '金鲳鱼',   icon: '🐟', rarity: 'common',   weightMin: 1.00, weightMax: 5.00, desc: '成群游动，银白闪亮' },
+      sea_bass:       { name: '花鲈',     icon: '🐡', rarity: 'uncommon', weightMin: 2.00, weightMax: 14.0, desc: '近岸猛口，冲劲十足' },
+      spanish_mackerel:{ name: '鲅鱼',    icon: '🐍', rarity: 'uncommon', weightMin: 5.00, weightMax: 24.0, desc: '泳速极快，咬钩就来回冲刺' },
+      red_seabream:   { name: '真鲷',     icon: '🎏', rarity: 'rare',     weightMin: 4.00, weightMax: 20.0, desc: '海中红宝石，肉质细腻' },
+      grouper:        { name: '石斑鱼',   icon: '🐋', rarity: 'rare',     weightMin: 12.0, weightMax: 60.0, desc: '礁洞中的巨口，一旦上钩就往洞里钻' },
+      giant_grouper:  { name: '龙趸',     icon: '🐉', rarity: 'epic',     weightMin: 40.0, weightMax: 150., desc: '巨型石斑，礁区霸主，力能拖船' },
+
+      /* --- 深海（T6：深蓝深海） --- */
+      hairtail:       { name: '带鱼',     icon: '🐍', rarity: 'common',   weightMin: 0.50, weightMax: 3.00, desc: '深海银带，成群上浮' },
+      anglerfish:     { name: '鮟鱇鱼',   icon: '🐡', rarity: 'rare',     weightMin: 2.00, weightMax: 15.0, desc: '提着「灯笼」的伏击猎手' },
+      oarfish:        { name: '皇带鱼',   icon: '🐋', rarity: 'rare',     weightMin: 10.0, weightMax: 80.0, desc: '深海长带，极为罕见' },
+      bluefin_tuna:   { name: '蓝鳍金枪鱼', icon: '🐟', rarity: 'epic',   weightMin: 30.0, weightMax: 200., desc: '大洋速游健将，力道持续不断' },
+      giant_squid:    { name: '大王乌贼', icon: '🦑', rarity: 'legendary',weightMin: 50.0, weightMax: 300., desc: '深海巨怪，触腕缠线' },
+
+      /* --- 秘境（T7：神秘海域） --- */
+      arowana:        { name: '龙鱼',     icon: '🐉', rarity: 'epic',     weightMin: 5.00, weightMax: 30.0, desc: '鳞如铠甲的神鱼，跃出水面' },
+      koi_king:       { name: '锦鲤王',   icon: '🎏', rarity: 'legendary',weightMin: 10.0, weightMax: 60.0, desc: '一身锦绣的鲤中之王' },
+      mythical_kun:   { name: '鲲',       icon: '🐋', rarity: 'legendary',weightMin: 100., weightMax: 500., desc: '传说中的巨物，见者寥寥' }
     },
 
     /* 01 §6 / 05 §3 钓场表（7 个，等级解锁）：先按钓场取鱼种，再按稀有度权重抽鱼
@@ -96,12 +134,15 @@
          · bobberAt = 画中那枚浮漂（或钓线入水处）在**图片内的百分比**，CSS 浮标/涟漪按它对齐，
            咬钩时下沉、等待时轻晃都发生在这一点的水面上
          · 图里自带角色 → 不再叠 Lottie 人物动画层（scene.imageClean 仅早期底图用，可忽略）
-       - 鱼种池暂用 01 的 7 种：海水钓场（offshore/deepsea/mystic）的专属鱼种待 05 轮补齐 */
+       - 🆕 鱼种池已按钓场分层：每个钓场一套专属鱼种（详见 CONFIG.fish），等级越高越稀有；
+        再叠 `weightScale`（1 → 2），所以同一条鱼在高阶钓场也明显更重、更值钱 */
     locations: {
       river: {
         name: '村口河滩', emoji: '🏞️', unlockLevel: 1, desc: '阳光照耀下的乡村小河，水流平缓，起点',
-        fish: ['crucian_carp', 'common_carp', 'snakehead', 'catfish', 'mandarin_fish', 'bitterling', 'yellow_catfish'],
-        rarityWeight: { common: 60, uncommon: 25, rare: 12, epic: 2.5, legendary: 0.5 },
+        /* T1 入门：以常见小鱼为主，最重约 7kg */
+        fish: ['bitterling', 'crucian_carp', 'yellow_catfish', 'common_carp', 'catfish', 'mandarin_fish', 'snakehead'],
+        rarityWeight: { common: 62, uncommon: 27, rare: 11, epic: 0, legendary: 0 },
+        weightScale: 1,
         scene: {
           image: 'assets/scene/river.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.31, y: 0.81 }
@@ -109,8 +150,10 @@
       },
       stream: {
         name: '幽静小溪', emoji: '🌊', unlockLevel: 6, desc: '山间清澈的溪流，石缝中藏着惊喜',
-        fish: ['crucian_carp', 'catfish', 'mandarin_fish', 'bitterling', 'yellow_catfish'],
-        rarityWeight: { common: 52, uncommon: 30, rare: 14, epic: 3.5, legendary: 0.5 },
+        /* T2：溪流小鱼 + 掠食性的翘嘴，体型略涨 */
+        fish: ['minnow', 'opsariichthys', 'bitterling', 'crucian_carp', 'common_carp', 'mandarin_fish', 'catfish', 'culter', 'snakehead'],
+        rarityWeight: { common: 50, uncommon: 32, rare: 15, epic: 3, legendary: 0 },
+        weightScale: 1.1,
         scene: {
           image: 'assets/scene/stream.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.67, y: 0.86 }
@@ -118,8 +161,10 @@
       },
       lake: {
         name: '碧波湖泊', emoji: '🏔️', unlockLevel: 16, desc: '广阔天然湖泊，水草丰茂，大鱼潜伏',
-        fish: ['common_carp', 'snakehead', 'catfish', 'mandarin_fish', 'crucian_carp'],
-        rarityWeight: { common: 44, uncommon: 32, rare: 18, epic: 5, legendary: 1 },
+        /* T3：湖鱼为主（草鱼/鳙鱼/青鱼），出现 30kg 级的巨物 */
+        fish: ['crucian_carp', 'silver_carp', 'bitterling', 'common_carp', 'grass_carp', 'bighead_carp', 'mandarin_fish', 'catfish', 'culter', 'black_carp', 'snakehead'],
+        rarityWeight: { common: 40, uncommon: 34, rare: 20, epic: 5, legendary: 1 },
+        weightScale: 1.25,
         scene: {
           image: 'assets/scene/lake.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.35, y: 0.76 }
@@ -127,8 +172,10 @@
       },
       river_big: {
         name: '奔腾江河', emoji: '💧', unlockLevel: 31, desc: '水流湍急的大江，暗流涌动',
-        fish: ['snakehead', 'common_carp', 'catfish', 'mandarin_fish', 'yellow_catfish'],
-        rarityWeight: { common: 36, uncommon: 33, rare: 22, epic: 7.5, legendary: 1.5 },
+        /* T4：大江巨物（鳡鱼/胭脂鱼/中华鲟），100kg 级开始出现 */
+        fish: ['coreius', 'silver_carp', 'common_carp', 'grass_carp', 'bighead_carp', 'culter', 'black_carp', 'yellowcheek', 'snakehead', 'myxocyprinus', 'chinese_sturgeon'],
+        rarityWeight: { common: 28, uncommon: 30, rare: 26, epic: 13, legendary: 3 },
+        weightScale: 1.4,
         scene: {
           image: 'assets/scene/river_big.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.20, y: 0.80 }
@@ -136,8 +183,10 @@
       },
       offshore: {
         name: '金色近海', emoji: '🌅', unlockLevel: 51, desc: '温暖近海，礁石遍布，海鱼丰富',
-        fish: ['mandarin_fish', 'snakehead', 'catfish', 'common_carp', 'yellow_catfish'],
-        rarityWeight: { common: 28, uncommon: 34, rare: 26, epic: 10, legendary: 2 },
+        /* T5 近海：整组海鱼（鲷 / 鲈 / 鲅 / 石斑）+ 史诗级龙趸，体型已超过江河 */
+        fish: ['yellowfin_seabream', 'golden_pompano', 'sea_bass', 'spanish_mackerel', 'red_seabream', 'grouper', 'giant_grouper'],
+        rarityWeight: { common: 22, uncommon: 28, rare: 32, epic: 18, legendary: 0 },
+        weightScale: 1.35,
         scene: {
           image: 'assets/scene/offshore.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.33, y: 0.88 }
@@ -145,8 +194,10 @@
       },
       deepsea: {
         name: '深蓝深海', emoji: '🌌', unlockLevel: 71, desc: '光线昏暗，栖息罕见深海巨物',
-        fish: ['snakehead', 'catfish', 'mandarin_fish', 'common_carp'],
-        rarityWeight: { common: 20, uncommon: 32, rare: 30, epic: 15, legendary: 3 },
+        /* T6 深海：带鱼 / 鮟鱇 / 皇带鱼 / 金枪鱼 + 传说级大王乌贼 */
+        fish: ['hairtail', 'anglerfish', 'oarfish', 'bluefin_tuna', 'grouper', 'giant_squid'],
+        rarityWeight: { common: 20, uncommon: 26, rare: 32, epic: 15, legendary: 7 },
+        weightScale: 1.7,
         scene: {
           image: 'assets/scene/deepsea.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.77, y: 0.92 }
@@ -154,8 +205,10 @@
       },
       mystic: {
         name: '神秘海域', emoji: '✨', unlockLevel: 91, desc: '传说中的终极钓场，只有顶级钓手才能到达',
-        fish: ['snakehead', 'mandarin_fish', 'catfish'],
-        rarityWeight: { common: 12, uncommon: 28, rare: 34, epic: 20, legendary: 6 },
+        /* T7 秘境：只有稀有以上的传说鱼，重量 ×2（鲲可达 1000kg） */
+        fish: ['arowana', 'bluefin_tuna', 'chinese_sturgeon', 'koi_king', 'mythical_kun', 'giant_squid'],
+        rarityWeight: { common: 0, uncommon: 0, rare: 14, epic: 40, legendary: 46 },
+        weightScale: 2,
         scene: {
           image: 'assets/scene/mystic.png', imageWidth: 1080, imageHeight: 603,
           bobberAt: { x: 0.37, y: 0.85 }
