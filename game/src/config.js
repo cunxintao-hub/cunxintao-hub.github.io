@@ -230,11 +230,13 @@
          true            = 参考实现的做法：开局只解锁前 2 条，达到 chainUnlockAtMergeCount 后逐条开放 */
       progressiveUnlock: false,
 
-      /* 八条链：数组顺序即等级顺序（index+1 = Lv）
-         unlockLevel = 需要达到的玩家等级（等级系统上线后才有意义，当前全 0） */
+      /* 九条链：数组顺序即等级顺序（index+1 = Lv）
+         unlockLevel = 需要达到的玩家等级（等级系统上线后才有意义，当前全 0）
+         🆕 谷物链：麦粒 → 面粉 → 面包 → 蛋糕（麦粒来自采集，面包是「面包饵」配方原料） */
       chains: {
         soil:  { name: '泥土链', unlockLevel: 0, items: ['clay', 'resin', 'brick', 'ceramic'] },
         plant: { name: '植物链', unlockLevel: 0, items: ['hay', 'wood', 'hardwood', 'ebony'] },
+        grain: { name: '谷物链', unlockLevel: 0, items: ['wheat', 'flour', 'bread', 'cake'] },
         ore:   { name: '矿石链', unlockLevel: 0, items: ['ore', 'iron_bar', 'steel', 'alloy'] },
         forge: { name: '锻造链', unlockLevel: 0, items: ['scrap', 'nail', 'gear', 'spring'] },
         paint: { name: '涂料链', unlockLevel: 0, items: ['sap', 'glue', 'varnish', 'lacquer'] },
@@ -242,9 +244,9 @@
         gem:   { name: '宝石链', unlockLevel: 0, items: ['pebble', 'crystal', 'gem', 'diamond_shard'] },
         cloth: { name: '织物链', unlockLevel: 0, items: ['fiber', 'thread', 'cloth', 'brocade'] }
       },
-      chainOrder: ['soil', 'plant', 'ore', 'forge', 'paint', 'food', 'gem', 'cloth'],
-      /* 逐条解锁阈值（仅当 progressiveUnlock = true 时生效）：开局 2 条，随后按合成次数开放 */
-      chainUnlockAtMergeCount: [0, 0, 3, 8, 15, 25, 40, 60],
+      chainOrder: ['soil', 'plant', 'grain', 'ore', 'forge', 'paint', 'food', 'gem', 'cloth'],
+      /* 逐条解锁阈值（仅当 progressiveUnlock = true 时生效）：开局 3 条，随后按合成次数开放 */
+      chainUnlockAtMergeCount: [0, 0, 0, 3, 8, 15, 25, 40, 60],
       rarityByLevel: ['common', 'common', 'uncommon', 'rare', 'uncommon', 'rare', 'epic', 'legendary'],
 
       /* 挖掘 / 采集：一次消耗 1 点体力，从下列候选基础材料里随机产出 producePerAction 个 */
@@ -274,7 +276,7 @@
       resin:  { name: '松脂', icon: '🫠', chain: 'soil' },
       brick:  { name: '砖块', icon: '🧱', chain: 'soil' },
       ceramic: { name: '陶瓷', icon: '🏺', chain: 'soil' },
-      hay:    { name: '干草', icon: '🌾', chain: 'plant' },
+      hay:    { name: '干草', icon: '🌿', chain: 'plant' },   // 🆕 换图标：原 🌾 与「麦粒」撞脸
       wood:   { name: '木材', icon: '🪵', chain: 'plant' },
       hardwood: { name: '硬木', icon: '🎋', chain: 'plant' },
       ebony:  { name: '乌木', icon: '🌑', chain: 'plant' },
@@ -311,10 +313,13 @@
       carbon_cloth: { name: '碳布', icon: '🖤', chain: null, rarity: 'rare' },
       dragon_scale: { name: '龙鳞', icon: '🐲', chain: null, rarity: 'legendary' },
       float:  { name: '浮漂', icon: '🎈', chain: null, rarity: 'common' },
-      sinker: { name: '铅坠', icon: '🔘', chain: null, rarity: 'common' },
-      /* 饵料配方专用材料（对齐参考稿）：麦粒可从采集获得，面包暂只能等 07 市场 */
-      wheat:  { name: '麦粒', icon: '🌾', chain: null, rarity: 'common' },
-      bread:  { name: '面包', icon: '🍞', chain: null, rarity: 'common' }
+      sinker: { name: '铅坠', icon: '⚫', chain: null, rarity: 'common' },   // 🆕 换图标：原 🔘 与「齿轮」撞脸
+      /* 🆕 谷物链（麦粒采集可得 → 面粉 → 面包 → 蛋糕）：面包是「面包饵」配方原料，
+         现在靠二合就能做出来，不用再等市场；蛋糕是这条链的顶端产物 */
+      wheat:  { name: '麦粒', icon: '🌾', chain: 'grain' },
+      flour:  { name: '面粉', icon: '🫓', chain: 'grain' },
+      bread:  { name: '面包', icon: '🍞', chain: 'grain' },
+      cake:   { name: '蛋糕', icon: '🍰', chain: 'grain' }
     },
 
     /* 背包（06 §4）：材料卡片上的来源标签。没列出的按等级推导：Lv.1=自然，Lv.2+=加工 */
