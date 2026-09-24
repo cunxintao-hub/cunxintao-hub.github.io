@@ -97,7 +97,7 @@
     return (cfg().bundles || []).filter(function (b) { return b.id === id; })[0] || null;
   }
 
-  /** 购买材料捆绑包：扣钻石 → 材料入 bag.materials（事务 + 回滚） */
+  /** 购买捆绑包：扣钻石 → 材料入 bag.materials / 装备·饵料入 bag.equipment（事务 + 回滚） */
   function buyBundle(id) {
     const def = bundleById(id);
     if (!def) { console.warn('[diamond] 未知礼包', id); FG.toast('礼包不存在', 'warn'); return false; }
@@ -107,19 +107,31 @@
       FG.toast('钻石不足：需要 ' + price + '💎，当前 ' + diamond() + '💎', 'warn');
       return false;
     }
-    const ids = Object.keys(def.items || {}).filter(function (k) { return !!FG.CONFIG.materials[k]; });
+    /* 🆕 礼包里既可以是材料（bag.materials），也可以是装备/饵料（bag.equipment）；
+       旧实现只认 materials，导致「饵料大礼包」给了一堆装不进饵料槽的材料 */
+    const itemTable = FG.CONFIG.items || {};
+    const ids = Object.keys(def.items || {}).filter(function (k) {
+      return !!FG.CONFIG.materials[k] || !!itemTable[k];
+    });
     if (!ids.length) { FG.toast('礼包配置异常', 'err'); return false; }
 
     const snapBag = JSON.parse(JSON.stringify(s.bag.materials || {}));
+    const snapEquip = JSON.parse(JSON.stringify(s.bag.equipment || {}));
     const snapDiamond = s.diamond;
     try {
       s.diamond = diamond() - price;
       ids.forEach(function (k) {
-        FG.bag.add('materials', k, Number(def.items[k]) || 0);
-        if (S.codex && S.codex.recordMaterial) S.codex.recordMaterial(k);   // 06 §1.2 图鉴收录
+        const n = Number(def.items[k]) || 0;
+        if (itemTable[k]) {                                   // 装备 / 成品饵料
+          FG.bag.add('equipment', k, n);
+          if (S.codex && S.codex.recordEquipment) S.codex.recordEquipment(k);
+        } else {                                              // 材料
+          FG.bag.add('materials', k, n);
+          if (S.codex && S.codex.recordMaterial) S.codex.recordMaterial(k);   // 06 §1.2 图鉴收录
+        }
       });
     } catch (e) {
-      s.bag.materials = snapBag; s.diamond = snapDiamond;                   // 回滚
+      s.bag.materials = snapBag; s.bag.equipment = snapEquip; s.diamond = snapDiamond;   // 回滚
       console.warn('[diamond] 购买礼包失败，已回滚', e);
       FG.toast('购买失败，已回滚', 'err');
       return false;

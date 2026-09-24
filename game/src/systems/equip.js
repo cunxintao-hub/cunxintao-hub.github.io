@@ -183,20 +183,34 @@
     return true;
   }
 
-  /** 饵料归零后的「去购买 / 去合成」出口（07/04 未实现时给明确反馈，不静默） */
+  /** 饵料归零后的「换一种 / 去合成 / 去购买」出口（都有明确去处，不静默） */
   function showBaitEmptyPanel(baitName) {
+    /* 还有别的饵料可换 → 直接开装备面板，比空提示有用 */
+    const others = listEquipment('bait');
     FG.modal.open({
       title: '🪱 饵料已用完',
       body: '<div>' + U.safe(baitName, '饵料') + '已用尽，已自动卸下。</div>' +
-            '<div class="empty-tip">可装备其它饵料，或前往购买 / 合成</div>',
+            '<div class="empty-tip">' +
+              (others.length ? '背包里还有 ' + others.length + ' 种饵料可换（点「换一种饵料」）' : '背包里没有其它饵料了') +
+              '；也可以去 🔨 合成（一次产出 ' + baitYieldText() + ' 个）或 🏪 市场买红虫 / 玉米</div>',
       showCancel: true,
       cancelText: '关闭',
       onConfirm: function () {
+        if (others.length) { openEquipPanel('bait'); return; }
         FG.ui.layout.switchTab('market');
-        FG.toast('🏪 市场（07）将在第 5 轮开放', 'warn');
+        if (FG.ui.market && FG.ui.market.setTab) { FG.ui.market.setTab('buy'); FG.ui.market.render(); }
+        FG.toast('🏪 市场 → 购买材料（红虫 / 玉米可合成饵料）', 'ok');
       },
-      confirmText: '去购买'
+      confirmText: others.length ? '换一种饵料' : '去市场购买'
     });
+  }
+
+  /** 饵料配方的产出数量文案（04 未接入时退回「1」） */
+  function baitYieldText() {
+    const rs = (FG.CONFIG.craft || {}).recipes || [];
+    const bait = rs.filter(function (r) { return (FG.CONFIG.items[r.id] || {}).type === 'bait' && r.yield; });
+    if (!bait.length) return '1';
+    return bait.map(function (r) { return r.yield; }).sort()[0];
   }
 
   /* ---------------- 装备面板（唯一入口，02 §5.1） ---------------- */
@@ -237,7 +251,9 @@
                   '<span class="li-sub">×' + U.formatInt(e.count) + '</span>' +
                 '</div>';
       });
-      body += '<div class="empty-tip">点击即装备；消耗品显示背包剩余数量</div>';
+      body += '<div class="empty-tip">点击即装备' +
+        (key === 'bait' ? '；饵料是消耗品，每次抛竿消耗 ' + (FG.CONFIG.equip.baitConsumePerCast || 1) + ' 个' : '') +
+        '</div>';
     }
     if (cur) {
       body += '<div class="modal-foot-inline"><button class="btn" data-act="unequip">卸下当前' + name + '</button></div>';

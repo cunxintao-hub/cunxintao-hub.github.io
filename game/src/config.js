@@ -382,14 +382,16 @@
         { id: 'fine_net',    unlockLevel: 5, cost: { fiber: 8, thread: 3 } },
         { id: 'cast_net',    unlockLevel: 8, cost: { thread: 5, rope: 5 } },
 
-        /* 饵料 7 种（07 §2 配方稿）：前 3 种开局可做，后 4 种按等级解锁 */
-        { id: 'earthworm_bait', unlockLevel: 0,  cost: { worm: 3, wheat: 2 } },
-        { id: 'corn_bait',      unlockLevel: 0,  cost: { corn: 3, wheat: 2 } },
-        { id: 'bread_bait',     unlockLevel: 0,  cost: { bread: 2, wheat: 1 } },
-        { id: 'shrimp_bait',    unlockLevel: 5,  cost: { paste: 2, worm: 2 } },
-        { id: 'red_bug_bait',   unlockLevel: 0,  cost: { worm: 3 } },
-        { id: 'catfish_bait',   unlockLevel: 8,  cost: { paste: 2, bait_mix: 1 } },
-        { id: 'secret_bait',    unlockLevel: 12, cost: { bait_mix: 2, silk: 1 } }
+        /* 饵料 7 种（07 §2 配方稿）：前 3 种开局可做，后 4 种按等级解锁
+           🆕 yield = 一次合成产出几个：饵料是消耗品（1 个只能钓 1 次），
+           原来固定产出 1 个 → 「合成一次钓两次就没了」；现在基础饵一次给 3 个，高级饵给 2 个 */
+        { id: 'earthworm_bait', unlockLevel: 0,  cost: { worm: 3, wheat: 2 }, yield: 3 },
+        { id: 'corn_bait',      unlockLevel: 0,  cost: { corn: 3, wheat: 2 }, yield: 3 },
+        { id: 'bread_bait',     unlockLevel: 0,  cost: { bread: 2, wheat: 1 }, yield: 3 },
+        { id: 'shrimp_bait',    unlockLevel: 5,  cost: { paste: 2, worm: 2 }, yield: 2 },
+        { id: 'red_bug_bait',   unlockLevel: 0,  cost: { worm: 3 }, yield: 3 },
+        { id: 'catfish_bait',   unlockLevel: 8,  cost: { paste: 2, bait_mix: 1 }, yield: 2 },
+        { id: 'secret_bait',    unlockLevel: 12, cost: { bait_mix: 2, silk: 1 }, yield: 2 }
       ]
     },
 
@@ -476,8 +478,9 @@
       diamondToGold: 100,
       challengeWinReward: 50,
       challengeDailyLimit: 3,
-      marketStock: { rope: 3, float: 3, sinker: 3, corn: 5, red_bug: 5 },
-      marketPrice: { rope: 8, float: 5, sinker: 5, corn: 6, red_bug: 12 },
+      /* 🆕 red_bug 是不存在的 id（材料表里叫 worm 红虫），买到的是无法使用的幽灵物品 → 改成 worm */
+      marketStock: { rope: 3, float: 3, sinker: 3, corn: 5, worm: 5 },
+      marketPrice: { rope: 8, float: 5, sinker: 5, corn: 6, worm: 12 },
       restockIntervalMs: 86400000
     },
 
@@ -573,8 +576,10 @@
           items: { hardwood: 3, gear: 5, lacquer: 5, cloth: 4, silk: 2 } },
         { id: 'luxury', name: '尊享材料包', icon: '👑', price: 50, originGold: 15000,
           items: { alloy: 3, brocade: 5, titanium: 2, diamond_shard: 1 } },
+        /* 🆕 原来给的是 worm/corn/paste/bait_mix（食材链「材料」，装不进饵料槽），
+           名字叫饵料礼包却换不来能用的饵 → 改成直接给可装备的成品饵料 */
         { id: 'bait', name: '饵料大礼包', icon: '🪱', price: 8, originGold: 1200,
-          items: { worm: 15, corn: 10, paste: 8, bait_mix: 5 } },
+          items: { earthworm_bait: 10, corn_bait: 10, red_bug_bait: 5 } },
         { id: 'line', name: '编线材料包', icon: '🧵', price: 15, originGold: 3000,
           items: { thread: 8, fiber: 10, cloth: 4, brocade: 2 } }
       ],

@@ -211,8 +211,12 @@
     const m = ensureMarket();
     const full = cfg().marketStock || {};
     const now = Date.now();
+    /* 🆕 清掉配置里已下架 / 改名 / 写错的商品（如曾经的 red_bug），
+       否则老存档会一直留着「买了也没用」的条目 */
+    Object.keys(m.stock || {}).forEach(function (id) {
+      if (!(id in full)) { delete m.stock[id]; FG.save.markDirty(); }
+    });
     if (!m.restockAt || now >= m.restockAt) {
-      m.stock = {};
       Object.keys(full).forEach(function (id) { m.stock[id] = Number(full[id]) || 0; });
       m.restockAt = now + (Number(cfg().restockIntervalMs) || 86400000);
       FG.save.markDirty();
@@ -245,12 +249,21 @@
   }
 
   /**
-   * 购买材料：扣金币 + 库存 -1 + 进 bag.materials（成对完成，失败回滚）
+   * 购买：扣金币 + 库存 -n + 进背包（材料 → bag.materials，装备/饵料 → bag.equipment；成对完成，失败回滚）
    * @returns {boolean}
    */
   function buy(itemId, count) {
     const stock = cfg().marketStock || {};
     if (!(itemId in stock)) { console.warn('[market] 非售卖物品', itemId); return false; }
+    /* 🆕 商品 id 必须真实存在：否则会买到「背包里有、但哪里都用不了」的幽灵物品
+       （例如曾经的 red_bug —— 材料表里其实叫 worm） */
+    const isMat = !!(FG.CONFIG.materials || {})[itemId];
+    const isEquip = !!(FG.CONFIG.items || {})[itemId];
+    if (!isMat && !isEquip) {
+      console.warn('[market] 商品 id 在配置里不存在', itemId);
+      FG.toast('该商品暂时无法购买（配置异常）', 'warn');
+      return false;
+    }
     const s = st();
     const m = refreshStock();
     const n = Math.max(1, Number(count) || 1);
@@ -273,9 +286,14 @@
     try {
       s.gold = (Number(s.gold) || 0) - cost;
       m.stock[itemId] = left - n;
-      FG.bag.add('materials', itemId, n);
-      /* 06 §1.2：材料首次获得自动收录图鉴 */
-      if (S.codex && S.codex.recordMaterial) S.codex.recordMaterial(itemId);
+      if (isEquip) {
+        FG.bag.add('equipment', itemId, n);            // 装备 / 成品饵料
+        if (S.codex && S.codex.recordEquipment) S.codex.recordEquipment(itemId);
+      } else {
+        FG.bag.add('materials', itemId, n);            // 材料
+        /* 06 §1.2：材料首次获得自动收录图鉴 */
+        if (S.codex && S.codex.recordMaterial) S.codex.recordMaterial(itemId);
+      }
     } catch (e) {
       s.gold = snap.gold; m.stock[itemId] = snap.left;
       console.warn('[market] 购买失败，已回滚', e);
@@ -283,7 +301,7 @@
       return false;
     }
     FG.save.markDirty();
-    const meta = (FG.CONFIG.materials || {})[itemId] || { name: itemId, icon: '📦' };
+    const meta = (FG.CONFIG.materials || {})[itemId] || (FG.CONFIG.items || {})[itemId] || { name: itemId, icon: '📦' };
     FG.toast('🛒 购买 ' + meta.icon + meta.name + ' ×' + n + '，花费 ' + U.formatInt(cost) + ' 金币', 'ok');
     float('-' + U.formatInt(cost) + '🪙', 'warn');
     console.log('[market] buy', itemId, n, cost);

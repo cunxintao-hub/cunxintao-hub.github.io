@@ -148,12 +148,14 @@
         return false;
       }
       // 2) 产出装备（失败则连材料一起回滚）
+      /* 🆕 产出数量可配置（r.yield，默认 1）：饵料是消耗品，一次只出 1 个会「钓两次就没了」 */
+      const outN = Math.max(1, Number(r.yield) || 1);
       const before = FG.bag.getCount('equipment', r.id);
-      FG.bag.add('equipment', r.id, 1);
+      FG.bag.add('equipment', r.id, outN);
       const after = FG.bag.getCount('equipment', r.id);
-      if (after !== before + 1) {
+      if (after !== before + outN) {
         merge.restore(snap);
-        FG.bag.remove('equipment', r.id, 1);
+        FG.bag.remove('equipment', r.id, outN);
         FG.toast('产出异常，已回滚', 'err');
         return false;
       }
@@ -171,7 +173,9 @@
       const it = itemDef(r.id) || { name: r.id, icon: '🔨' };
       /* 06 §1.2：钓具首次获得自动收录图鉴 */
       if (FG.systems.codex && FG.systems.codex.recordEquipment) FG.systems.codex.recordEquipment(r.id);
-      FG.toast('🔨 合成成功！获得 ' + it.icon + ' ' + it.name, 'ok');
+      /* 🆕 产出 >1 时明确报数量（饵料等消耗品） */
+      const outCount = Math.max(1, Number(r.yield) || 1);
+      FG.toast('🔨 合成成功！获得 ' + it.icon + ' ' + it.name + (outCount > 1 ? ' ×' + outCount : ''), 'ok');
       FG.save.markDirty();
       console.log('[craft] craft', r.id, 'owned →', after);
       FG.render.renderAll();
