@@ -209,6 +209,23 @@
 
   /* ---------------- 阶段四 · 疯狂收杆 ---------------- */
 
+  /**
+   * 🆕 松线速度：基础 × 稀有度系数 × 重量系数，再夹上限
+   * 越稀有 / 越重（越值钱）的鱼挣得越凶，松线掉得越快
+   */
+  function reelDecayFor(fish) {
+    const c = cfg();
+    const base = Number(c.reelDecayPerSec) || 0;
+    if (!base || !fish) return base;
+    const rf = Number((c.reelDecayByRarity || {})[fish.rarity]) || 1;
+    const inf = Number(c.reelDecayWeightInfluence) || 0;
+    const def = (FG.CONFIG.fish || {})[fish.id] || {};
+    const wMin = Number(def.weightMin) || 0, wMax = Number(def.weightMax) || 0;
+    const norm = (wMax > wMin) ? U.clamp((fish.weight - wMin) / (wMax - wMin), 0, 1) : 0;
+    const max = Number(c.reelDecayMax) || base;
+    return Math.min(max, +(base * rf * (1 + norm * inf)).toFixed(2));
+  }
+
   function startReel() {
     clearTimers();
     const c = cfg();
@@ -219,11 +236,17 @@
     const cap = Number(c.reelStartMax) || 40;
     const hits = Number(t.hits) || 0;
     const start = Math.min(cap, hits * perHit);
+    /* 🆕 收杆前先把这条鱼定下来：松线程度由它的稀有度与重量决定 */
+    const fish = rollFish();
+    const decay = reelDecayFor(fish);
     rt.reel = {
       progress: start, gain: d.reelGainPerClick,
       endsAt: Date.now() + c.reelDuration, clicks: 0,
       start: start, hits: hits,                                // 起始进度（UI 展示用）
-      decay: Number(c.reelDecayPerSec) || 0                    // 松线回退 %/秒
+      fish: fish,                                              // 🆕 已定下的鱼（上岸时直接用）
+      decay: decay,                                            // 🆕 松线回退 %/秒（按鱼而定）
+      decayBase: Number(c.reelDecayPerSec) || 0,
+      heavy: decay > (Number(c.reelDecayPerSec) || 0) * 1.25   // 🆕 是否「劲很大」
     };
     setPhase('reel');
     later(onReelTimeout, c.reelDuration);                      // 兜底超时
@@ -231,6 +254,7 @@
     FG.toast(start > 0
       ? '🔥 疯狂收杆！命中 ' + hits + ' 次，起手 +' + Math.round(start) + '%'
       : '🔥 疯狂收杆！');
+    if (rt.reel.heavy) FG.toast('💪 这条鱼劲很大，松线会更快！', 'warn');
     FG.render.renderFishing();
   }
 
@@ -318,7 +342,8 @@
   /** 上岸：进入 caught，弹结算卡片（渲染由 render 负责） */
   function landFish() {
     clearTimers();
-    rt.caught = rollFish();
+    /* 🆕 收杆开始时就已经抽好鱼（松线程度按它算），这里直接用，保证「上来的就是刚才那条」 */
+    rt.caught = (rt.reel && rt.reel.fish) ? rt.reel.fish : rollFish();
     rt.reel = null;
     setPhase('caught');
     FG.toast('🎉 上鱼了！' + rt.caught.name + ' ' + U.formatWeight(rt.caught.weight) + 'kg', 'ok');

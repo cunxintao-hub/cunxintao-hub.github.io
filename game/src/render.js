@@ -780,7 +780,10 @@
     set('reel-start', r.start > 0
       ? '张力命中 ' + (r.hits || 0) + ' 次 → 起手 +' + Math.round(r.start) + '%'
       : '');
-    set('reel-slip', r.decay > 0 ? '松线 −' + r.decay + '%/s' : '');
+    /* 🆕 松线速度按鱼的稀有度/重量浮动，显示到 1 位小数，劲大的鱼额外标出来 */
+    set('reel-slip', r.decay > 0
+      ? '松线 −' + Number(r.decay).toFixed(1) + '%/s' + (r.heavy ? '（这条劲很大）' : '')
+      : '');
   }
 
   /** 鱼获结算卡片：三选一（01 §5）。关闭兜底 = 收入背包，避免停在 caught 阶段 */

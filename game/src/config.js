@@ -30,7 +30,13 @@
       reelGainPerClick: 6.3,              // 每次点击进度增益 %（原 5.7，上调以抵消回退带来的额外消耗）
       reelStartPerHit: 8,                 // 🆕 每个命中 → 收杆初始进度 %
       reelStartMax: 40,                   // 🆕 初始进度上限 %
-      reelDecayPerSec: 4,                 // 🆕 松线回退速度 %/秒（0 = 不回退）
+      /* 🆕 松线速度 = 基础 × 稀有度系数 × 重量系数（越贵的鱼挣得越凶），再夹上限 */
+      reelDecayPerSec: 4,                 // 松线基础速度 %/秒（common 鱼；0 = 不回退）
+      reelDecayByRarity: {                // 稀有度系数：越稀有松线越快
+        common: 1, uncommon: 1.3, rare: 1.7, epic: 2.2, legendary: 2.8
+      },
+      reelDecayWeightInfluence: 0.3,      // 同稀有度内「越重越猛」：重量归一后最多 +30%
+      reelDecayMax: 10,                   // 松线上限 %/秒：再贵的鱼也保证拉得上来
       tensionTimeout: 10000,              // 张力阶段超时(ms)
       hitFeedbackMs: 420,                 // 单轮命中/未命中反馈时长，期间忽略连点
       maxTargetWidthRatio: 0.6,           // 绿区宽度上限（叠加装备加成后裁剪，避免满屏）
