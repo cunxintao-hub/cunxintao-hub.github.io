@@ -238,7 +238,12 @@ z-index 0 在所有叠加层之下）。**状态机、按钮、判定、结算�
   （收杆是连点操作，遮罩可关就会被连点尾巴"点没"，玩家没选就 auto-settle 进背包）；
   卡片出现后 `catchClickGuardMs`(250ms) 内忽略按钮点击，防连点误选（`main.js` 的 Esc 走 `modal.isDismissible()`）
 - **兜底**：视频缺失/解码失败/自动播放被拦 → 移除 `video-on`，自动回退 `assets/scene/{location}.png` 插画或 CSS 渐变，不报错不白屏
-- **不占后台**：离开钓鱼页 `pauseSceneVideo()` 暂停隐藏并取消未播完的演出；有视频时隐藏 Lottie 人物层避免重影
+- **🆕 双缓冲换片（线上不黑屏）**：场景内两个 `<video>`（`#scene-video` + `#scene-video-b`），
+  换片时新片源在另一个里缓冲到 `readyState>=2` 才淡入（0.22s），旧画面一直可见 → `http` 下没有黑屏间隔
+  （旧实现直接换 `src`，线上重新下载时会先黑一下；`file://` 本地秒开所以看不出来）
+- **🆕 缓冲超时兜底**：`videoSwitchTimeoutMs`(2.5s) 没缓冲出首帧就保留上一画面（或插画/渐变），**绝不切黑屏**
+- **🆕 预热**：`preloadAllVideos`（默认开）进入钓鱼页后按顺序静默下载其余阶段视频进缓存；`false` 可关
+- **不占后台**：离开钓鱼页 `pauseSceneVideo()` 暂停隐藏并取消未播完的演出（两个播放器都停）；有视频时隐藏 Lottie 人物层避免重影
 - 配置在 `CONFIG.fishing.videos`（`{src, seconds, once}`），映射集中在 `render.phaseVideoKey()`；
   调试：`#dev=fishing | bite | reel | catch`（也可靠等待咬钩超时看到 fail 视频）
 
