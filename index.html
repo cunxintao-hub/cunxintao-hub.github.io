@@ -540,6 +540,18 @@
     font-size: clamp(16px, 2vw, 22px); color: var(--muted); margin-top: 8px; }
   .zn-bimg { width: 300px; aspect-ratio: 16/9; object-fit: cover; display: block; flex-shrink: 0; }
   .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
+  .sub-h { font-family: "Noto Serif SC","Songti SC","SimSun",serif; font-size: 23px; font-weight: 700; color: var(--text); margin: 6px 0 18px; }
+  .sub-h em { font-family: var(--mono); font-size: 12px; font-style: normal; color: var(--muted); margin-left: 12px; letter-spacing: .12em; }
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .cert-card { background: #12141a; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: zoom-in; transition: border-color .25s var(--ease), transform .25s var(--ease); }
+  .cert-card:hover { border-color: #e3b341; transform: translateY(-3px); }
+  .cert-card img { width: 100%; display: block; }
+  .cert-card .cc { padding: 13px 16px 15px; }
+  .cert-card .cc b { display: block; font-size: 14.5px; color: var(--text); }
+  .cert-card .cc b.gld { color: #e3b341; }
+  .cert-card .cc span { display: block; font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
+  #lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 6px; box-shadow: 0 10px 60px rgba(0,0,0,.6); }
   .honor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .honor-card { display: flex; align-items: center; gap: 26px;
     background: #12141a; border: 1px solid var(--line); border-radius: 10px;
@@ -652,7 +664,7 @@
       <a href="#videos">AI 视频<em>AIGC</em></a>
       <a href="#research">AI 论文<em>Papers</em></a>
       <a href="#auto">汽车专栏<em>Auto</em></a>
-      <a href="#awards">竞赛荣誉<em>Awards</em></a>
+      <a href="#awards">荣誉<em>Awards</em></a>
       <a href="#contact">联系<em>Contact</em></a>
     </div>
   </div>
@@ -1295,15 +1307,16 @@
   <div class="zn-banner">
     <div class="zn-banner-inner">
       <div>
-        <p class="zn-kicker">Zone 07 · 设计竞赛荣誉</p>
-        <h2 class="zn-btitle">竞赛荣誉</h2>
-        <p class="zn-ben">Awards &amp; Honors</p>
+        <p class="zn-kicker">Zone 07 · 荣誉</p>
+        <h2 class="zn-btitle">荣誉</h2>
+        <p class="zn-ben">Honors &amp; Awards</p>
       </div>
     </div>
   </div>
   <div class="zn-wrap">
     <p class="zn-lede">国家奖学金 1 项 · 省级荣誉 1 项 · 国际设计奖 6 项 · 国家级设计奖 14 项 · 工程类奖 12 项。</p>
 
+    <h3 class="sub-h">竞赛荣誉<em>Competition Awards</em></h3>
     <div class="honor-grid">
       <div class="honor-card">
         <div class="hn">1<span> / 115</span></div>
@@ -1349,10 +1362,50 @@
       </div>
     </div>
 
-    <p style="margin-top:32px;">
+    <h3 class="sub-h" style="margin-top:52px;">荣誉证书<em>Honor Certificates</em></h3>
+    <p class="zn-lede">5 份证书原件 · 点击卡片查看大图。</p>
+    <div class="cert-grid">
+      <div class="cert-card" data-img="assets/certs/03_guojia.jpg">
+        <img src="assets/certs/03_guojia.jpg" alt="国家奖学金荣誉证书" loading="lazy">
+        <div class="cc"><b class="gld">国家奖学金荣誉证书</b><span>中华人民共和国教育部 · 2025年硕士研究生国家奖学金 · 2025年12月</span></div>
+      </div>
+      <div class="cert-card" data-img="assets/certs/01_sansan.jpg">
+        <img src="assets/certs/01_sansan.jpg" alt="黑龙江省三好学生荣誉证书" loading="lazy">
+        <div class="cc"><b>黑龙江省“三好学生”荣誉称号</b><span>黑龙江省教育厅 · 2025年 · 2026年5月</span></div>
+      </div>
+      <div class="cert-card" data-img="assets/certs/02_tuanyuan.jpg">
+        <img src="assets/certs/02_tuanyuan.jpg" alt="优秀团员——勤学求真奖荣誉证书" loading="lazy">
+        <div class="cc"><b>“优秀团员——勤学求真奖”荣誉称号</b><span>共青团哈尔滨工业大学委员会 · 2025—2026年度 · 2026年5月</span></div>
+      </div>
+      <div class="cert-card" data-img="assets/certs/04_xuesheng.jpg">
+        <img src="assets/certs/04_xuesheng.jpg" alt="优秀学生（实学实干奖）荣誉证书" loading="lazy">
+        <div class="cc"><b>“优秀学生（实学实干奖）”荣誉称号</b><span>哈尔滨工业大学学生工作处 · 2024—2025年度 · 2025年12月</span></div>
+      </div>
+      <div class="cert-card" data-img="assets/certs/05_tuagan.jpg">
+        <img src="assets/certs/05_tuagan.jpg" alt="五四表彰优秀团干部荣誉证书" loading="lazy">
+        <div class="cc"><b>五四表彰“优秀团干部”荣誉称号</b><span>共青团哈尔滨工业大学委员会 · 2024—2025年度 · 2025年5月</span></div>
+      </div>
+    </div>
+    <p style="margin-top:28px;">
       <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/certificates/">查看获奖证书存档（5 份原文件）→</a>
     </p>
   </div>
+  <div id="lightbox"><img src="" alt="证书大图"></div>
+  <script>
+    document.querySelectorAll('.cert-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var lb = document.getElementById('lightbox');
+        lb.querySelector('img').src = this.dataset.img;
+        lb.style.display = 'flex';
+      });
+    });
+    document.getElementById('lightbox').addEventListener('click', function () {
+      this.style.display = 'none';
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+    });
+  </script>
 </section>
 
 <!-- ============ 联系 ============ -->
