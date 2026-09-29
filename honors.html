@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人荣誉 · 陶存心</title>
+<style>
+  :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e; --gold:#e3b341; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.75; }
+  .wrap { max-width:1100px; margin:0 auto; padding:40px 20px 70px; }
+  .topnav a { color:var(--muted); text-decoration:none; font-size:13px; }
+  .topnav a:hover { color:var(--gold); }
+  h1 { font-size:30px; font-weight:700; }
+  .sub { color:var(--muted); font-size:14px; margin-top:8px; }
+  .rule { height:1px; background:var(--border); margin:26px 0 36px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:26px; }
+  .cert { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:transform .2s,border-color .2s; cursor:zoom-in; }
+  .cert:hover { transform:translateY(-3px); border-color:var(--gold); }
+  .cert img { width:100%; display:block; }
+  .cap { padding:14px 16px 16px; }
+  .cap b { display:block; font-size:16px; }
+  .cap span { display:block; font-size:12.5px; color:var(--muted); margin-top:5px; }
+  .gold { color:var(--gold); }
+  footer { text-align:center; margin-top:50px; color:var(--muted); font-size:13px; }
+  #lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:99; align-items:center; justify-content:center; cursor:zoom-out; }
+  #lb img { max-width:92vw; max-height:92vh; border-radius:6px; box-shadow:0 10px 60px rgba(0,0,0,.6); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topnav"><a href="index.html">← 返回主页</a></div>
+  <h1>个人荣誉</h1>
+  <p class="sub">陶存心 · 哈尔滨工业大学（深圳）未来设计学院 · 工业设计 —— 点击证书可放大查看</p>
+  <div class="rule"></div>
+  <div class="grid">
+    <figure class="cert">
+      <img src="assets/certs/03_guojia.jpg" alt="国家奖学金荣誉证书" loading="lazy">
+      <figcaption class="cap">
+        <b class="gold">国家奖学金荣誉证书</b>
+        <span>中华人民共和国教育部 · 2025年硕士研究生国家奖学金</span>
+        <span>2025年12月 · 编号 SSY20252297</span>
+      </figcaption>
+    </figure>
+    <figure class="cert">
+      <img src="assets/certs/01_sansan.jpg" alt="黑龙江省三好学生荣誉证书" loading="lazy">
+      <figcaption class="cap">
+        <b>黑龙江省"三好学生"荣誉称号</b>
+        <span>黑龙江省教育厅 · 2025年黑龙江省普通高等学校</span>
+        <span>2026年5月</span>
+      </figcaption>
+    </figure>
+    <figure class="cert">
+      <img src="assets/certs/02_tuanyuan.jpg" alt="优秀团员荣誉证书" loading="lazy">
+      <figcaption class="cap">
+        <b>"优秀团员——勤学求真奖"荣誉称号</b>
+        <span>共青团哈尔滨工业大学委员会 · 2025—2026年度</span>
+        <span>2026年5月</span>
+      </figcaption>
+    </figure>
+    <figure class="cert">
+      <img src="assets/certs/04_xuesheng.jpg" alt="优秀学生荣誉证书" loading="lazy">
+      <figcaption class="cap">
+        <b>"优秀学生（实学实干奖）"荣誉称号</b>
+        <span>哈尔滨工业大学学生工作处 · 2024—2025年度</span>
+        <span>2025年12月</span>
+      </figcaption>
+    </figure>
+    <figure class="cert">
+      <img src="assets/certs/05_tuagan.jpg" alt="优秀团干部荣誉证书" loading="lazy">
+      <figcaption class="cap">
+        <b>五四表彰"优秀团干部"荣誉称号</b>
+        <span>共青团哈尔滨工业大学委员会 · 2024—2025年度 · 深圳校区</span>
+        <span>2025年5月</span>
+      </figcaption>
+    </figure>
+  </div>
+  <footer>佐证材料 · 荣誉/获奖证书 5 项</footer>
+</div>
+<div id="lb"><img id="lb-img" src="" alt="证书大图"></div>
+<script>
+  document.querySelectorAll('.cert img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      document.getElementById('lb-img').src = this.src;
+      document.getElementById('lb').style.display = 'flex';
+    });
+  });
+  document.getElementById('lb').addEventListener('click', function () {
+    this.style.display = 'none';
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.getElementById('lb').style.display = 'none';
+  });
+</script>
+</body>
+</html>
