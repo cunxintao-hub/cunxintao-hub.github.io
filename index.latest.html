@@ -286,7 +286,7 @@
   }
   .entry .journal b { color: var(--accent); font-weight: 400; }
   .entry a.lnk {
-    display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12.5px; /* READ PAPER button */
+    display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 12.5px;
     letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
     border: 1px solid rgba(88,166,255,.45); padding: 10px 22px; border-radius: 4px;
     transition: border-color .25s var(--ease), background .25s var(--ease);
@@ -466,54 +466,6 @@
   .film-cover { width: 280px; aspect-ratio: 16/9; overflow: hidden; border-radius: 6px;
     background: #0d1117; flex-shrink: 0; }
   .film-cover video, .film-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .film-cover { position: relative; cursor: pointer; }
-  .film-row { flex-wrap: wrap; cursor: pointer; }
-  .film-more { display: inline-block; font-family: var(--mono); font-size: 10.5px;
-    letter-spacing: .18em; color: var(--accent); margin-top: 14px; }
-  .film-row.is-open .film-more { color: var(--muted); }
-  .film-detail { flex: 0 0 100%; display: none; margin-top: 22px; padding-top: 22px;
-    border-top: 1px solid var(--line); cursor: default; }
-  .film-row.is-open .film-detail { display: block; }
-  .detail-video { width: 100%; aspect-ratio: 16/9; background: #000; display: block;
-    border: 1px solid var(--line); border-radius: 8px; }
-  .detail-frame { width: 100%; height: 560px; border: 1px solid var(--line); border-radius: 8px; background: #0b0c0f; }
-  .detail-text { margin-top: 20px; }
-  .detail-text b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .24em;
-    color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
-  .detail-text p { font-size: 14px; color: var(--soft); line-height: 1.95; }
-  .detail-sec { margin-top: 16px; }
-  .detail-sec span { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .22em;
-    color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
-  .detail-sec p { font-size: 14px; color: var(--soft); line-height: 1.9; }
-  .detail-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .dmeta { margin-top: 14px; }
-  .dmeta .row { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
-  .dmeta .row .k { color: var(--muted); min-width: 64px; flex-shrink: 0; }
-  .dmeta .row .v { color: #c9d1d9; flex: 1; word-break: break-all; }
-  .dmeta a { color: var(--link); text-decoration: none; }
-  .detail-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-  .detail-links a { font-family: var(--sans); font-size: 12.5px; color: var(--link);
-    border: 1px solid rgba(88,166,255,.45); padding: 9px 18px; border-radius: 4px;
-    text-decoration: none; transition: background .25s var(--ease), border-color .25s var(--ease); }
-  .detail-links a:hover { background: rgba(88,166,255,.12); border-color: var(--link); }
-  .detail-tags li { font-family: var(--sans); font-size: 11px; color: var(--muted);
-    border: 1px solid var(--line-2); padding: 3px 12px; border-radius: 999px; }
-  @media (max-width: 760px) { .detail-frame { height: 420px; } }
-  .play-btn {
-    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-    width: 54px; height: 54px; border-radius: 50%;
-    background: rgba(11,12,15,.62); border: 1px solid rgba(236,233,227,.5);
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    transition: transform .25s var(--ease), background .25s var(--ease);
-  }
-  .play-btn::after {
-    content: ""; position: absolute; left: 50%; top: 50%;
-    transform: translate(-40%,-50%);
-    border-left: 15px solid #ece9e3;
-    border-top: 9px solid transparent; border-bottom: 9px solid transparent;
-  }
-  .film-cover:hover .play-btn { transform: translate(-50%,-50%) scale(1.1); background: rgba(11,12,15,.8); }
-  .play-btn.is-hidden { opacity: 0; pointer-events: none; }
   .film-cover--slot { display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 6px; border: 1px dashed #34353c; color: var(--muted); }
   .film-cover--slot span:first-child { font-size: 22px; font-weight: 300; color: #565a63; font-family: var(--sans); }
@@ -540,20 +492,6 @@
     font-size: clamp(16px, 2vw, 22px); color: var(--muted); margin-top: 8px; }
   .zn-bimg { width: 300px; aspect-ratio: 16/9; object-fit: cover; display: block; flex-shrink: 0; }
   .zn-lede { color: var(--muted); font-size: 15px; margin-bottom: 34px; }
-  .honor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .honor-card { display: flex; align-items: center; gap: 26px;
-    background: #12141a; border: 1px solid var(--line); border-radius: 10px;
-    padding: 24px 30px; transition: border-color .25s var(--ease), background .25s var(--ease); }
-  .honor-card:hover { border-color: #3a4149; background: #151821; }
-  .honor-card .hn { font-family: var(--mono); font-size: 28px; font-weight: 700;
-    color: var(--gold); min-width: 108px; line-height: 1.1; }
-  .honor-card .hn span { font-size: 13px; color: var(--muted); font-weight: 400; }
-  .honor-card .ht h3 { font-size: 17px; font-weight: 700; color: var(--text); }
-  .honor-card .ht p { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
-  @media (max-width: 820px) {
-    .honor-grid { grid-template-columns: 1fr; }
-    .honor-card .hn { font-size: 22px; min-width: 84px; }
-  }
   .zn-cards { display: flex; flex-direction: column; gap: 18px; }
   .zn-card { position: relative; display: block; background: #12141a; border: 1px solid var(--line);
     border-radius: 10px; padding: 26px 34px 22px; color: inherit;
@@ -570,19 +508,6 @@
   .zn-tags .t-p { color: #bc8cff; border-color: rgba(188,140,255,.45); background: rgba(188,140,255,.08); }
   .zn-tags .t-g { color: var(--muted); border-color: var(--line-2); }
   .zn-go { display: inline-block; font-family: var(--sans); font-size: 13px; color: var(--accent); margin-top: 18px; }
-  .zn-card--game { display: flex; gap: 30px; align-items: center; padding: 26px; }
-  .zn-card--game .gc-cover { width: 380px; max-width: 42%; aspect-ratio: 16/9; object-fit: cover;
-    border-radius: 12px; border: 1px solid var(--line-2); flex-shrink: 0; display: block; }
-  .zn-card--game .gc-body { flex: 1; min-width: 0; }
-  .zn-card--game h3 { font-size: 24px; padding-right: 70px; }
-  .zn-card--game .zn-go { font-size: 14px; font-weight: 600; padding: 10px 24px; margin-top: 20px;
-    border: 1px solid rgba(245,166,35,.5); border-radius: 999px; background: rgba(245,166,35,.08);
-    transition: background .25s var(--ease), border-color .25s var(--ease); }
-  .zn-card--game:hover .zn-go { background: rgba(245,166,35,.18); border-color: var(--accent); }
-  @media (max-width: 900px) {
-    .zn-card--game { flex-direction: column; align-items: stretch; }
-    .zn-card--game .gc-cover { width: 100%; max-width: none; }
-  }
   @media (max-width: 900px) {
     .zn-wrap { padding: 70px 22px 80px; }
     .zn-banner-inner { flex-direction: column; align-items: flex-start; padding: 44px 22px; gap: 24px; }
@@ -646,9 +571,9 @@
   <div class="nav-inner">
     <a class="brand" href="#top">陶存心<em>cunxintao-hub</em></a>
     <div class="nav-links" id="navLinks">
+      <a href="about.html">关于我<em>Profile</em></a>
       <a href="#about">个人介绍<em>About</em></a>
       <a href="#skills">AI Skill<em>Agent</em></a>
-      <a href="#games">AI 游戏<em>Game</em></a>
       <a href="#videos">AI 视频<em>AIGC</em></a>
       <a href="#research">AI 论文<em>Papers</em></a>
       <a href="#auto">汽车专栏<em>Auto</em></a>
@@ -842,66 +767,13 @@
   </div>
 </section>
 
-<!-- ============ AI 游戏（可直接玩） ============ -->
-<section class="section section--panel reveal" id="games">
-  <div class="zn-banner">
-    <div class="zn-banner-inner">
-      <img class="zn-bimg" src="assets/game-cover.png" alt="AI 游戏 · 疯狂钓鱼佬">
-      <div>
-        <p class="zn-kicker">Zone 03 · AI 游戏</p>
-        <h2 class="zn-btitle">AI 游戏</h2>
-        <p class="zn-ben">Vibe Coding · Playable</p>
-      </div>
-    </div>
-  </div>
-  <div class="zn-wrap">
-    <p class="zn-lede">用设计文档驱动、与 AI 协作从零做出来的网页游戏，打开就能玩：抛竿 → 咬钩 → 张力判定 → 收杆 → 结算，外围还有二合合成、图鉴工坊、市场与钓友社交。</p>
-
-    <div class="zn-cards">
-      <a class="zn-card zn-card--game" href="game/index.html" target="_blank" rel="noopener">
-        <img class="gc-cover" src="assets/game-cover.png" alt="疯狂钓鱼佬 · 游戏封面">
-        <div class="gc-body">
-          <span class="zn-no">01</span>
-          <h3>🎣 疯狂钓鱼佬</h3>
-          <p class="zn-desc">与 AI 协作、用 13 份设计文档从零做出来的完整网页游戏。抛竿 → 咬钩 → 张力判定 → 收杆 → 结算的核心循环之外，还有装备成长、材料二合、钓具配方、图鉴工坊、经济市场与钓友社交，进度自动本地存档——点开就能玩。</p>
-          <ul class="zn-tags">
-            <li class="t-y">文档驱动 · 0→1</li>
-            <li class="t-b">原生 JS · 无框架</li>
-            <li class="t-p">完整核心循环</li>
-            <li class="t-g">6 大模块</li>
-            <li class="t-g">本地存档</li>
-          </ul>
-          <span class="zn-go">▶ 开始钓鱼</span>
-        </div>
-      </a>
-
-      <a class="zn-card zn-card--game" href="game-process.html" target="_blank" rel="noopener">
-        <img class="gc-cover" src="assets/process-cover.png" alt="疯狂钓鱼佬 · 创作过程">
-        <div class="gc-body">
-          <span class="zn-no">02</span>
-          <h3>📖 创作过程</h3>
-          <p class="zn-desc">把「文档驱动 + AI 协作」的全过程摊开：7 段阶段视频各自对应钓鱼的哪个节点、13 份设计文档约束了哪些状态机与数值、3D 生成器模型又是怎么导出成 .glb 并在网页里拖动查看的——视频、教程、模型三部分一次看完。</p>
-          <ul class="zn-tags">
-            <li class="t-y">7 段场景视频</li>
-            <li class="t-b">13 份设计文档</li>
-            <li class="t-p">在线读教程</li>
-            <li class="t-g">3D 模型可拖动</li>
-            <li class="t-g">制作全过程</li>
-          </ul>
-          <span class="zn-go">📖 查看创作过程</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============ AI 视频设计 ============ -->
 <section class="section section--ink reveal" id="videos">
   <div class="zn-banner">
     <div class="zn-banner-inner">
       <img class="zn-bimg" src="assets/film-01.jpg" alt="AI 视频创作">
       <div>
-        <p class="zn-kicker">Zone 04 · AI 视频创作</p>
+        <p class="zn-kicker">Zone 03 · AI 视频创作</p>
         <h2 class="zn-btitle">视频创作</h2>
         <p class="zn-ben">AIGC Film · Direction</p>
       </div>
@@ -911,445 +783,146 @@
     <p class="zn-lede">以分镜脚本 + 首尾帧控制生成，慢节奏东方美学，16:9。点击卡片观看完整版。</p>
 
     <div class="film-rows">
-<article class="film-row" role="button" tabindex="0" aria-expanded="false">
+      <a class="film-row" href="assets/hero.mp4" target="_blank" rel="noopener">
         <div class="film-cover">
-          <video src="assets/film-01.mp4" muted loop playsinline preload="metadata"></video>
-          <span class="play-btn" aria-hidden="true"></span>
+          <video src="assets/hero.mp4" autoplay muted loop playsinline preload="metadata"></video>
         </div>
         <div class="film-info">
-          <p class="film-cat">Film 01 · 慢节奏东方美学 · 33s</p>
-          <h3>园林雨景</h3>
-          <p class="film-desc">五镜首尾相连，窗、庭、廊、檐、亭的雨中漫游——留白与框景的东方叙事。</p>
-          <span class="film-more">展开完整影片与创作说明 ↓</span>
-        </div>
-        <div class="film-detail">
-          <video class="detail-video" data-src="assets/film-01.mp4" controls playsinline preload="none"></video>
-          <div class="detail-text">
-            <b>创作说明 · Statement</b>
-            <div class="detail-sec">
-              <span>创作思路 · Approach</span>
-              <p>以游园者的视线为线索，安排五个镜头首尾相连：窗内望雨 → 庭院积水 → 回廊檐滴 → 游廊转折 → 孤亭老树。上一镜的最后一帧，就是下一镜的第一帧，让整段影像像一次不间断的穿行。</p>
-            </div>
-            <div class="detail-sec">
-              <span>含义与主题 · Meaning</span>
-              <p>借用了园林特有的「框景」：窗、廊、檐都是画框，观众始终在被限定的视线里看雨。慢节奏不是拖沓，而是给空间留出呼吸的时间——雨、水痕、檐滴是同一件事在不同尺度上的重复，时间因此变得可见。</p>
-            </div>
-            <div class="detail-sec">
-              <span>技术手法 · Method</span>
-              <p>文生视频与图生视频混合生成，以首尾帧控制保证镜头衔接；统一雨丝密度、色温与镜头速度，避免不同模型出图带来的跳变。全片 16:9，33 秒，一镜到底式剪辑。</p>
-            </div>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>分镜驱动</li><li>首尾帧控制</li><li>东方美学</li><li>33s</li></ul>
-          </div>
-        </div>
-      </article>
-
-<article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <video src="assets/model-preview.mp4" muted loop playsinline preload="metadata"></video>
-          <span class="play-btn" aria-hidden="true"></span>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 02 · 3D Model · AIGC · .glb</p>
-          <h3>3D 模型创作</h3>
-          <p class="film-desc">从 AIGC 人物形象到可交互三维模型——展开后可拖动旋转、缩放查看，支持下载 .glb 源文件。</p>
-          <span class="film-more">展开 3D 模型与创作说明 ↓</span>
-        </div>
-        <div class="film-detail">
-          <iframe class="detail-frame" data-src="viewer3d.html?embed=1" title="3D 模型查看" loading="lazy"></iframe>
-          <div class="detail-text">
-            <b>创作说明 · Statement</b>
-            <div class="detail-sec">
-              <span>创作思路 · Approach</span>
-              <p>先把形象"定死"：生成并确认人物的正面、侧面、背面三视图，固定发型、服装、比例与配色，再以此为基础生成三维模型。有了稳定的输入，模型的形体与气质才不会每次都漂移。</p>
-            </div>
-            <div class="detail-sec">
-              <span>含义与主题 · Meaning</span>
-              <p>AIGC 的价值不该停在"出一张好看的图"。这个作品要验证的是：从二维形象到可直接进入生产链路的三维资产（.glb），能否一次跑通——可旋转、可缩放、可下载，才是能交给下游使用的东西。</p>
-            </div>
-            <div class="detail-sec">
-              <span>技术手法 · Method</span>
-              <p>图生 3D 生成模型网格与贴图，导出 .glb（约 4.9MB）；网页端用 model-viewer 加载，支持拖动旋转、滚轮缩放与自动展示，并可下载源文件。</p>
-            </div>
-            <ul class="detail-tags"><li>AIGC 3D</li><li>图生 3D</li><li>.glb 资产</li><li>网页可交互</li><li>4.9MB</li></ul>
-          </div>
-        </div>
-      </article>
-
-<article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4" muted loop playsinline preload="metadata"></video>
-          <span class="play-btn" aria-hidden="true"></span>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 03 · AI 影像 · 暖心 · 0:56</p>
-          <h3>陪伴</h3>
-          <p class="film-desc">机器人推着轮椅，在秋日银杏小路缓缓前行。探讨科技与陪伴的关系——冰冷的机械，能否承载温柔的守望。</p>
-          <span class="film-more">展开完整影片与创作说明 ↓</span>
-        </div>
-        <div class="film-detail">
-          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/02-peiban.mp4"
-                 controls playsinline preload="none"></video>
-          <div class="detail-text">
-            <b>创作说明 · Statement</b>
-            <div class="detail-sec">
-              <span>创作思路 · Approach</span>
-              <p>整支片子只有一个场景、一个动作：秋日，银杏铺满小路，机器人缓缓推着轮椅向前。没有台词，没有转折——把所有信息压缩在"一起往前走"这件事上，让情绪自己长出来。</p>
-            </div>
-            <div class="detail-sec">
-              <span>含义与主题 · Meaning</span>
-              <p>它要回应的是一个常被预设的问题：冰冷的机械，能否承载温柔的守望？我的答案是不必拟人化——科技不需要像人，也不需要证明自己温柔，它只要在。银杏的金黄与缓行的节奏，是这个答案的情绪底色。</p>
-            </div>
-            <div class="detail-sec">
-              <span>技术手法 · Method</span>
-              <p>以静态关键帧为锚点做图生视频，固定长镜头、慢速推进；统一秋色色温与景深虚化，避免镜头运动抢走情绪。16:9，56 秒。</p>
-            </div>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>情感叙事</li><li>图生视频</li><li>固定长镜</li><li>0:56</li></ul>
-          </div>
-        </div>
-      </article>
-
-<article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4" muted loop playsinline preload="metadata"></video>
-          <span class="play-btn" aria-hidden="true"></span>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 04 · 赛博朋克 AI 影像 · 1:00</p>
-          <h3>赛博程序员</h3>
-          <p class="film-desc">霓虹夜色，墨镜下的指尖飞舞于代码之间。一个 AI 想象的人机协作未来场景。</p>
-          <span class="film-more">展开完整影片与创作说明 ↓</span>
-        </div>
-        <div class="film-detail">
-          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/03-saibo-coder.mp4"
-                 controls playsinline preload="none"></video>
-          <div class="detail-text">
-            <b>创作说明 · Statement</b>
-            <div class="detail-sec">
-              <span>创作思路 · Approach</span>
-              <p>用赛博朋克的视觉语法搭一个"未来工作台"：霓虹夜色、流动的代码、墨镜上映出的反光。镜头在特写与中景之间切换，让"手在键盘上"这件事被看成交响乐团的演奏。</p>
-            </div>
-            <div class="detail-sec">
-              <span>含义与主题 · Meaning</span>
-              <p>这不是对技术的恐惧叙事，而是一次协作预演：当生成式工具把写代码变成即兴演奏，人的角色从"敲每一行"变成"定节奏、定结构"。墨镜挡住的是脸，露出来的是判断力。</p>
-            </div>
-            <div class="detail-sec">
-              <span>技术手法 · Method</span>
-              <p>文生视频生成主体镜头，配合光效与粒子细节强化霓虹反射；统一青紫主色与高对比布光，短镜头快切维持节奏。16:9，1 分钟。</p>
-            </div>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>赛博朋克</li><li>未来叙事</li><li>快切节奏</li><li>1:00</li></ul>
-          </div>
-        </div>
-      </article>
-
-<article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <video src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4" muted loop playsinline preload="metadata"></video>
-          <span class="play-btn" aria-hidden="true"></span>
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Film 05 · 中国风 AI 影像 · 5:00</p>
+          <p class="film-cat">Film 01 · 25s · 16:9</p>
           <h3>四季簪花录</h3>
-          <p class="film-desc">以中国传统「簪花」文化为灵感，用 AI 影像呈现四季流转下的花事美学，融合书法、烟雾、留白等东方视觉语言。</p>
-          <span class="film-more">展开完整影片与创作说明 ↓</span>
+          <p class="film-desc">文生视频 / 图生视频 · 分镜驱动 · 完全独立制作。点击观看完整版（含声音）。</p>
         </div>
-        <div class="film-detail">
-          <video class="detail-video" data-src="https://cunxintao-hub.github.io/ai-creation/01-siji-zanhualu.mp4"
-                 controls playsinline preload="none"></video>
-          <div class="detail-text">
-            <b>创作说明 · Statement</b>
-            <div class="detail-sec">
-              <span>创作思路 · Approach</span>
-              <p>用「簪花」这一传统习俗作线索，把四季变成可看的时间轴：春樱、夏荷、秋菊、冬梅依次落在同一位少女的发间。人物与构图保持不变，只让花与光变化——观众感知到的就是时间本身。</p>
-            </div>
-            <div class="detail-sec">
-              <span>含义与主题 · Meaning</span>
-              <p>簪花是把花别在身上的行为，也是一种对时节的回应。花开花落即四季轮回，影片想说的是：传统不是被保存的标本，它一直在被重新佩戴。转场取自书法笔触的起收，节奏由烟雾扩散与大量留白控制。</p>
-            </div>
-            <div class="detail-sec">
-              <span>技术手法 · Method</span>
-              <p>文生视频与图生视频结合，长片按分镜拆分生成再合成；通过固定角色参考图维持人物一致性，统一色调与胶片颗粒感。全片 16:9，5 分钟。</p>
-            </div>
-            <ul class="detail-tags"><li>AIGC 影像</li><li>文生视频</li><li>图生视频</li><li>东方美学</li><li>5:00</li></ul>
-          </div>
+      </a>
+
+      <a class="film-row" href="assets/film-02.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
+          <video src="assets/film-02.mp4" autoplay muted loop playsinline preload="metadata"></video>
         </div>
-      </article>
-</div></div>
+        <div class="film-info">
+          <p class="film-cat">Film 02 · 5s · 竖屏</p>
+          <h3>陪伴</h3>
+          <p class="film-desc">AIGC 人物形象动态短片 · 完全独立制作。点击观看完整版。</p>
+        </div>
+      </a>
+
+      <a class="film-row" href="https://cunxintao-hub.github.io/ai-creation/" target="_blank" rel="noopener">
+        <div class="film-cover film-cover--slot">
+          <span>＋</span>
+          <span class="slot-tip">视频待补</span>
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 03 · Upcoming</p>
+          <h3>赛博程序员</h3>
+          <p class="film-desc">新作品制作中，完成后替换。更多作品见 AI 影像专栏。</p>
+        </div>
+      </a>
+
+      <a class="film-row" href="assets/film-01.mp4" target="_blank" rel="noopener">
+        <div class="film-cover">
+          <video src="assets/film-01.mp4" autoplay muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="film-info">
+          <p class="film-cat">Film 04 · 33s · 16:9</p>
+          <h3>园林雨景</h3>
+          <p class="film-desc">五镜首尾相连 · 慢节奏东方美学 · 完全独立制作。点击观看完整版（含声音）。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI 论文 ============ -->
+<section class="section section--paper reveal" id="research">
+  <span class="sec-ghost">04</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 04</span>
+      <h2 class="sec-title">AI 论文<em>Research</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">第一作者发表 3 篇论文，其中 1 篇 <b style="color:var(--accent);font-weight:600;">SCI Q1（IF = 13.9）</b></p>
+
+    <article class="entry">
+      <span class="entry-no">01</span>
+      <div>
+        <h3>Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design?<em>Human-AI Collaboration</em></h3>
+        <p>探究人机协作设计中「任务如何分配」如何影响消费者对结果的评价，为 AI 介入设计流程的分工策略提供实证依据。</p>
+        <p class="journal">Journal of Retailing and Consumer Services, 94, 105018 (2027) · <b>SCI Q1 · IF 13.9</b></p>
+        <a class="lnk" href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <span class="entry-no">02</span>
+      <div>
+        <h3>The Inheritance and Innovation of Blue Calico Culture Driven by AIGC<em>AIGC · Blue Calico</em></h3>
+        <p>以蓝印花布为对象，探索生成式 AI 驱动的设计框架与工艺可视化路径，回应非遗传承中的创新命题。</p>
+        <p class="journal">AHFE 2026 International Conference · AHFE Open Access, vol 216</p>
+        <a class="lnk" href="https://doi.org/10.54941/ahfe1007635" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <span class="entry-no">03</span>
+      <div>
+        <h3>Enhancing Comprehension of Smart Product Benefits for Senior Users<em>Senior Users · Smart Products</em></h3>
+        <p>研究文本抽象度与图像复杂度对老年用户智能产品理解的影响，为适老化信息呈现提供设计准则。</p>
+        <p class="journal">IDIE 2026 · 文本抽象度与图像复杂度对老年用户产品理解的影响</p>
+        <a class="lnk" href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank" rel="noopener">Read Paper →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 荣誉 ============ -->
+<!-- ============ 汽车专栏 ============ -->
+<section class="section section--panel reveal" id="auto">
+  <span class="sec-ghost">05</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 05</span>
+      <h2 class="sec-title">汽车专栏<em>Automotive</em></h2>
+    </div>
+    <p style="color:var(--muted);margin-bottom:26px;">智能座舱 HMI · 品牌视觉 · 概念车造型，共 3 个项目。</p>
+    <div class="zones">
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 01</span>
+        <h3>智能座舱 HMI</h3>
+        <p>座舱交互信息架构与界面设计，含完整设计流程。</p>
+        <span class="go">查看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 02</span>
+        <h3>汽车品牌视觉</h3>
+        <p>品牌视觉语言与延展物料设计。</p>
+        <span class="go">查看 →</span>
+      </a>
+      <a class="zone" href="https://cunxintao-hub.github.io/auto-design/">
+        <span class="z-en">Project 03</span>
+        <h3>概念车造型</h3>
+        <p>概念车外造型与三维建模。</p>
+        <span class="go">查看 →</span>
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- ============ 设计竞赛荣誉 ============ -->
-<section class="section section--ink reveal" id="research">
-  <div class="zn-banner">
-    <div class="zn-banner-inner">
-      <div>
-        <p class="zn-kicker">Zone 05 · AI 论文</p>
-        <h2 class="zn-btitle">AI 论文</h2>
-        <p class="zn-ben">Research · Publications</p>
-      </div>
-    </div>
-  </div>
-  <div class="zn-wrap">
-    <p class="zn-lede">第一作者发表 3 篇论文，其中 1 篇 SCI Q1（IF = 13.9）。点击条目展开期刊信息与全文链接。</p>
-
-    <div class="film-rows">
-      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <img src="assets/papers/sci-framework.jpg" alt="Human-AI Collaboration">
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Paper 01 · SCI Q1 · IF 13.9</p>
-          <h3>人机协作设计中的任务分配</h3>
-          <p class="film-desc">Who designs what matters: How design task allocation affects consumer attitude towards Human-AI collaborative design? —— 探究「任务如何分配」如何影响消费者对结果的评价。</p>
-          <span class="film-more">展开期刊信息与全文链接 ↓</span>
-        </div>
-        <div class="film-detail">
-          <div class="detail-text">
-            <b>论文信息 · Info</b>
-            <div class="dmeta">
-              <div class="row"><span class="k">期刊</span><span class="v">Journal of Retailing and Consumer Services, 94, 105018 (2027)</span></div>
-              <div class="row"><span class="k">分区</span><span class="v">JCR Q1 · IF = 13.9</span></div>
-              <div class="row"><span class="k">研究</span><span class="v">4 项实验（Study 1–4），检验 H1–H4 假设链</span></div>
-              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
-            </div>
-            <div class="detail-sec">
-              <span>研究简介 · Abstract</span>
-              <p>当 AI 进入设计流程，消费者真正追问的往往不是「做得好不好」，而是「谁做的」。研究以设计任务分配为核心自变量——同一件设计成果，标注为 AI 主导还是人类主导——考察其对消费者态度的影响，并检验服务提升感知与成本降低感知的中介作用。</p>
-            </div>
-            <div class="detail-links">
-              <a href="https://www.sciencedirect.com/science/article/pii/S0969698926002997?dgcid=author" target="_blank" rel="noopener">ScienceDirect 全文 →</a>
-              <a href="sci2027.html">论文专题页（含 3 张研究图表）→</a>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <img src="https://cunxintao-hub.github.io/ahfe2026/slides/preview/2.png" alt="AIGC · Blue Calico">
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Paper 02 · AHFE 2026 · 第一作者</p>
-          <h3>AIGC 驱动的蓝印花布传承与创新</h3>
-          <p class="film-desc">The Inheritance and Innovation of Blue Calico Culture Driven by AIGC —— 以蓝印花布为对象，探索生成式 AI 驱动的设计框架与工艺可视化路径。</p>
-          <span class="film-more">展开出版信息与专题页 ↓</span>
-        </div>
-        <div class="film-detail">
-          <div class="detail-text">
-            <b>论文信息 · Info</b>
-            <div class="dmeta">
-              <div class="row"><span class="k">会议</span><span class="v">AHFE 2026 International Conference — Human Factors in Communication of Design</span></div>
-              <div class="row"><span class="k">出版</span><span class="v">AHFE Open Access, vol 216, AHFE International, USA</span></div>
-              <div class="row"><span class="k">DOI</span><span class="v"><a href="https://doi.org/10.54941/ahfe1007635" target="_blank">10.54941/ahfe1007635</a></span></div>
-              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
-            </div>
-            <div class="detail-sec">
-              <span>研究简介 · Abstract</span>
-              <p>针对通用生成模型难以理解非遗工艺特征与文化语义的问题，以中国国家级非物质文化遗产「蓝印花布」为对象：构建并清洗工艺图像数据集，CLIP 自动描述结合人工多维标注强化图文对齐；基于 SDXL 1.0 + LoRA 完成领域微调，搭建「T2I 发散生成 → I2I 迭代收敛 → 方案筛选」的设计生成链路，形成 AIGC 与传统非遗深度融合的设计框架。</p>
-            </div>
-            <div class="detail-links">
-              <a href="ahfe2026/">论文专题页（含全文 PDF 与 14 页 Slides）→</a>
-              <a href="https://doi.org/10.54941/ahfe1007635" target="_blank" rel="noopener">官方 DOI →</a>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="film-row" role="button" tabindex="0" aria-expanded="false">
-        <div class="film-cover">
-          <img src="assets/papers/elder-overview.jpg" alt="Senior Users · Smart Products">
-        </div>
-        <div class="film-info">
-          <p class="film-cat">Paper 03 · IDIE 2026 · 第一作者</p>
-          <h3>老年用户的智能产品理解</h3>
-          <p class="film-desc">How visual format and text description shape older adults' product comprehension —— 研究文本抽象度与图像复杂度对老年用户产品理解的影响。</p>
-          <span class="film-more">展开实验信息与专题页 ↓</span>
-        </div>
-        <div class="film-detail">
-          <div class="detail-text">
-            <b>论文信息 · Info</b>
-            <div class="dmeta">
-              <div class="row"><span class="k">会议</span><span class="v">IDIE 2026 International Conference</span></div>
-              <div class="row"><span class="k">样本</span><span class="v">N = 290 位老年用户</span></div>
-              <div class="row"><span class="k">设计</span><span class="v">2 × 2 被试间实验：文本抽象度 × 图片视图，心理意象为中介</span></div>
-              <div class="row"><span class="k">单位</span><span class="v">Harbin Institute of Technology, Shenzhen</span></div>
-            </div>
-            <div class="detail-sec">
-              <span>研究简介 · Abstract</span>
-              <p>智能产品的功能说明越来越依赖图文组合，但老年用户常因呈现形式不当而难以理解。2 × 2 实验结果表明：文本越具体、图示越清晰，理解度越高；且两者存在交互——信息呈现形式的匹配，比单纯把内容简化更有效。</p>
-            </div>
-            <div class="detail-links">
-              <a href="elderly2026.html">论文专题页（含 3 张研究图表）→</a>
-              <a href="https://www.semanticscholar.org/paper/Enhancing-Comprehension-of-Smart-Product-Benefits-Cheng-Tao/6d25fd6953fdf6b56f2447f3148af02f4bfb383e" target="_blank" rel="noopener">Semantic Scholar →</a>
-            </div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section section--panel reveal" id="auto">
-  <span class="sec-ghost">05</span>
-
-  <div class="zn-banner">
-
-    <div class="zn-banner-inner">
-
-      <img class="zn-bimg" src="assets/auto-banner-chibi.png" alt="汽车专栏">
-
-      <div>
-
-        <p class="zn-kicker">Zone 06 · 汽车专栏</p>
-
-        <h2 class="zn-btitle">汽车专栏</h2>
-
-        <p class="zn-ben">Automotive · HMI &amp; Visual</p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="zn-wrap">
-
-    <p class="zn-lede">智能座舱 HMI · 品牌视觉 · 概念车造型，校企合作与课程项目。</p>
-
-
-
-    <div class="film-rows">
-
-      <a class="film-row" href="https://cunxintao-hub.github.io/auto-design/li-auto.html" target="_blank" rel="noopener">
-
-        <div class="film-cover">
-
-          <img src="https://cunxintao-hub.github.io/auto-design/li-auto/preview/A2-1.jpg" alt="理想汽车 UX 设计">
-
-        </div>
-
-        <div class="film-info">
-
-          <p class="film-cat">Project 01 · 校企合作</p>
-
-          <h3>理想汽车 UX 设计</h3>
-
-          <p class="film-desc">基于多模态交互的车载情感体验设计，与理想汽车合作的校企合作项目。</p>
-
-        </div>
-
-      </a>
-
-
-
-      <a class="film-row" href="https://cunxintao-hub.github.io/auto-design/cockpit-design.html" target="_blank" rel="noopener">
-
-        <div class="film-cover">
-
-          <img src="https://cunxintao-hub.github.io/auto-design/l4-cockpit/preview/board1.jpg" alt="汽车座舱设计">
-
-        </div>
-
-        <div class="film-info">
-
-          <p class="film-cat">Project 02 · L4 · HMI</p>
-
-          <h3>汽车座舱设计</h3>
-
-          <p class="film-desc">L4 驾驶模式下的人机交互体验研究，聚焦智能座舱 HMI 设计。</p>
-
-        </div>
-
-      </a>
-
-
-
-      <a class="film-row" href="https://cunxintao-hub.github.io/auto-design/" target="_blank" rel="noopener">
-
-        <div class="film-cover film-cover--slot">
-
-          <span>＋</span>
-
-          <span class="slot-tip">封面待补</span>
-
-        </div>
-
-        <div class="film-info">
-
-          <p class="film-cat">Project 03 · Visual &amp; CMF</p>
-
-          <h3>品牌视觉与概念车造型</h3>
-
-          <p class="film-desc">品牌视觉语言与延展物料设计，概念车外造型与三维建模。</p>
-
-        </div>
-
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
 <section class="section section--ink reveal" id="awards">
-  <div class="zn-banner">
-    <div class="zn-banner-inner">
-      <div>
-        <p class="zn-kicker">Zone 07 · 设计竞赛荣誉</p>
-        <h2 class="zn-btitle">竞赛荣誉</h2>
-        <p class="zn-ben">Awards &amp; Honors</p>
-      </div>
+  <span class="sec-ghost">06</span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">Zone 06</span>
+      <h2 class="sec-title">设计竞赛荣誉<em>Awards</em></h2>
     </div>
-  </div>
-  <div class="zn-wrap">
-    <p class="zn-lede">国家奖学金 1 项 · 省级荣誉 1 项 · 国际设计奖 6 项 · 国家级设计奖 14 项 · 工程类奖 12 项。</p>
-
-    <div class="honor-grid">
-      <div class="honor-card">
-        <div class="hn">1<span> / 115</span></div>
-        <div class="ht">
-          <h3>国家奖学金</h3>
-          <p>国家级 · 综合排名第一</p>
-        </div>
-      </div>
-      <div class="honor-card">
-        <div class="hn">Provincial</div>
-        <div class="ht">
-          <h3>黑龙江省三好学生</h3>
-          <p>省级荣誉称号</p>
-        </div>
-      </div>
-      <div class="honor-card">
-        <div class="hn">14<span> 项</span></div>
-        <div class="ht">
-          <h3>米兰设计周等设计作品展</h3>
-          <p>国家级设计奖</p>
-        </div>
-      </div>
-      <div class="honor-card">
-        <div class="hn">3<span> 项</span></div>
-        <div class="ht">
-          <h3>G-Mark 设计奖</h3>
-          <p>国际设计奖</p>
-        </div>
-      </div>
-      <div class="honor-card">
-        <div class="hn">3<span> 项</span></div>
-        <div class="ht">
-          <h3>IDEA 等设计奖</h3>
-          <p>国际设计奖</p>
-        </div>
-      </div>
-      <div class="honor-card">
-        <div class="hn">12<span> 项</span></div>
-        <div class="ht">
-          <h3>中国国际“互联网+”大赛等</h3>
-          <p>工程类奖项</p>
-        </div>
-      </div>
+    <div class="honors">
+      <div class="honor"><span>🏆 国家奖学金</span><b>1 / 115</b></div>
+      <div class="honor"><span>🏆 黑龙江省三好学生</span><b>Provincial</b></div>
+      <div class="honor"><span>🏆 米兰设计周等国家级设计奖</span><b>14 项</b></div>
+      <div class="honor"><span>🏆 G-Mark 国际类设计奖</span><b>3 项</b></div>
+      <div class="honor"><span>🏆 IDEA 等设计奖</span><b>3 项</b></div>
+      <div class="honor"><span>🏆 互联网+ 等工程类奖</span><b>12 项</b></div>
     </div>
-
-    <p style="margin-top:32px;">
+    <p style="margin-top:26px;">
       <a class="lnk" style="margin-top:0" href="https://cunxintao-hub.github.io/certificates/">查看获奖证书存档（5 份原文件）→</a>
     </p>
   </div>
@@ -1359,7 +932,7 @@
 <section class="contact section--accent reveal" id="contact">
   <span class="sec-ghost">07</span>
   <div class="wrap">
-    <p class="eyebrow">Zone 08 · Contact</p>
+    <p class="eyebrow">Zone 07 · Contact</p>
     <h2>一起做点能被现实验证的东西。</h2>
     <div class="contact-info">
       <div class="ci">
@@ -1439,61 +1012,6 @@
       sTxt.textContent = video.muted ? '点击开声音' : '点击静音';
     });
   }
-
-  // 作品封面：默认暂停，点击播放按钮就地播放；点击卡片其他区域才进入详情
-  document.querySelectorAll('.film-cover').forEach(function (cover) {
-    var v = cover.querySelector('video');
-    var btn = cover.querySelector('.play-btn');
-    if (!v) return;
-    v.pause();
-    v.removeAttribute('autoplay');
-
-    function toggle(e) {
-      if (e) { e.preventDefault(); e.stopPropagation(); }
-      if (v.paused) { v.play().catch(function () {}); } else { v.pause(); }
-    }
-    if (btn) btn.addEventListener('click', toggle);
-    v.addEventListener('click', toggle);
-
-    v.addEventListener('play', function () { if (btn) btn.classList.add('is-hidden'); });
-    v.addEventListener('pause', function () { if (btn) btn.classList.remove('is-hidden'); });
-  });
-
-  // 作品条目：就地展开完整影片 / 3D 模型 + 创作说明（不跳转新页面）
-  document.querySelectorAll('.film-row').forEach(function (row) {
-    function toggle() {
-      var open = row.classList.toggle('is-open');
-      row.setAttribute('aria-expanded', open ? 'true' : 'false');
-      var more = row.querySelector('.film-more');
-      if (more) more.textContent = open ? '收起 ↑' : (row.querySelector('.detail-frame') ? '展开 3D 模型与创作说明 ↓' : '展开完整影片与创作说明 ↓');
-      var cover = row.querySelector('.film-cover video');
-      if (open) {
-        if (cover) cover.pause();
-        var dv = row.querySelector('.detail-video');
-        if (dv && !dv.getAttribute('src')) {
-          var s = dv.getAttribute('data-src');
-          if (s) dv.setAttribute('src', s);
-        }
-        var fr = row.querySelector('.detail-frame');
-        if (fr && !fr.getAttribute('src')) {
-          var fs = fr.getAttribute('data-src');
-          if (fs) fr.setAttribute('src', fs);
-        }
-      } else {
-        var dv2 = row.querySelector('.detail-video');
-        if (dv2) dv2.pause();
-      }
-    }
-    row.addEventListener('click', function (e) {
-      if (e.target.closest('.film-detail')) return;
-      if (e.target.closest('.play-btn')) return;
-      if (e.target.tagName === 'VIDEO') return;
-      toggle();
-    });
-    row.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
-  });
 </script>
 
 </body>
