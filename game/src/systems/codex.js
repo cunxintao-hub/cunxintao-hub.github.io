@@ -48,6 +48,48 @@
     return Object.keys(c).filter(function (id) { return !!c[id]; }).length;
   }
 
+  /* ---------------- 🆕 鱼种 ↔ 钓场（每种鱼只属于一个钓场） ---------------- */
+
+  let locMapCache = null;
+  /** { fishId: locationId } */
+  function fishLocMap() {
+    if (locMapCache) return locMapCache;
+    const map = {};
+    const locs = cfg().locations || {};
+    Object.keys(locs).forEach(function (id) {
+      (locs[id].fish || []).forEach(function (fid) { map[fid] = id; });
+    });
+    locMapCache = map;
+    return map;
+  }
+
+  /** 某条鱼属于哪个钓场：{ id, name } 或 null */
+  function fishLocation(fishId) {
+    const id = fishLocMap()[fishId];
+    if (!id) return null;
+    const l = (cfg().locations || {})[id];
+    return { id: id, name: (l && l.name) || id, unlockLevel: Number(l && l.unlockLevel) || 0, weightScale: Number(l && l.weightScale) || 1 };
+  }
+
+  /** 某个钓场的鱼类收集进度 { owned, total, percent } */
+  function getLocationCompletion(locId) {
+    const pool = ((cfg().locations || {})[locId] || {}).fish || [];
+    const c = (st().codex || {}).fish || {};
+    const owned = pool.filter(function (id) { return !!c[id]; }).length;
+    return { id: locId, owned: owned, total: pool.length, percent: pool.length ? owned / pool.length : 0 };
+  }
+
+  /** 各钓场的收集进度列表（图鉴面板顶部筛选用） */
+  function getAllLocationCompletion() {
+    const locs = cfg().locations || {};
+    return Object.keys(locs)
+      .sort(function (a, b) { return (Number(locs[a].unlockLevel) || 0) - (Number(locs[b].unlockLevel) || 0); })
+      .map(function (id) {
+        const c = getLocationCompletion(id);
+        return { id: id, name: (locs[id].name || id), unlockLevel: Number(locs[id].unlockLevel) || 0, owned: c.owned, total: c.total };
+      });
+  }
+
   /** 完成度 { owned, total, percent } */
   function getCompletion(type) {
     const t = typeOf(type).key;
@@ -611,6 +653,10 @@
     recordEquipment: recordEquipment,
     isCollected: isCollected,
     isFishCollected: isFishCollected,
+    /* 🆕 鱼种 ↔ 钓场 */
+    fishLocation: fishLocation,
+    getLocationCompletion: getLocationCompletion,
+    getAllLocationCompletion: getAllLocationCompletion,
     getCompletion: getCompletion,
     getTotalCompletion: getTotalCompletion,
     getMilestoneProgress: getMilestoneProgress,

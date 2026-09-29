@@ -12,13 +12,29 @@
   const ui = FG.ui = FG.ui || {};
   const C = () => FG.systems.codex;
 
-  const state = { type: 'fish', rankDim: 'tier' };
+  const state = { type: 'fish', rankDim: 'tier', loc: '' };   // 🆕 loc = 钓场筛选（仅鱼类页签）
 
   /* ---------------- 图鉴面板 ---------------- */
 
   function open(type) {
     state.type = (type && C().TYPES.some(function (t) { return t.key === type; })) ? type : 'fish';
     renderPanel();
+  }
+
+  /** 🆕 钓场筛选条（鱼类页签）：全部 + 7 个钓场，各自带「已收录/总数」 */
+  function locFilterHtml() {
+    if (state.type !== 'fish') return '';
+    const list = C().getAllLocationCompletion();
+    if (!list.length) return '';
+    const all = C().getCompletion('fish');
+    const chip = function (id, name, owned, total) {
+      return '<button class="bag-tab clickable' + (state.loc === id ? ' active' : '') + '" data-loc="' + id + '">' +
+        name + '<div class="li-sub">' + owned + '/' + total + '</div></button>';
+    };
+    return '<div class="codex-locs">' +
+      chip('', '全部钓场', all.owned, all.total) +
+      list.map(function (l) { return chip(l.id, l.name, l.owned, l.total); }).join('') +
+      '</div>';
   }
 
   function renderPanel() {
@@ -46,7 +62,7 @@
 
     const body =
       '<div class="bag-tabs">' + tabs + '</div>' +
-      head + grid + rewards +
+      head + locFilterHtml() + grid + rewards +
       '<div class="modal-foot-inline">' +
         '<button class="btn" id="codex-claim-all">🎁 一键领取全部奖励</button>' +
         '<button class="btn" id="codex-rank">🏆 排行榜</button>' +
@@ -76,6 +92,15 @@
       if (r.count) { FG.render.renderAll(); renderPanel(); }
     }, FG.CONFIG.ui.throttleMs));
     U.onPointer(box.querySelector('#codex-rank'), U.throttle(function () { openRank(); }, 200));
+
+    /* 🆕 钓场筛选 */
+    const locBtns = box.querySelectorAll('.codex-locs .bag-tab');
+    for (let k = 0; k < locBtns.length; k++) {
+      U.onPointer(locBtns[k], U.throttle(function () {
+        state.loc = locBtns[k].getAttribute('data-loc') || '';
+        renderPanel();
+      }, 200));
+    }
   }
 
   /** 该分类的条目列表（含是否已收录） */
@@ -85,19 +110,28 @@
     const dict = type === 'fish' ? (FG.CONFIG.fish || {})
       : type === 'materials' ? (FG.CONFIG.materials || {})
         : type === 'equipment' ? (FG.CONFIG.items || {}) : {};
+    /* 🆕 钓场筛选（鱼类） */
+    let pool = null;
+    if (type === 'fish' && state.loc) {
+      pool = ((FG.CONFIG.locations || {})[state.loc] || {}).fish || [];
+    }
     return Object.keys(dict).map(function (id) {
       const meta = dict[id] || {};
       const got = c[id] || null;
+      const loc = type === 'fish' ? C().fishLocation(id) : null;
       return {
         id: id, known: !!got,
         name: meta.name || id, icon: meta.icon || '❔',
         rarity: meta.rarity || 'common',
         desc: meta.desc || '',
+        loc: loc,
+        wMin: Number(meta.weightMin) || 0,
+        wMax: Number(meta.weightMax) || 0,
         maxWeight: got ? (Number(got.maxWeight) || 0) : 0,
         count: got ? (Number(got.count) || 0) : 0,
         firstAt: got ? (Number(got.firstAt) || 0) : 0
       };
-    });
+    }).filter(function (e) { return !pool || pool.indexOf(e.id) >= 0; });
   }
 
   function cards(type) {
@@ -106,18 +140,26 @@
     /* 已收录排前面，未收录（❓ ???）排后面灰显 */
     list.sort(function (a, b) { return (b.known ? 1 : 0) - (a.known ? 1 : 0); });
     return list.map(function (e) {
+      const stars = '★'.repeat((FG.ENUM.RARITY_STAR || {})[e.rarity] || 1);
       if (!e.known) {
-        return '<div class="bag-card codex-unknown">' +
+        /* 🆕 未收录：保留稀有度星级轮廓（暗显），玩家能看出「这里还有几星的鱼没钓到」 */
+        return '<div class="bag-card codex-unknown glow-' + e.rarity + '">' +
           '<span class="bag-ico">❓</span>' +
           '<span class="bag-name">???</span>' +
+          '<span class="bag-stars dim">' + stars + '</span>' +
+          (e.loc ? '<span class="bag-num">' + U.safe(e.loc.name, '') + '</span>' : '') +
           '</div>';
       }
-      const stars = '★'.repeat((FG.ENUM.RARITY_STAR || {})[e.rarity] || 1);
       const when = e.firstAt ? new Date(e.firstAt).toLocaleDateString('zh-CN') : '';
+      /* 🆕 已收录：补上「来源钓场 + 基准重量区间」，与新钓场分层对应 */
+      const range = (e.wMax > 0)
+        ? U.formatWeight(e.wMin) + '~' + U.formatWeight(e.wMax) + 'kg'
+        : '';
       return '<div class="bag-card codex-card glow-' + e.rarity + '">' +
         '<span class="bag-ico">' + e.icon + '</span>' +
         '<span class="bag-name">' + U.safe(e.name, e.id) + '</span>' +
         '<span class="bag-stars">' + stars + '</span>' +
+        (e.loc ? '<span class="bag-num">' + U.safe(e.loc.name, '') + (range ? ' · ' + range : '') + '</span>' : '') +
         (e.maxWeight ? '<span class="bag-num">最大 ' + U.formatWeight(e.maxWeight) + 'kg</span>' : '') +
         (when ? '<span class="bag-num">' + when + ' 收录</span>' : '') +
         '</div>';
