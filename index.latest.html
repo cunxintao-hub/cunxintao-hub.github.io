@@ -311,6 +311,9 @@
   .cert-card .cc b { display: block; font-size: 14.5px; color: #e6edf3; }
   .cert-card .cc b.gld { color: #e3b341; }
   .cert-card .cc span { display: block; font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.6; }
+  .honor-card.cert { cursor: zoom-in; }
+  .honor-card.cert:hover { border-color: #e3b341; }
+  .honor-card .zm { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .08em; white-space: nowrap; margin-left: auto; }
   #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
   #lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 6px; box-shadow: 0 10px 60px rgba(0,0,0,.6); }
   .honors { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 48px; }
@@ -937,26 +940,46 @@
     </div>
     <h3 class="sub-h" style="margin-top:46px;">荣誉证书<em>Honor Certificates</em></h3>
     <p class="dim" style="margin-bottom:18px;">5 份证书原件 · 点击卡片查看大图。</p>
-    <div class="cert-grid">
-      <div class="cert-card" data-img="assets/certs/03_guojia.jpg">
-        <img src="assets/certs/03_guojia.jpg" alt="国家奖学金荣誉证书" loading="lazy">
-        <div class="cc"><b class="gld">国家奖学金荣誉证书</b><span>中华人民共和国教育部 · 2025年硕士研究生国家奖学金 · 2025年12月</span></div>
+    <div class="honor-grid">
+      <div class="honor-card cert" data-img="assets/certs/03_guojia.jpg">
+        <div class="hn">🏅</div>
+        <div class="ht">
+          <h3>国家奖学金荣誉证书</h3>
+          <p>教育部 · 2025年硕士研究生国家奖学金 · 2025年12月</p>
+        </div>
+        <span class="zm">🔍 放大</span>
       </div>
-      <div class="cert-card" data-img="assets/certs/01_sansan.jpg">
-        <img src="assets/certs/01_sansan.jpg" alt="黑龙江省三好学生荣誉证书" loading="lazy">
-        <div class="cc"><b>黑龙江省“三好学生”荣誉称号</b><span>黑龙江省教育厅 · 2025年 · 2026年5月</span></div>
+      <div class="honor-card cert" data-img="assets/certs/01_sansan.jpg">
+        <div class="hn">🏅</div>
+        <div class="ht">
+          <h3>黑龙江省“三好学生”荣誉称号</h3>
+          <p>黑龙江省教育厅 · 2025年 · 2026年5月颁发</p>
+        </div>
+        <span class="zm">🔍 放大</span>
       </div>
-      <div class="cert-card" data-img="assets/certs/02_tuanyuan.jpg">
-        <img src="assets/certs/02_tuanyuan.jpg" alt="优秀团员——勤学求真奖荣誉证书" loading="lazy">
-        <div class="cc"><b>“优秀团员——勤学求真奖”荣誉称号</b><span>共青团哈尔滨工业大学委员会 · 2025—2026年度 · 2026年5月</span></div>
+      <div class="honor-card cert" data-img="assets/certs/02_tuanyuan.jpg">
+        <div class="hn">🏅</div>
+        <div class="ht">
+          <h3>“优秀团员——勤学求真奖”荣誉称号</h3>
+          <p>共青团哈工大委员会 · 2025—2026年度 · 2026年5月</p>
+        </div>
+        <span class="zm">🔍 放大</span>
       </div>
-      <div class="cert-card" data-img="assets/certs/04_xuesheng.jpg">
-        <img src="assets/certs/04_xuesheng.jpg" alt="优秀学生（实学实干奖）荣誉证书" loading="lazy">
-        <div class="cc"><b>“优秀学生（实学实干奖）”荣誉称号</b><span>哈尔滨工业大学学生工作处 · 2024—2025年度 · 2025年12月</span></div>
+      <div class="honor-card cert" data-img="assets/certs/04_xuesheng.jpg">
+        <div class="hn">🏅</div>
+        <div class="ht">
+          <h3>“优秀学生（实学实干奖）”荣誉称号</h3>
+          <p>哈工大学生工作处 · 2024—2025年度 · 2025年12月</p>
+        </div>
+        <span class="zm">🔍 放大</span>
       </div>
-      <div class="cert-card" data-img="assets/certs/05_tuagan.jpg">
-        <img src="assets/certs/05_tuagan.jpg" alt="五四表彰优秀团干部荣誉证书" loading="lazy">
-        <div class="cc"><b>五四表彰“优秀团干部”荣誉称号</b><span>共青团哈尔滨工业大学委员会 · 2024—2025年度 · 2025年5月</span></div>
+      <div class="honor-card cert" data-img="assets/certs/05_tuagan.jpg">
+        <div class="hn">🏅</div>
+        <div class="ht">
+          <h3>五四表彰“优秀团干部”荣誉称号</h3>
+          <p>共青团哈工大委员会 · 2024—2025年度 · 2025年5月</p>
+        </div>
+        <span class="zm">🔍 放大</span>
       </div>
     </div>
     <p style="margin-top:26px;">
@@ -965,7 +988,7 @@
   </div>
   <div id="lightbox"><img src="" alt="证书大图"></div>
   <script>
-    document.querySelectorAll('.cert-card').forEach(function (card) {
+    document.querySelectorAll('[data-img]').forEach(function (card) {
       card.addEventListener('click', function () {
         var lb = document.getElementById('lightbox');
         lb.querySelector('img').src = this.dataset.img;
